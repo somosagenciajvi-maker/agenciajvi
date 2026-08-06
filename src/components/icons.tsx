@@ -27,3 +27,29 @@ export const ArrowIcon = () => (
     <path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z" />
   </svg>
 )
+
+/* ---------- ícones dos pilares e listas ---------- */
+
+export const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor">
+    <path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z" />
+  </svg>
+)
+
+export const SocialIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2H9.5L5 21.2c-.7.5-1.6 0-1.6-.8V17H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm3 5v2h10V9H7zm0 4v2h6.5v-2H7z" />
+  </svg>
+)
+
+export const TrafficIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+    <path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2zm2.5 0v7.5H22A10 10 0 0 0 14.5 2zM12 7a5 5 0 1 0 5 5h-5V7z" />
+  </svg>
+)
+
+export const PlusIcon = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+    <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z" />
+  </svg>
+)
