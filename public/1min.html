@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Agência JVI em 1 minuto — Social Media &amp; Tráfego Pago</title>
+    <meta
+      name="description"
+      content="A apresentação comercial da Agência JVI em 1 minuto: o que fazemos em social media e tráfego pago, o que acontece nos primeiros 90 dias e como começar."
+    />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <style>
+      :root {
+        --black: #050505;
+        --blue: #0a5cff;
+        --muted: rgba(255, 255, 255, 0.56);
+        --line: rgba(255, 255, 255, 0.09);
+        --display: 'Anton', 'Oswald', Impact, sans-serif;
+        --cond: 'Oswald', 'Inter', sans-serif;
+        --sans: 'Inter', system-ui, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--black);
+        color: #fff;
+        font-family: var(--sans);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      ::selection {
+        background: var(--blue);
+        color: #fff;
+      }
+
+      .page {
+        position: relative;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 56px) clamp(48px, 7vw, 88px);
+      }
+
+      .glow {
+        position: fixed;
+        z-index: -1;
+        width: 620px;
+        height: 620px;
+        border-radius: 50%;
+        background: var(--blue);
+        filter: blur(150px);
+        opacity: 0.22;
+        top: -180px;
+        right: -160px;
+        pointer-events: none;
+      }
+
+      /* ---------- topo ---------- */
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding-bottom: clamp(22px, 3vw, 34px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand img {
+        height: 44px;
+        width: auto;
+        filter: drop-shadow(0 0 18px rgba(10, 92, 255, 0.45));
+      }
+
+      .brand span {
+        font-family: var(--cond);
+        font-size: 12px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .stamp {
+        font-family: var(--cond);
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .stamp::before {
+        content: '';
+        width: 40px;
+        height: 1px;
+        background: var(--blue);
+        box-shadow: 0 0 12px var(--blue);
+      }
+
+      /* ---------- headline ---------- */
+      h1 {
+        font-family: var(--display);
+        font-weight: 400;
+        text-transform: uppercase;
+        line-height: 0.94;
+        letter-spacing: -0.005em;
+        font-size: clamp(2.1rem, 5vw, 4.4rem);
+        margin: clamp(28px, 4vw, 48px) 0 0;
+      }
+
+      h1 em {
+        font-style: normal;
+        color: var(--blue);
+      }
+
+      .sub {
+        margin: clamp(14px, 2vw, 20px) 0 0;
+        max-width: 60ch;
+        font-weight: 300;
+        font-size: clamp(0.98rem, 1.4vw, 1.2rem);
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* ---------- grade ---------- */
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(16px, 2vw, 22px);
+        margin-top: clamp(30px, 4vw, 48px);
+      }
+
+      @media (min-width: 820px) {
+        .cols {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .card {
+        position: relative;
+        padding: clamp(22px, 2.6vw, 34px);
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: -150px;
+        right: -130px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: var(--blue);
+        filter: blur(130px);
+        opacity: 0.2;
+      }
+
+      .tag {
+        position: relative;
+        font-family: var(--cond);
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+
+      .card h2 {
+        position: relative;
+        margin: 12px 0 16px;
+        font-family: var(--display);
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        line-height: 0.96;
+      }
+
+      ul {
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      li {
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+        font-weight: 300;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      li::before {
+        content: '';
+        flex: 0 0 auto;
+        margin-top: 7px;
+        width: 7px;
+        height: 7px;
+        background: var(--blue);
+        box-shadow: 0 0 12px rgba(10, 92, 255, 0.8);
+      }
+
+      /* ---------- faixas ---------- */
+      .fases {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        margin-top: clamp(22px, 3vw, 34px);
+      }
+
+      .fase {
+        background: #050506;
+        padding: clamp(18px, 2.2vw, 26px);
+      }
+
+      .fase b {
+        display: block;
+        font-family: var(--cond);
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 8px;
+      }
+
+      .fase span {
+        font-weight: 300;
+        font-size: 0.94rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .nums {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-top: 0;
+      }
+
+      .num {
+        background: #050506;
+        padding: clamp(18px, 2.2vw, 26px);
+      }
+
+      .num strong {
+        display: block;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 0.9;
+      }
+
+      .num strong i {
+        font-style: normal;
+        color: var(--blue);
+        text-shadow: 0 0 26px rgba(10, 92, 255, 0.6);
+      }
+
+      .num span {
+        display: block;
+        margin-top: 10px;
+        font-family: var(--cond);
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* ---------- fechamento ---------- */
+      .close {
+        margin-top: clamp(30px, 4vw, 48px);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(20px, 3vw, 34px);
+        align-items: center;
+      }
+
+      @media (min-width: 820px) {
+        .close {
+          grid-template-columns: 1.1fr 0.9fr;
+        }
+      }
+
+      .close h2 {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+        line-height: 0.96;
+      }
+
+      .close p {
+        margin: 14px 0 0;
+        font-weight: 300;
+        font-size: 0.98rem;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 52ch;
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-family: var(--cond);
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 19px 30px;
+        background: var(--blue);
+        color: #fff;
+        border: 1px solid transparent;
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 60px rgba(10, 92, 255, 0.5);
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 3px;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.22);
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--blue);
+        background: rgba(10, 92, 255, 0.14);
+      }
+
+      .foot {
+        margin-top: clamp(34px, 4vw, 52px);
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 26px;
+        font-family: var(--cond);
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="top">
+        <a class="brand" href="/" aria-label="Agência JVI — apresentação completa">
+          <img src="/art/marca-jvi.png" alt="" aria-hidden="true" />
+          <span>Agência JVI</span>
+        </a>
+        <p class="stamp">A JVI em 1 minuto</p>
+      </header>
+
+      <h1>
+        Conteúdo que constrói marca.<br />
+        <em>Anúncio que gera venda.</em>
+      </h1>
+      <p class="sub">
+        Cuidamos das duas pontas que fazem seu negócio crescer todo mês: a presença que dá
+        autoridade à sua marca e a mídia paga que coloca a oferta certa na frente de quem está
+        pronto para comprar.
+      </p>
+
+      <section class="cols">
+        <article class="card">
+          <p class="tag">Pilar 01</p>
+          <h2>Social Media</h2>
+          <ul>
+            <li>Linha editorial e calendário cumpridos todo mês</li>
+            <li>Design de feed, carrosséis, stories e Reels editados</li>
+            <li>Copy que constrói autoridade e chama para a ação</li>
+            <li>Comentários e direct tratados como canal de venda</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <p class="tag">Pilar 02</p>
+          <h2>Tráfego Pago</h2>
+          <ul>
+            <li>Meta Ads e Google Ads com rastreamento correto</li>
+            <li>Públicos frios, quentes e remarketing por etapa do funil</li>
+            <li>Criativos testados em variação, verba onde converte</li>
+            <li>CPL, CPA e ROAS acompanhados — e relatados</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="fases" aria-label="Primeiros 90 dias">
+        <div class="fase">
+          <b>30 dias</b>
+          <span>Estrutura: acessos, pixel, identidade do conteúdo e campanhas no ar.</span>
+        </div>
+        <div class="fase">
+          <b>60 dias</b>
+          <span>Tração: criativos vencedores identificados e custo por lead em queda.</span>
+        </div>
+        <div class="fase">
+          <b>90 dias</b>
+          <span>Escala: verba ampliada no que converte e vendas previsíveis.</span>
+        </div>
+      </section>
+
+      <section class="nums" aria-label="Resultados">
+        <div class="num">
+          <strong>312<i>%</i></strong>
+          <span>Crescimento médio</span>
+        </div>
+        <div class="num">
+          <strong>18<i>k+</i></strong>
+          <span>Leads gerados</span>
+        </div>
+        <div class="num">
+          <strong>40<i>+</i></strong>
+          <span>Marcas posicionadas</span>
+        </div>
+        <div class="num">
+          <strong>7<i>x</i></strong>
+          <span>Mais autoridade</span>
+        </div>
+      </section>
+
+      <section class="close">
+        <div>
+          <h2>O próximo passo leva 30 minutos.</h2>
+          <p>
+            Diagnóstico gratuito do seu perfil, dos seus anúncios e da sua concorrência. Sai de
+            lá com o que precisa mudar — com ou sem a gente. Depois: proposta com escopo e
+            investimento, kickoff e campanhas no ar.
+          </p>
+        </div>
+        <div class="actions">
+          <a
+            class="btn"
+            href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20JVI%20em%201%20minuto%20e%20quero%20o%20diagn%C3%B3stico%20gratuito"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Quero o diagnóstico gratuito</a
+          >
+          <a class="btn btn-ghost" href="/">Ver a apresentação completa</a>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>+55 81 99575-7305</span>
+        <span>@agencia.jvi</span>
+        <span>somosagenciajvi@gmail.com</span>
+        <span>Recife · PE · Brasil</span>
+      </footer>
+    </main>
+  </body>
+</html>
