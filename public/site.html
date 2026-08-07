@@ -1,0 +1,2157 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050505" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Agência JVI — Tráfego Pago, Sites e Social Media</title>
+    <meta name="description" content="Agência JVI: gestão de tráfego pago no Meta Ads e Google
+      Ads, criação de sites e landing pages e gestão de social media. Conteúdo que constrói
+      marca, anúncio que gera venda." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Agência JVI" />
+    <meta property="og:title" content="Agência JVI — Tráfego Pago, Sites e Social Media" />
+    <meta property="og:description" content="Conteúdo que constrói marca. Anúncio que gera venda." />
+    <meta property="og:image" content="/art/logo-jvi.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/oswald-400-latin.woff2" crossorigin />
+    <script>
+      /* Revelador no <head>, de propósito.
+         O CSS abaixo só esconde os blocos quando esta classe existe — e, como
+         o script já revela cada bloco assim que ele é lido pelo parser, o
+         conteúdo aparece durante o download, sem esperar a página inteira.
+         O temporizador de segurança desfaz tudo se algo der errado: em
+         qualquer cenário de falha a página termina visível. */
+      (function () {
+        var root = document.documentElement;
+        root.className += ' js';
+
+        var safety = setTimeout(function () {
+          root.className = root.className.replace(' js', '');
+        }, 4000);
+
+        function sweep() {
+          var limit = window.innerHeight * 0.92;
+          var nodes = document.querySelectorAll('[data-reveal]:not(.is-in)');
+          for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].getBoundingClientRect().top <= limit) nodes[i].className += ' is-in';
+          }
+          var counters = document.querySelectorAll('[data-count]:not(.counted)');
+          for (var j = 0; j < counters.length; j++) {
+            if (counters[j].getBoundingClientRect().top <= window.innerHeight * 0.85) {
+              counters[j].className += ' counted';
+              window.__jviCount(counters[j]);
+            }
+          }
+        }
+
+        window.__jviSweep = sweep;
+
+        /* enquanto o HTML ainda está chegando, varre em intervalo curto:
+           cada seção aparece assim que é montada */
+        var pump = setInterval(function () {
+          sweep();
+          if (document.readyState === 'complete') clearInterval(pump);
+        }, 120);
+
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sweep(); });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        window.addEventListener('load', function () { clearTimeout(safety); sweep(); });
+        document.addEventListener('DOMContentLoaded', sweep);
+
+        /* contador animado (definido cedo porque a varredura pode chamá-lo antes
+           do script do rodapé) */
+        window.__jviCount = function (el) {
+          var to = parseInt(el.getAttribute('data-count'), 10);
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            el.textContent = to;
+            return;
+          }
+          var startAt = performance.now();
+          (function tick(now) {
+            var p = Math.min((now - startAt) / 2000, 1);
+            el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to);
+            if (p < 1) requestAnimationFrame(tick);
+          })(startAt);
+        };
+      })();
+    </script>
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <link rel="preload" as="image" href="/art/logo-jvi.png" />
+    <style>
+:root {
+  --black: #050505;
+  --black-2: #0a0a0c;
+  --blue: #0a5cff;
+  --blue-deep: #0b2fb8;
+  --white: #ffffff;
+  --muted: rgba(255, 255, 255, 0.56);
+  --line: rgba(255, 255, 255, 0.09);
+  --glass: rgba(255, 255, 255, 0.04);
+  --glow: 0 0 60px rgba(10, 92, 255, 0.45);
+  --display: 'Anton', 'Oswald', Impact, 'Arial Narrow', sans-serif;
+  --cond: 'Oswald', 'Inter', sans-serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --maxw: 1320px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* ---------- grain + vignette overlay (cinematic film look) ---------- */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* ---------- layout ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px);
+}
+
+section {
+  position: relative;
+}
+
+.section-pad {
+  padding: clamp(96px, 14vh, 180px) 0;
+}
+
+.eyebrow {
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: clamp(11px, 1vw, 13px);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: clamp(28px, 5vw, 56px);
+  height: 1px;
+  background: var(--blue);
+  box-shadow: 0 0 12px var(--blue);
+}
+
+/* ---------- display headlines ---------- */
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.h-xl {
+  font-size: clamp(2.6rem, 8vw, 7.6rem);
+}
+
+.h-lg {
+  font-size: clamp(2.1rem, 5.6vw, 4.8rem);
+}
+
+/* headline do hero: convive com a coluna do logotipo sem estourar a viewport */
+.h-hero {
+  font-size: clamp(2.35rem, 5.1vw, 4.9rem);
+}
+
+.text-blue {
+  color: var(--blue);
+}
+
+.lead {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.55vw, 1.375rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 62ch;
+}
+
+/* ---------- word reveal ---------- */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  /* espaço extra para que a máscara não corte acentos (Ê, Ó, Ç) */
+  padding: 0.16em 0.04em 0.06em 0;
+  margin: -0.16em 0 -0.06em 0;
+}
+
+.reveal-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  --bg: var(--blue);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--cond);
+  font-weight: 600;
+  font-size: clamp(12px, 1.05vw, 14px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 20px 38px;
+  border: 1px solid transparent;
+  background: var(--bg);
+  color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease,
+    color 0.4s ease, border-color 0.4s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 60px rgba(10, 92, 255, 0.55);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.btn-ghost:hover {
+  border-color: var(--blue);
+  background: rgba(10, 92, 255, 0.14);
+  box-shadow: 0 18px 60px rgba(10, 92, 255, 0.32);
+}
+
+/* ---------- glass card ---------- */
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: background 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav.scrolled {
+  background: rgba(5, 5, 5, 0.62);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border-bottom-color: var(--line);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+}
+
+.nav-links {
+  display: none;
+  gap: 34px;
+}
+
+@media (min-width: 900px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+/* no mobile o CTA fixo do WhatsApp assume o papel do botão do topo */
+.nav-cta {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .nav-cta {
+    display: inline-flex;
+  }
+}
+
+.nav-links a {
+  font-family: var(--cond);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.35s ease, text-shadow 0.35s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(10, 92, 255, 0.9);
+}
+
+/* ---------- logo ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-img {
+  width: auto;
+  height: 42px;
+  filter: saturate(112%) drop-shadow(0 0 18px rgba(10, 92, 255, 0.45));
+}
+
+.logo-word {
+  font-family: var(--cond);
+  font-size: 12px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-bottom: clamp(40px, 6vh, 72px);
+  padding-top: clamp(100px, 12vh, 136px);
+}
+
+/* fundo grafite com halo azul e malha sutil — mesma atmosfera da marca */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(90% 70% at 72% 28%, rgba(10, 92, 255, 0.22), transparent 62%),
+    radial-gradient(60% 50% at 8% 92%, rgba(10, 92, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, #06070b 0%, #050505 62%, #050505 100%);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(80% 70% at 50% 40%, #000 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 40%, #000 10%, transparent 78%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 72px);
+}
+
+@media (min-width: 1040px) {
+  .hero-grid {
+    grid-template-columns: 1.12fr 0.88fr;
+  }
+}
+
+.hero-logo {
+  position: relative;
+  order: -1;
+  display: grid;
+  place-items: center;
+}
+
+@media (min-width: 1040px) {
+  .hero-logo {
+    order: 0;
+  }
+
+  .hero-logo img {
+    width: min(100%, 440px);
+  }
+}
+
+.hero-logo img {
+  position: relative;
+  z-index: 2;
+  width: min(62%, 320px);
+  height: auto;
+  filter: saturate(114%) contrast(104%) drop-shadow(0 22px 60px rgba(10, 92, 255, 0.35));
+}
+
+.hero-logo-glow {
+  position: absolute;
+  z-index: 1;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--blue);
+  filter: blur(110px);
+  opacity: 0.4;
+  animation: pulse-glow 7s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.hero-orb {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.hero-meta {
+  margin-top: clamp(22px, 3vw, 38px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+}
+
+.hero-meta div {
+  background: rgba(4, 5, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 16px 14px;
+}
+
+.hero-meta strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 1.9vw, 1.7rem);
+  letter-spacing: 0.01em;
+  margin-bottom: 6px;
+}
+
+.hero-meta span {
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* notebooks de tela baixa: hero continua cabendo sem cortar o strip de meta */
+@media (min-width: 900px) and (max-height: 800px) {
+  .hero {
+    padding-top: 96px;
+    padding-bottom: 32px;
+  }
+
+  .h-hero {
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  }
+
+  .hero-meta {
+    margin-top: 20px;
+  }
+
+  .hero-meta div {
+    padding: 13px 12px;
+  }
+}
+
+/* ---------- problema ---------- */
+.problema-grid {
+  display: grid;
+  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: 1fr;
+  align-items: end;
+}
+
+@media (min-width: 980px) {
+  .problema-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* ---------- cards (diagnóstico) ---------- */
+.grid-cards {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(36px, 6vw, 64px);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* 6 diferenciais em 3×2 exatos — sem célula órfã */
+@media (min-width: 1040px) {
+  .grid-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  background: var(--black);
+  padding: clamp(28px, 3.4vw, 46px);
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(70% 70% at 50% 0%, rgba(10, 92, 255, 0.22), transparent 70%);
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card:hover {
+  background: #07070a;
+}
+
+.card-num {
+  font-family: var(--cond);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--blue);
+}
+
+.card h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  margin: 18px 0 12px;
+  line-height: 0.96;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ---------- resultados ---------- */
+.stats {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-top: clamp(36px, 6vw, 64px);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.stat {
+  background: var(--black);
+  padding: clamp(30px, 4vw, 54px) clamp(22px, 3vw, 38px);
+}
+
+.stat-value {
+  font-family: var(--display);
+  font-size: clamp(3rem, 6.4vw, 6rem);
+  line-height: 0.9;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.stat-value i {
+  font-style: normal;
+  color: var(--blue);
+  text-shadow: 0 0 28px rgba(10, 92, 255, 0.6);
+}
+
+.stat-label {
+  margin-top: 14px;
+  font-family: var(--cond);
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- equipe ---------- */
+.equipe {
+  position: relative;
+  min-height: clamp(520px, 76vh, 780px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.equipe-media {
+  position: absolute;
+  inset: -6%;
+  z-index: 0;
+}
+
+.equipe-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  transform: scale(1.06);
+  filter: brightness(0.82) contrast(112%);
+}
+
+.equipe-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(0deg, rgba(5, 5, 5, 0.94) 4%, rgba(5, 5, 5, 0.35) 58%, rgba(5, 5, 5, 0.78) 100%),
+    radial-gradient(72% 62% at 50% 50%, rgba(5, 5, 5, 0.45), rgba(5, 5, 5, 0.86) 100%);
+}
+
+.equipe-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding: clamp(64px, 11vh, 120px) 0 clamp(56px, 9vh, 96px);
+}
+
+.equipe-content .display {
+  transform-origin: center top;
+}
+
+.rule {
+  width: 64px;
+  height: 2px;
+  background: var(--blue);
+  box-shadow: 0 0 18px var(--blue);
+  margin: 26px auto;
+}
+
+/* ---------- contato ---------- */
+.contato-grid {
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: 1fr;
+  align-items: start;
+  margin-top: clamp(36px, 5vw, 60px);
+}
+
+@media (min-width: 980px) {
+  .contato-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 22px;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(10, 92, 255, 0.55);
+  box-shadow: 0 18px 60px rgba(10, 92, 255, 0.22);
+}
+
+.contact-icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--blue);
+  box-shadow: 0 0 24px rgba(10, 92, 255, 0.55);
+}
+
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+.contact-item small {
+  display: block;
+  font-family: var(--cond);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.contact-item b {
+  font-weight: 500;
+  font-size: clamp(0.98rem, 1.5vw, 1.15rem);
+  letter-spacing: 0.01em;
+}
+
+.cta-panel {
+  padding: clamp(30px, 4vw, 52px);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-panel::before {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  right: -140px;
+  top: -160px;
+  background: var(--blue);
+  filter: blur(130px);
+  opacity: 0.35;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-panel .btn {
+  width: 100%;
+  margin-top: 26px;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 42px 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* no mobile os CTAs do hero ocupam a largura toda */
+@media (max-width: 560px) {
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .footer {
+    padding-bottom: 96px;
+  }
+}
+
+/* ---------- floating whatsapp ---------- */
+.wa-float {
+  position: fixed;
+  right: clamp(16px, 3vw, 30px);
+  bottom: clamp(16px, 3vw, 30px);
+  z-index: 55;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--blue);
+  box-shadow: 0 0 0 rgba(10, 92, 255, 0.6), 0 12px 40px rgba(10, 92, 255, 0.45);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 34px rgba(10, 92, 255, 0.9), 0 12px 50px rgba(10, 92, 255, 0.6);
+}
+
+.wa-float svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  background: #060608;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-track span {
+  font-family: var(--display);
+  text-transform: uppercase;
+  font-size: clamp(1rem, 1.9vw, 1.6rem);
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.28);
+  white-space: nowrap;
+}
+
+.marquee-track span i {
+  font-style: normal;
+  color: var(--blue);
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ---------- pilares (social media / tráfego pago) ---------- */
+.pilares {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.4vw, 28px);
+  margin-top: clamp(36px, 6vw, 64px);
+}
+
+@media (min-width: 900px) {
+  .pilares {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* três serviços: 2 + 1 no tablet, três colunas no desktop */
+@media (min-width: 760px) {
+  .pilares-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .pilares-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pilar {
+  position: relative;
+  padding: clamp(26px, 3.4vw, 46px);
+  overflow: hidden;
+}
+
+.pilar::before {
+  content: '';
+  position: absolute;
+  top: -160px;
+  right: -140px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: var(--blue);
+  filter: blur(140px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.pilar-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.pilar-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  background: var(--blue);
+  box-shadow: 0 0 26px rgba(10, 92, 255, 0.5);
+}
+
+.pilar-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+
+.pilar-tag {
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pilar h3 {
+  margin: 0;
+}
+
+.pilar-text {
+  margin: 16px 0 26px;
+  font-weight: 300;
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------- listas com check ---------- */
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.check {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 92, 255, 0.16);
+  border: 1px solid rgba(10, 92, 255, 0.45);
+  color: #6aa5ff;
+}
+
+/* ---------- chips de plataformas ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.chip {
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+  border: 1px solid var(--line);
+  padding: 10px 16px;
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.chip:hover {
+  border-color: rgba(10, 92, 255, 0.6);
+  color: #fff;
+}
+
+/* ---------- método (etapas) ---------- */
+.steps {
+  margin-top: clamp(36px, 6vw, 64px);
+  border-top: 1px solid var(--line);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(18px, 3vw, 44px);
+  align-items: start;
+  padding: clamp(24px, 3.2vw, 40px) 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.5s ease;
+}
+
+.step:hover {
+  background: rgba(10, 92, 255, 0.05);
+}
+
+.step-num {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  line-height: 0.9;
+  color: rgba(255, 255, 255, 0.16);
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.step:hover .step-num {
+  color: var(--blue);
+  text-shadow: 0 0 30px rgba(10, 92, 255, 0.7);
+}
+
+.step-body h3 {
+  margin: 0 0 10px;
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.4rem, 2.6vw, 2.3rem);
+  line-height: 0.98;
+}
+
+.step-body p {
+  margin: 0;
+  max-width: 68ch;
+  font-weight: 300;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- cronograma 30/60/90 ---------- */
+.fases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(36px, 6vw, 64px);
+}
+
+.fase {
+  background: #040405;
+  padding: clamp(26px, 3.2vw, 44px);
+}
+
+.fase-tag {
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.fase h3 {
+  margin: 14px 0 22px;
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 0.96;
+}
+
+/* ---------- planos ---------- */
+.planos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(18px, 2.2vw, 26px);
+  margin-top: clamp(36px, 6vw, 64px);
+  align-items: stretch;
+}
+
+.plano {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(26px, 3vw, 42px);
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.plano:hover {
+  transform: translateY(-6px);
+  border-color: rgba(10, 92, 255, 0.5);
+  box-shadow: 0 26px 80px rgba(10, 92, 255, 0.2);
+}
+
+.plano-destaque {
+  border-color: rgba(10, 92, 255, 0.6);
+  box-shadow: 0 20px 70px rgba(10, 92, 255, 0.22);
+}
+
+.plano-destaque::before {
+  content: '';
+  position: absolute;
+  top: -170px;
+  left: -120px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: var(--blue);
+  filter: blur(140px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.plano-badge {
+  position: relative;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  font-family: var(--cond);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  background: var(--blue);
+  color: #fff;
+  padding: 7px 14px;
+}
+
+.plano h3 {
+  position: relative;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 0.96;
+}
+
+.plano-resumo {
+  position: relative;
+  margin: 14px 0 26px;
+  font-weight: 300;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.plano .check-list {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.plano-preco {
+  position: relative;
+  margin: 28px 0 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.plano-preco small {
+  display: block;
+  font-family: var(--cond);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.plano-preco b {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: 0.01em;
+}
+
+.plano .btn {
+  position: relative;
+  width: 100%;
+}
+
+.nota {
+  margin-top: clamp(26px, 3.4vw, 40px);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 72ch;
+  border-left: 2px solid var(--blue);
+  padding-left: 18px;
+}
+
+/* ---------- comparativo antes / depois ---------- */
+.compare {
+  margin-top: clamp(36px, 6vw, 64px);
+  border: 1px solid var(--line);
+}
+
+.compare-head,
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 780px) {
+  .compare-head,
+  .compare-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.compare-head {
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--line);
+}
+
+.compare-head span {
+  padding: 16px clamp(18px, 2.4vw, 30px);
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.compare-head span:last-child {
+  color: var(--blue);
+}
+
+@media (min-width: 780px) {
+  .compare-head span:last-child,
+  .compare-row span:last-child {
+    border-left: 1px solid var(--line);
+  }
+}
+
+.compare-row {
+  border-bottom: 1px solid var(--line);
+}
+
+.compare-row:last-child {
+  border-bottom: 0;
+}
+
+.compare-row > span {
+  padding: 18px clamp(18px, 2.4vw, 30px);
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.compare-antes {
+  color: rgba(255, 255, 255, 0.42);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 255, 255, 0.22);
+}
+
+.compare-depois {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #fff;
+}
+
+/* no mobile as duas colunas viram uma só: cada linha ganha rótulo próprio */
+@media (max-width: 779px) {
+  .compare-head {
+    display: none;
+  }
+
+  .compare-row > span::before {
+    display: block;
+    margin-bottom: 6px;
+    font-family: var(--cond);
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .compare-antes::before {
+    content: 'Antes da JVI';
+  }
+
+  .compare-depois {
+    display: block;
+    padding-top: 0;
+  }
+
+  .compare-depois::before {
+    content: 'Com a JVI';
+    color: var(--blue);
+  }
+
+  .compare-depois .check {
+    display: inline-grid;
+    vertical-align: -4px;
+    margin-right: 8px;
+  }
+}
+
+/* ---------- faq ---------- */
+.faq {
+  margin-top: clamp(36px, 6vw, 64px);
+  border-top: 1px solid var(--line);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: clamp(20px, 2.6vw, 30px) 0;
+  background: none;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--cond);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+  line-height: 1.3;
+  transition: color 0.4s ease;
+}
+
+.faq-q:hover {
+  color: #8fb8ff;
+}
+
+.faq-q:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.faq-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  color: var(--blue);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease,
+    color 0.4s ease, border-color 0.4s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(135deg);
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.faq-a {
+  overflow: hidden;
+}
+
+.faq-a p {
+  margin: 0;
+  padding-bottom: clamp(20px, 2.6vw, 30px);
+  max-width: 78ch;
+  font-size: 0.98rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ---------- passos do contato ---------- */
+.passos {
+  counter-reset: passo;
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.passos li {
+  counter-increment: passo;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.passos li::before {
+  content: counter(passo, decimal-leading-zero);
+  flex: 0 0 auto;
+  font-family: var(--cond);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--blue);
+  border: 1px solid rgba(10, 92, 255, 0.45);
+  padding: 6px 9px;
+}
+
+/* ---------- progress bar ---------- */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  z-index: 70;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--blue), #6aa5ff);
+  box-shadow: 0 0 18px rgba(10, 92, 255, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ================================================================
+   CELULAR — leveza e legibilidade
+   Filtros grandes (blur de 110–150px), backdrop-filter e a textura de
+   ruído em position: fixed derrubam o desempenho — e, em navegadores
+   embutidos de app, chegam a deixar a tela preta. Aqui eles saem de
+   cena e o mesmo efeito é feito com gradiente, que é barato.
+================================================================ */
+@media (max-width: 900px) {
+  .grain {
+    display: none;
+  }
+
+  .vignette {
+    background: radial-gradient(130% 100% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .hero-orb {
+    display: none;
+  }
+
+  .hero-bg::after {
+    display: none;
+  }
+
+  .hero-logo-glow {
+    filter: none;
+    background: radial-gradient(circle, rgba(10, 92, 255, 0.5), transparent 68%);
+    animation: none;
+    width: 90%;
+  }
+
+  .pilar::before,
+  .plano-destaque::before,
+  .cta-panel::before {
+    filter: none;
+    background: radial-gradient(circle, rgba(10, 92, 255, 0.35), transparent 70%);
+    opacity: 0.6;
+  }
+
+  .glass,
+  .btn-ghost {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+      #08080b;
+  }
+
+  .nav.scrolled {
+    background: rgba(5, 5, 5, 0.94);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .equipe-media img {
+    transform: none;
+  }
+}
+
+/* o hero precisa caber na primeira tela do celular, com o botão principal
+   visível sem rolagem */
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 78px;
+    padding-bottom: 32px;
+  }
+
+  .hero-grid {
+    gap: 18px;
+  }
+
+  .hero-logo img {
+    width: min(46%, 152px);
+  }
+
+  .h-hero {
+    font-size: clamp(1.72rem, 7.4vw, 2.25rem);
+  }
+
+  .hero .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    margin-bottom: 16px !important;
+  }
+
+  .hero .lead {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-top: 14px !important;
+  }
+
+  .hero-cta {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .hero .btn {
+    padding: 15px 20px;
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .hero-meta {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+  }
+
+  .hero-meta div {
+    padding: 12px 12px;
+  }
+
+  .hero-meta strong {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-meta span {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .btn {
+    padding: 17px 24px;
+  }
+
+  .section-pad {
+    padding: clamp(64px, 10vh, 96px) 0;
+  }
+}
+
+/* telas baixas (iPhone SE e afins): encolhe mais o topo para o botão
+   principal não ficar longe demais da primeira dobra */
+@media (max-width: 700px) and (max-height: 640px) {
+  .hero {
+    padding-top: 70px;
+  }
+
+  .hero-logo img {
+    width: min(38%, 120px);
+  }
+
+  .h-hero {
+    font-size: 1.55rem;
+  }
+
+  .hero .lead {
+    font-size: 0.88rem;
+  }
+
+  .hero-meta div {
+    padding: 10px;
+  }
+
+  .hero-meta strong {
+    font-size: 0.95rem;
+  }
+}
+
+
+/* ================================================================
+   Animações da versão estática: substituem o framer-motion do app.
+
+   Regra de ouro: o conteúdo nasce visível no HTML. As animações só
+   entram depois que o script confirma que está rodando (html.js).
+   Assim, JS bloqueado, quebrado ou ainda carregando — comum em
+   navegador embutido de app e em conexão ruim — nunca resulta em
+   página preta.
+================================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(14px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.js [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
+.js [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
+.js [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
+.js [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
+.js [data-reveal][data-delay="5"] { transition-delay: 0.4s; }
+
+/* headline linha a linha */
+.js .reveal-line .reveal-word {
+  transform: translateY(112%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1), filter 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .is-in .reveal-line .reveal-word {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+.js .display .reveal-line:nth-child(2) .reveal-word { transition-delay: 0.09s; }
+.js .display .reveal-line:nth-child(3) .reveal-word { transition-delay: 0.18s; }
+.js .display .reveal-line:nth-child(4) .reveal-word { transition-delay: 0.27s; }
+
+/* o hero entra no load, não na rolagem */
+.js .hero [data-reveal] { transition-delay: 0.15s; }
+.js .hero [data-reveal][data-delay="1"] { transition-delay: 0.45s; }
+.js .hero [data-reveal][data-delay="2"] { transition-delay: 0.62s; }
+.js .hero [data-reveal][data-delay="3"] { transition-delay: 0.78s; }
+.js .hero [data-reveal][data-delay="4"] { transition-delay: 0.92s; }
+
+.hero-orb {
+  width: 560px;
+  height: 560px;
+  left: -20%;
+  top: 14%;
+  background: #0a5cff;
+  opacity: 0.22;
+  animation: orb 9s ease-in-out infinite;
+}
+
+@keyframes orb {
+  0%, 100% { opacity: 0.16; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.1); }
+}
+
+.js .hero-logo img {
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .hero-logo[data-reveal] {
+  transform: none;
+  filter: none;
+}
+
+.js .hero-logo[data-reveal] img {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.js .hero-logo[data-reveal].is-in img {
+  opacity: 1;
+  transform: none;
+}
+
+/* FAQ: sem script as respostas ficam todas abertas — nada some da página */
+.faq-a {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.faq-a > div { overflow: hidden; }
+
+.js .faq-a {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .faq-item.open .faq-a { grid-template-rows: 1fr; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js .reveal-line .reveal-word,
+  .js .hero-logo[data-reveal] img {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+
+  .hero-orb { animation: none; }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <header class="nav" id="nav">
+      <div class="wrap nav-inner">
+        <a class="logo" href="#hero" aria-label="Agência JVI — início">
+          <img class="logo-img" src="/art/marca-jvi.png" alt="" aria-hidden="true" />
+          <span class="logo-word">Agência JVI</span>
+        </a>
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#servicos">Serviços</a>
+          <a href="#metodo">Método</a>
+          <a href="#planos">Planos</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <a class="btn nav-cta" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+          Falar com a JVI <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- 01 · HERO -->
+      <section class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-orb" aria-hidden="true"></div>
+
+        <div class="wrap hero-inner">
+          <div class="hero-grid">
+            <div class="hero-content">
+              <p class="eyebrow" data-reveal style="margin-bottom: 24px">
+                Tráfego Pago · Sites · Social Media
+              </p>
+              <h1 class="display h-hero" data-reveal data-delay="1">
+                <span class="reveal-line"><span class="reveal-word">Conteúdo que</span></span>
+            <span class="reveal-line"><span class="reveal-word">constrói marca.</span></span>
+            <span class="reveal-line"><span class="reveal-word text-blue">Anúncio que</span></span>
+            <span class="reveal-line"><span class="reveal-word text-blue">gera venda.</span></span>
+              </h1>
+              <p class="lead" data-reveal data-delay="2" style="margin-top: clamp(16px, 2.2vw, 24px)">
+                A Agência JVI cuida das três frentes que fazem seu negócio crescer todo mês:
+                o anúncio que traz gente nova, o site que transforma clique em conversa e o
+                conteúdo que faz sua marca ser lembrada.
+              </p>
+              <div class="hero-cta" data-reveal data-delay="3">
+                <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+                  Quero um diagnóstico gratuito <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
+                </a>
+                <a class="btn btn-ghost" href="#planos">Ver planos</a>
+              </div>
+            </div>
+
+            <div class="hero-logo" data-reveal>
+              <img src="/art/logo-jvi.png" alt="Logotipo da Agência JVI" fetchpriority="high" />
+              <span class="hero-logo-glow" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="hero-meta" data-reveal data-delay="4">
+            <div><strong>Meta Ads</strong><span>Instagram e Facebook</span></div>
+            <div><strong>Google Ads</strong><span>Busca e YouTube</span></div>
+            <div><strong>Sites</strong><span>Institucional e landing</span></div>
+            <div><strong>Conteúdo</strong><span>Feed, Reels e stories</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · DIAGNÓSTICO -->
+      <section class="section-pad" id="diagnostico">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">O diagnóstico</p>
+
+          <div class="problema-grid">
+            <h2 class="display h-xl" data-reveal>
+              <span class="reveal-line"><span class="reveal-word">Aparecer é fácil.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Vender é método.</span></span>
+            </h2>
+            <p class="lead" data-reveal data-delay="1">
+              A maioria das empresas não tem problema de produto — tem problema de
+              distribuição. O conteúdo sai sem direção, a verba é queimada no impulsionar e
+              o clique não tem para onde ir. É aí que a JVI entra.
+            </p>
+          </div>
+
+          <div class="grid-cards">
+          <div class="card" data-reveal data-delay="0"><span class="card-num">01</span><h3>Posta sem estratégia</h3><p>Conteúdo por obrigação, sem oferta e sem chamada para ação. Bonito, mas não move o caixa.</p></div>
+          <div class="card" data-reveal data-delay="1"><span class="card-num">02</span><h3>Impulsiona no escuro</h3><p>Botão "impulsionar" no lugar de campanha: sem público definido e sem leitura de custo.</p></div>
+          <div class="card" data-reveal data-delay="2"><span class="card-num">03</span><h3>Não tem para onde mandar</h3><p>Sem site ou página de conversão, o clique morre no perfil — e o cliente vai para o concorrente.</p></div>
+          </div>
+        </div>
+
+        <div class="marquee" style="margin-top: clamp(48px, 8vw, 90px)" aria-hidden="true">
+          <div class="marquee-track"><span>Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> </span><span>Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> </span></div>
+        </div>
+      </section>
+
+      <!-- 03 · SERVIÇOS -->
+      <section class="section-pad" id="servicos" style="background: #040405">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Serviços</p>
+          <h2 class="display h-xl" data-reveal>
+            <span class="reveal-line"><span class="reveal-word">Três frentes.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Um objetivo: vender.</span></span>
+          </h2>
+          <p class="lead" data-reveal data-delay="1" style="margin-top: clamp(20px, 3vw, 30px)">
+            Contrate uma frente ou as três. Juntas, elas formam o caminho completo: o anúncio
+            atrai, o site converte e o conteúdo sustenta a confiança de quem ainda não comprou.
+          </p>
+
+          <div class="pilares pilares-3">
+            <article class="pilar glass" data-reveal data-delay="0"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2zm2.5 0v7.5H22A10 10 0 0 0 14.5 2zM12 7a5 5 0 1 0 5 5h-5V7z"/></svg></span><span class="pilar-tag">Serviço 01</span></div><h3 class="display h-lg">Tráfego Pago</h3><p class="pilar-text">Anúncio no ar com verba tratada como investimento — e cobrado por resultado.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Campanhas no Meta Ads e no Google Ads</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Públicos frios, quentes e remarketing</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Criativos testados em variação (A/B)</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Pixel e conversões rastreadas de verdade</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório com custo por lead e por venda</li></ul></article>
+            <article class="pilar glass" data-reveal data-delay="1"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M3 3h18c.6 0 1 .4 1 1v16c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1zm1 5v11h16V8H4zm0-2h16V5H4v1zm2.4 4.8L9 13.4l-2.6 2.6-1.4-1.4 1.2-1.2-1.2-1.2 1.4-1.4zM11 15h6v2h-6v-2z"/></svg></span><span class="pilar-tag">Serviço 02</span></div><h3 class="display h-lg">Criação de Sites</h3><p class="pilar-text">O endereço da sua marca na internet: rápido, bonito no celular e feito para converter.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Site institucional ou landing page de venda</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Design exclusivo, sem tema pronto</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Carregamento rápido e pronto para o Google</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Textos escritos para vender, não para enfeitar</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>WhatsApp e formulário integrados</li></ul></article>
+            <article class="pilar glass" data-reveal data-delay="2"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2H9.5L5 21.2c-.7.5-1.6 0-1.6-.8V17H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm3 5v2h10V9H7zm0 4v2h6.5v-2H7z"/></svg></span><span class="pilar-tag">Serviço 03</span></div><h3 class="display h-lg">Social Media</h3><p class="pilar-text">Presença profissional, ritmo constante e conteúdo que vende sem parecer anúncio.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Linha editorial e calendário do mês</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Feed, carrosséis e stories</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Reels roteirizados e editados</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Copy que constrói autoridade</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório de alcance e crescimento</li></ul></article>
+          </div>
+
+          <div class="chips" data-reveal aria-label="Plataformas e ferramentas">
+            <span class="chip">Meta Ads</span><span class="chip">Google Ads</span>
+            <span class="chip">Instagram</span><span class="chip">WhatsApp Business</span>
+            <span class="chip">Google Analytics</span><span class="chip">Looker Studio</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · MÉTODO -->
+      <section class="section-pad" id="metodo">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">O método JVI</p>
+          <h2 class="display h-xl" data-reveal>
+            <span class="reveal-line"><span class="reveal-word">Como a gente</span></span>
+            <span class="reveal-line"><span class="reveal-word">trabalha.</span></span>
+          </h2>
+
+          <div class="steps">
+          <div class="step" data-reveal data-delay="0"><span class="step-num">01</span><div class="step-body"><h3>Diagnóstico</h3><p>Produto, ticket, público e concorrência na mesa antes de qualquer criativo.</p></div></div>
+          <div class="step" data-reveal data-delay="1"><span class="step-num">02</span><div class="step-body"><h3>Estratégia</h3><p>Posicionamento, oferta, funil e a meta de custo por lead do período.</p></div></div>
+          <div class="step" data-reveal data-delay="2"><span class="step-num">03</span><div class="step-body"><h3>Execução</h3><p>Site, conteúdo e campanhas saem do mesmo conceito e entram no ar.</p></div></div>
+          <div class="step" data-reveal data-delay="3"><span class="step-num">04</span><div class="step-body"><h3>Otimização</h3><p>Corte no que não performa, escala no que vende, relatório com decisão.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · PLANOS -->
+      <section class="section-pad" id="planos" style="background: #040405">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Planos</p>
+          <h2 class="display h-xl" data-reveal>
+            <span class="reveal-line"><span class="reveal-word">Escolha o tamanho</span></span>
+            <span class="reveal-line"><span class="reveal-word">da sua operação.</span></span>
+          </h2>
+          <p class="lead" data-reveal data-delay="1" style="margin-top: clamp(20px, 3vw, 30px)">
+            Todo plano começa com diagnóstico gratuito. O escopo final e o investimento saem na
+            proposta, de acordo com o seu segmento e o volume de demanda que você precisa gerar.
+          </p>
+
+          <div class="planos">
+          <article class="plano glass" data-reveal data-delay="0"><h3 class="display">Essencial</h3><p class="plano-resumo">Para existir bem no digital e começar a gerar demanda.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>12 publicações por mês</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>4 Reels editados</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>1 campanha de tráfego ativa</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+          <article class="plano glass plano-destaque" data-reveal data-delay="1"><span class="plano-badge">Mais contratado</span><h3 class="display">Performance</h3><p class="plano-resumo">As três frentes rodando juntas, com foco em lead qualificado.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>20 publicações por mês</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>8 Reels editados</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Até 3 campanhas simultâneas</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Landing page de conversão</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório semanal + reunião mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+          <article class="plano glass" data-reveal data-delay="2"><h3 class="display">Autoridade</h3><p class="plano-resumo">Operação completa para dominar a categoria e escalar.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Conteúdo sob demanda, sem teto fixo</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Site institucional completo</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Funil com remarketing e verba sem limite</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Squad dedicado e reunião quinzenal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+          </div>
+
+          <p class="nota" data-reveal>
+            A verba de anúncio é paga por você diretamente às plataformas e permanece 100% na
+            sua conta. Nosso valor cobre estratégia, criação, gestão e relatório.
+          </p>
+        </div>
+      </section>
+
+      <!-- 06 · RESULTADOS -->
+      <section class="section-pad" id="resultados">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Resultados</p>
+          <h2 class="display h-xl" data-reveal>
+            <span class="reveal-line"><span class="reveal-word">Do boca a boca</span></span>
+            <span class="reveal-line"><span class="reveal-word">ao previsível.</span></span>
+          </h2>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-value"><span data-count="312">0</span><i>%</i></span>
+              <div class="stat-label">Crescimento médio</div>
+            </div>
+            <div class="stat">
+              <span class="stat-value"><span data-count="18">0</span><i>k+</i></span>
+              <div class="stat-label">Leads gerados</div>
+            </div>
+            <div class="stat">
+              <span class="stat-value"><span data-count="40">0</span><i>+</i></span>
+              <div class="stat-label">Marcas posicionadas</div>
+            </div>
+            <div class="stat">
+              <span class="stat-value"><span data-count="7">0</span><i>x</i></span>
+              <div class="stat-label">Mais autoridade</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · FAQ -->
+      <section class="section-pad" id="faq" style="background: #040405">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Perguntas frequentes</p>
+          <h2 class="display h-xl" data-reveal><span class="reveal-line"><span class="reveal-word">Antes de fechar.</span></span></h2>
+
+          <div class="faq">
+          <div class="faq-item open" data-reveal data-delay="0"><button type="button" class="faq-q" id="faq-btn-0" aria-controls="faq-panel-0" aria-expanded="true"><span>Em quanto tempo eu vejo resultado?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-0" role="region" aria-labelledby="faq-btn-0"><div><p>Tráfego pago costuma trazer os primeiros leads na primeira ou segunda semana. Consistência de custo aparece entre o 30º e o 60º dia, quando os criativos vencedores já foram identificados. Um site novo entra no ar em 2 a 4 semanas, dependendo do escopo.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="1"><button type="button" class="faq-q" id="faq-btn-1" aria-controls="faq-panel-1" aria-expanded="false"><span>A verba de anúncio está inclusa no valor?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1"><div><p>Não. O investimento em mídia é pago por você diretamente às plataformas (Meta e Google) e fica 100% no seu cartão e no seu gerenciador. Nosso valor cobre estratégia, criação, gestão e relatório.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="2"><button type="button" class="faq-q" id="faq-btn-2" aria-controls="faq-panel-2" aria-expanded="false"><span>De quem são as contas, os dados e o site?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2"><div><p>Sempre seus. Trabalhamos dentro do seu Gerenciador de Negócios, com acesso de parceiro, e o site é registrado no seu domínio. Se a parceria terminar, tudo continua com você.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="3"><button type="button" class="faq-q" id="faq-btn-3" aria-controls="faq-panel-3" aria-expanded="false"><span>Existe fidelidade de contrato?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3"><div><p>O ciclo mínimo sugerido é de 3 meses — o tempo de estruturar, testar e otimizar com honestidade. Sem multa surpresa: as condições ficam claras na proposta.</p></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 · CONTATO -->
+      <section class="section-pad" id="contato">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Próximo passo</p>
+          <h2 class="display h-xl" data-reveal>
+            <span class="reveal-line"><span class="reveal-word">Vamos montar sua</span></span>
+            <span class="reveal-line"><span class="reveal-word">máquina de vendas.</span></span>
+          </h2>
+
+          <div class="contato-grid">
+            <div class="contact-list">
+              <a class="contact-item glass" data-reveal href="tel:+5581995757305">
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"/></svg></span>
+                <span><small>Telefone</small><b>+55 81 99575-7305</b></span>
+              </a>
+              <a class="contact-item glass" data-reveal data-delay="1"
+                href="https://instagram.com/agencia.jvi" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.5.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .5 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.5 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.5-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.5-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.5-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.5 1.3-.1 1.7-.1 4.9-.1zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></span>
+                <span><small>Instagram</small><b>@agencia.jvi</b></span>
+              </a>
+              <a class="contact-item glass" data-reveal data-delay="2"
+                href="mailto:somosagenciajvi@gmail.com">
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18c.6 0 1 .4 1 1v12c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V6c0-.6.4-1 1-1zm9 7.2L4.6 7h14.8L12 12.2zM4 17h16V9.2l-7.4 5.2c-.4.3-.8.3-1.2 0L4 9.2V17z"/></svg></span>
+                <span><small>E-mail</small><b>somosagenciajvi@gmail.com</b></span>
+              </a>
+            </div>
+
+            <div class="cta-panel glass" data-reveal data-delay="1">
+              <h3 class="display h-lg" style="margin: 0">Diagnóstico gratuito</h3>
+              <p class="lead" style="margin-top: 16px; font-size: 1rem">
+                Em 30 minutos analisamos seu perfil, seus anúncios e seu site — e mostramos, na
+                prática, o que precisa mudar para o seu negócio vender mais online. Sem
+                compromisso.
+              </p>
+              <ol class="passos">
+                <li>Conversa de diagnóstico</li>
+                <li>Proposta com escopo e investimento</li>
+                <li>Kickoff e campanhas no ar</li>
+              </ol>
+              <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+                Falar no WhatsApp <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <a class="logo" href="#hero" aria-label="Agência JVI">
+          <img class="logo-img" src="/art/marca-jvi.png" alt="" aria-hidden="true" />
+          <span class="logo-word">Agência JVI</span>
+        </a>
+        <span>© <span id="ano">2026</span> Agência JVI — Tráfego pago, sites e social media</span>
+        <span>Recife · PE · Brasil</span>
+      </div>
+    </footer>
+
+    <a class="wa-float" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer"
+      aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.2 1.3-2 1.4-.5.1-1.2.2-3.5-.7-2.9-1.2-4.8-4.2-5-4.4-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.3.3c-.1.1-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.7-.1 1.4z"/></svg></a>
+
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <script>
+      (function () {
+        var doc = document;
+
+        doc.getElementById('ano').textContent = new Date().getFullYear();
+
+        /* nav ganha fundo depois do topo */
+        var nav = doc.getElementById('nav');
+        var progress = doc.getElementById('progress');
+
+        function onScroll() {
+          nav.classList.toggle('scrolled', window.scrollY > 40);
+          var max = doc.documentElement.scrollHeight - window.innerHeight;
+          progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        /* o hero entra assim que a página carrega, sem depender de rolagem */
+        requestAnimationFrame(function () {
+          var heroItems = doc.querySelectorAll('.hero [data-reveal]');
+          for (var i = 0; i < heroItems.length; i++) heroItems[i].className += ' is-in';
+          if (window.__jviSweep) window.__jviSweep();
+        });
+
+        /* faq em acordeão */
+        doc.querySelectorAll('.faq-q').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var item = btn.parentElement;
+            var open = item.classList.contains('open');
+            doc.querySelectorAll('.faq-item').forEach(function (other) {
+              other.classList.remove('open');
+              other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            });
+            if (!open) {
+              item.classList.add('open');
+              btn.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

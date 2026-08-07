@@ -5,45 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Agência JVI — Sua marca merece parar de depender do boca a boca</title>
+    <title>Agência JVI — Social Media &amp; Tráfego Pago | Apresentação comercial</title>
     <meta
       name="description"
-      content="A Agência JVI transforma negócios tradicionais em máquinas de vendas digitais: sites, landing pages, tráfego pago, social media, branding e consultoria digital."
+      content="Apresentação comercial da Agência JVI: gestão de social media e tráfego pago (Meta Ads e Google Ads) para transformar conteúdo em autoridade e anúncio em venda."
     />
     <link rel="canonical" href="https://agenciajvi.com.br/" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Agência JVI" />
-    <meta property="og:title" content="Agência JVI — Do boca a boca ao digital" />
+    <meta property="og:title" content="Agência JVI — Social Media &amp; Tráfego Pago" />
     <meta
       property="og:description"
-      content="Transformamos negócios tradicionais em máquinas de vendas digitais."
+      content="Conteúdo que constrói marca. Anúncio que gera venda. Conheça o método, os planos e os primeiros 90 dias com a Agência JVI."
     />
-    <meta property="og:image" content="/art/hero.png" />
+    <meta property="og:image" content="/art/logo-jvi.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Fontes auto-hospedadas: zero dependência externa, zero FOUT de terceiros -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400-latin.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/oswald-400-latin.woff2" crossorigin />
     <link rel="stylesheet" href="/fonts/fonts.css" />
-    <link rel="preload" as="image" href="/art/hero.png" />
+    <link rel="preload" as="image" href="/art/logo-jvi.png" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Agência JVI",
-        "description": "Agência de marketing digital e performance. Sites, landing pages, tráfego pago, social media, branding e consultoria digital.",
+        "description": "Agência de social media e tráfego pago. Gestão de conteúdo para Instagram e Facebook, campanhas em Meta Ads e Google Ads, criativos, funil de conversão e relatórios de performance.",
         "email": "somosagenciajvi@gmail.com",
         "telephone": "+55 81 99575-7305",
         "areaServed": "BR",
-        "sameAs": ["https://instagram.com/agencia.jvi"]
+        "sameAs": ["https://instagram.com/agencia.jvi"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Serviços",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Gestão de Social Media" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Gestão de Tráfego Pago" }
+            }
+          ]
+        }
       }
     </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <!-- o app depende de JavaScript; sem ele, mandamos para a versão estática,
+           que renderiza a mesma página sem script nenhum -->
+      <div style="padding:48px 24px;font-family:system-ui,sans-serif;color:#fff;background:#050505">
+        <p style="max-width:60ch;line-height:1.6">
+          Esta página precisa de JavaScript. Abra a
+          <a href="/site.html" style="color:#6aa5ff">versão sem JavaScript</a>
+          para ver a apresentação completa.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
