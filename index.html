@@ -58,6 +58,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <!-- o app depende de JavaScript; sem ele, mandamos para a versão estática,
+           que renderiza a mesma página sem script nenhum -->
+      <div style="padding:48px 24px;font-family:system-ui,sans-serif;color:#fff;background:#050505">
+        <p style="max-width:60ch;line-height:1.6">
+          Esta página precisa de JavaScript. Abra a
+          <a href="/site.html" style="color:#6aa5ff">versão sem JavaScript</a>
+          para ver a apresentação completa.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -19,6 +19,74 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400-latin.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/oswald-400-latin.woff2" crossorigin />
+    <script>
+      /* Revelador no <head>, de propósito.
+         O CSS abaixo só esconde os blocos quando esta classe existe — e, como
+         o script já revela cada bloco assim que ele é lido pelo parser, o
+         conteúdo aparece durante o download, sem esperar a página inteira.
+         O temporizador de segurança desfaz tudo se algo der errado: em
+         qualquer cenário de falha a página termina visível. */
+      (function () {
+        var root = document.documentElement;
+        root.className += ' js';
+
+        var safety = setTimeout(function () {
+          root.className = root.className.replace(' js', '');
+        }, 4000);
+
+        function sweep() {
+          var limit = window.innerHeight * 0.92;
+          var nodes = document.querySelectorAll('[data-reveal]:not(.is-in)');
+          for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].getBoundingClientRect().top <= limit) nodes[i].className += ' is-in';
+          }
+          var counters = document.querySelectorAll('[data-count]:not(.counted)');
+          for (var j = 0; j < counters.length; j++) {
+            if (counters[j].getBoundingClientRect().top <= window.innerHeight * 0.85) {
+              counters[j].className += ' counted';
+              window.__jviCount(counters[j]);
+            }
+          }
+        }
+
+        window.__jviSweep = sweep;
+
+        /* enquanto o HTML ainda está chegando, varre em intervalo curto:
+           cada seção aparece assim que é montada */
+        var pump = setInterval(function () {
+          sweep();
+          if (document.readyState === 'complete') clearInterval(pump);
+        }, 120);
+
+        var queued = false;
+        function onScroll() {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; sweep(); });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        window.addEventListener('load', function () { clearTimeout(safety); sweep(); });
+        document.addEventListener('DOMContentLoaded', sweep);
+
+        /* contador animado (definido cedo porque a varredura pode chamá-lo antes
+           do script do rodapé) */
+        window.__jviCount = function (el) {
+          var to = parseInt(el.getAttribute('data-count'), 10);
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            el.textContent = to;
+            return;
+          }
+          var startAt = performance.now();
+          (function tick(now) {
+            var p = Math.min((now - startAt) / 2000, 1);
+            el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to);
+            if (p < 1) requestAnimationFrame(tick);
+          })(startAt);
+        };
+      })();
+    </script>
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="preload" as="image" href="/art/logo-jvi.png" />
     <style>
@@ -323,6 +391,7 @@ section {
 /* ---------- hero ---------- */
 .hero {
   position: relative;
+  min-height: 100vh;
   min-height: 100svh;
   display: flex;
   align-items: center;
@@ -1444,14 +1513,173 @@ section {
 
 
 /* ================================================================
-   Animações da versão estática: substituem o framer-motion do app
+   CELULAR — leveza e legibilidade
+   Filtros grandes (blur de 110–150px), backdrop-filter e a textura de
+   ruído em position: fixed derrubam o desempenho — e, em navegadores
+   embutidos de app, chegam a deixar a tela preta. Aqui eles saem de
+   cena e o mesmo efeito é feito com gradiente, que é barato.
+================================================================ */
+@media (max-width: 900px) {
+  .grain {
+    display: none;
+  }
+
+  .vignette {
+    background: radial-gradient(130% 100% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .hero-orb {
+    display: none;
+  }
+
+  .hero-bg::after {
+    display: none;
+  }
+
+  .hero-logo-glow {
+    filter: none;
+    background: radial-gradient(circle, rgba(10, 92, 255, 0.5), transparent 68%);
+    animation: none;
+    width: 90%;
+  }
+
+  .pilar::before,
+  .plano-destaque::before,
+  .cta-panel::before {
+    filter: none;
+    background: radial-gradient(circle, rgba(10, 92, 255, 0.35), transparent 70%);
+    opacity: 0.6;
+  }
+
+  .glass,
+  .btn-ghost {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+      #08080b;
+  }
+
+  .nav.scrolled {
+    background: rgba(5, 5, 5, 0.94);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .equipe-media img {
+    transform: none;
+  }
+}
+
+/* o hero precisa caber na primeira tela do celular, com o botão principal
+   visível sem rolagem */
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 78px;
+    padding-bottom: 32px;
+  }
+
+  .hero-grid {
+    gap: 18px;
+  }
+
+  .hero-logo img {
+    width: min(46%, 152px);
+  }
+
+  .h-hero {
+    font-size: clamp(1.72rem, 7.4vw, 2.25rem);
+  }
+
+  .hero .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    margin-bottom: 16px !important;
+  }
+
+  .hero .lead {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-top: 14px !important;
+  }
+
+  .hero-cta {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .hero .btn {
+    padding: 15px 20px;
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .hero-meta {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+  }
+
+  .hero-meta div {
+    padding: 12px 12px;
+  }
+
+  .hero-meta strong {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-meta span {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .btn {
+    padding: 17px 24px;
+  }
+
+  .section-pad {
+    padding: clamp(64px, 10vh, 96px) 0;
+  }
+}
+
+/* telas baixas (iPhone SE e afins): encolhe mais o topo para o botão
+   principal não ficar longe demais da primeira dobra */
+@media (max-width: 700px) and (max-height: 640px) {
+  .hero {
+    padding-top: 70px;
+  }
+
+  .hero-logo img {
+    width: min(38%, 120px);
+  }
+
+  .h-hero {
+    font-size: 1.55rem;
+  }
+
+  .hero .lead {
+    font-size: 0.88rem;
+  }
+}
+
+
+/* ================================================================
+   Animações da versão estática: substituem o framer-motion do app.
+
+   Regra de ouro: o conteúdo nasce visível no HTML. As animações só
+   entram depois que o script confirma que está rodando (html.js).
+   Assim, JS bloqueado, quebrado ou ainda carregando — comum em
+   navegador embutido de app e em conexão ruim — nunca resulta em
+   página preta.
 ================================================================ */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
 }
 
-[data-reveal] {
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(40px);
   filter: blur(14px);
@@ -1459,20 +1687,20 @@ html {
     transform 1s cubic-bezier(0.22, 1, 0.36, 1), filter 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-reveal].is-in {
+.js [data-reveal].is-in {
   opacity: 1;
   transform: none;
   filter: none;
 }
 
-[data-reveal][data-delay='1'] { transition-delay: 0.08s; }
-[data-reveal][data-delay='2'] { transition-delay: 0.16s; }
-[data-reveal][data-delay='3'] { transition-delay: 0.24s; }
-[data-reveal][data-delay='4'] { transition-delay: 0.32s; }
-[data-reveal][data-delay='5'] { transition-delay: 0.4s; }
+.js [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
+.js [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
+.js [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
+.js [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
+.js [data-reveal][data-delay="5"] { transition-delay: 0.4s; }
 
 /* headline linha a linha */
-.reveal-line .reveal-word {
+.js .reveal-line .reveal-word {
   transform: translateY(112%);
   opacity: 0;
   filter: blur(10px);
@@ -1480,23 +1708,22 @@ html {
     opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1), filter 1.05s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.is-in .reveal-line .reveal-word,
-.reveal-line.is-in .reveal-word {
+.js .is-in .reveal-line .reveal-word {
   transform: none;
   opacity: 1;
   filter: none;
 }
 
-.display .reveal-line:nth-child(2) .reveal-word { transition-delay: 0.09s; }
-.display .reveal-line:nth-child(3) .reveal-word { transition-delay: 0.18s; }
-.display .reveal-line:nth-child(4) .reveal-word { transition-delay: 0.27s; }
+.js .display .reveal-line:nth-child(2) .reveal-word { transition-delay: 0.09s; }
+.js .display .reveal-line:nth-child(3) .reveal-word { transition-delay: 0.18s; }
+.js .display .reveal-line:nth-child(4) .reveal-word { transition-delay: 0.27s; }
 
-/* hero: entra no load, não no scroll */
-.hero [data-reveal] { transition-delay: 0.15s; }
-.hero [data-reveal][data-delay='1'] { transition-delay: 0.5s; }
-.hero [data-reveal][data-delay='2'] { transition-delay: 0.7s; }
-.hero [data-reveal][data-delay='3'] { transition-delay: 0.9s; }
-.hero [data-reveal][data-delay='4'] { transition-delay: 1.05s; }
+/* o hero entra no load, não na rolagem */
+.js .hero [data-reveal] { transition-delay: 0.15s; }
+.js .hero [data-reveal][data-delay="1"] { transition-delay: 0.45s; }
+.js .hero [data-reveal][data-delay="2"] { transition-delay: 0.62s; }
+.js .hero [data-reveal][data-delay="3"] { transition-delay: 0.78s; }
+.js .hero [data-reveal][data-delay="4"] { transition-delay: 0.92s; }
 
 .hero-orb {
   width: 560px;
@@ -1513,35 +1740,45 @@ html {
   50% { opacity: 0.3; transform: scale(1.1); }
 }
 
-.hero-logo img {
-  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+.js .hero-logo img {
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hero-logo[data-reveal] { transform: none; filter: none; }
-.hero-logo[data-reveal] img { opacity: 0; transform: scale(0.88); filter: blur(26px)
-  saturate(114%) contrast(104%); }
-.hero-logo[data-reveal].is-in img {
+.js .hero-logo[data-reveal] {
+  transform: none;
+  filter: none;
+}
+
+.js .hero-logo[data-reveal] img {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.js .hero-logo[data-reveal].is-in img {
   opacity: 1;
   transform: none;
-  filter: saturate(114%) contrast(104%) drop-shadow(0 22px 60px rgba(10, 92, 255, 0.35));
 }
 
-/* faq sem javascript de altura: transição em grid */
+/* FAQ: sem script as respostas ficam todas abertas — nada some da página */
 .faq-a {
   display: grid;
+  grid-template-rows: 1fr;
+}
+
+.faq-a > div { overflow: hidden; }
+
+.js .faq-a {
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.faq-item.open .faq-a { grid-template-rows: 1fr; }
-
-.faq-a > div { overflow: hidden; }
+.js .faq-item.open .faq-a { grid-template-rows: 1fr; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal],
-  .reveal-line .reveal-word,
-  .hero-logo[data-reveal] img {
+  .js [data-reveal],
+  .js .reveal-line .reveal-word,
+  .js .hero-logo[data-reveal] img {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
@@ -1979,62 +2216,12 @@ html {
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
 
-        /* revelações: verificação direta a cada frame de scroll — sem depender
-           de thresholds de IntersectionObserver, que falham em blocos baixos */
-        var items = [].slice.call(doc.querySelectorAll('[data-reveal]'));
-        var counters = [].slice.call(doc.querySelectorAll('[data-count]'));
-        var ticking = false;
-
-        function reveal() {
-          ticking = false;
-          var limit = window.innerHeight * 0.9;
-
-          items = items.filter(function (el) {
-            if (el.getBoundingClientRect().top > limit) return true;
-            el.classList.add('is-in');
-            return false;
-          });
-
-          counters = counters.filter(function (el) {
-            if (el.getBoundingClientRect().top > window.innerHeight * 0.85) return true;
-            count(el);
-            return false;
-          });
-        }
-
-        function schedule() {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(reveal);
-        }
-
-        window.addEventListener('scroll', schedule, { passive: true });
-        window.addEventListener('resize', schedule);
-        window.addEventListener('load', schedule);
-
-        /* o hero entra no load, independente da posição */
+        /* o hero entra assim que a página carrega, sem depender de rolagem */
         requestAnimationFrame(function () {
-          doc.querySelectorAll('.hero [data-reveal]').forEach(function (el) {
-            el.classList.add('is-in');
-          });
-          reveal();
+          var heroItems = doc.querySelectorAll('.hero [data-reveal]');
+          for (var i = 0; i < heroItems.length; i++) heroItems[i].className += ' is-in';
+          if (window.__jviSweep) window.__jviSweep();
         });
-
-        /* contador animado */
-        function count(el) {
-          var to = parseInt(el.getAttribute('data-count'), 10);
-          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            el.textContent = to;
-            return;
-          }
-          var startAt = performance.now();
-          var dur = 2000;
-          (function tick(now) {
-            var p = Math.min((now - startAt) / dur, 1);
-            el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to);
-            if (p < 1) requestAnimationFrame(tick);
-          })(startAt);
-        }
 
         /* faq em acordeão */
         doc.querySelectorAll('.faq-q').forEach(function (btn) {
