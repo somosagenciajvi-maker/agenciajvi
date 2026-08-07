@@ -53,3 +53,9 @@ export const PlusIcon = () => (
     <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z" />
   </svg>
 )
+
+export const SiteIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+    <path d="M3 3h18c.6 0 1 .4 1 1v16c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1zm1 5v11h16V8H4zm0-2h16V5H4v1zm2.4 4.8L9 13.4l-2.6 2.6-1.4-1.4 1.2-1.2-1.2-1.2 1.4-1.4zM11 15h6v2h-6v-2z" />
+  </svg>
+)

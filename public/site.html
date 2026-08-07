@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Agência JVI — Social Media &amp; Tráfego Pago | Apresentação comercial</title>
-    <meta name="description" content="Apresentação comercial da Agência JVI: gestão de social
-      media e tráfego pago (Meta Ads e Google Ads) para transformar conteúdo em autoridade e
-      anúncio em venda." />
+    <title>Agência JVI — Tráfego Pago, Sites e Social Media</title>
+    <meta name="description" content="Agência JVI: gestão de tráfego pago no Meta Ads e Google
+      Ads, criação de sites e landing pages e gestão de social media. Conteúdo que constrói
+      marca, anúncio que gera venda." />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Agência JVI" />
-    <meta property="og:title" content="Agência JVI — Social Media &amp; Tráfego Pago" />
+    <meta property="og:title" content="Agência JVI — Tráfego Pago, Sites e Social Media" />
     <meta property="og:description" content="Conteúdo que constrói marca. Anúncio que gera venda." />
     <meta property="og:image" content="/art/logo-jvi.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -949,6 +949,19 @@ section {
   }
 }
 
+/* três serviços: 2 + 1 no tablet, três colunas no desktop */
+@media (min-width: 760px) {
+  .pilares-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .pilares-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .pilar {
   position: relative;
   padding: clamp(26px, 3.4vw, 46px);
@@ -1662,6 +1675,14 @@ section {
   .hero .lead {
     font-size: 0.88rem;
   }
+
+  .hero-meta div {
+    padding: 10px;
+  }
+
+  .hero-meta strong {
+    font-size: 0.95rem;
+  }
 }
 
 
@@ -1800,13 +1821,12 @@ html {
           <span class="logo-word">Agência JVI</span>
         </a>
         <nav class="nav-links" aria-label="Navegação principal">
-          <a href="#diagnostico">Diagnóstico</a>
-          <a href="#solucoes">Soluções</a>
+          <a href="#servicos">Serviços</a>
           <a href="#metodo">Método</a>
           <a href="#planos">Planos</a>
           <a href="#contato">Contato</a>
         </nav>
-        <a class="btn nav-cta" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+        <a class="btn nav-cta" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
           Falar com a JVI <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
         </a>
       </div>
@@ -1822,7 +1842,7 @@ html {
           <div class="hero-grid">
             <div class="hero-content">
               <p class="eyebrow" data-reveal style="margin-bottom: 24px">
-                Social Media + Tráfego Pago
+                Tráfego Pago · Sites · Social Media
               </p>
               <h1 class="display h-hero" data-reveal data-delay="1">
                 <span class="reveal-line"><span class="reveal-word">Conteúdo que</span></span>
@@ -1831,12 +1851,12 @@ html {
             <span class="reveal-line"><span class="reveal-word text-blue">gera venda.</span></span>
               </h1>
               <p class="lead" data-reveal data-delay="2" style="margin-top: clamp(16px, 2.2vw, 24px)">
-                A Agência JVI cuida das duas pontas que fazem seu negócio crescer todo mês: a
-                presença que dá autoridade à sua marca e a mídia paga que coloca a oferta certa
-                na frente de quem está pronto para comprar.
+                A Agência JVI cuida das três frentes que fazem seu negócio crescer todo mês:
+                o anúncio que traz gente nova, o site que transforma clique em conversa e o
+                conteúdo que faz sua marca ser lembrada.
               </p>
               <div class="hero-cta" data-reveal data-delay="3">
-                <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+                <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
                   Quero um diagnóstico gratuito <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
                 </a>
                 <a class="btn btn-ghost" href="#planos">Ver planos</a>
@@ -1851,9 +1871,9 @@ html {
 
           <div class="hero-meta" data-reveal data-delay="4">
             <div><strong>Meta Ads</strong><span>Instagram e Facebook</span></div>
-            <div><strong>Google Ads</strong><span>Busca, display e YouTube</span></div>
+            <div><strong>Google Ads</strong><span>Busca e YouTube</span></div>
+            <div><strong>Sites</strong><span>Institucional e landing</span></div>
             <div><strong>Conteúdo</strong><span>Feed, Reels e stories</span></div>
-            <div><strong>Relatório</strong><span>Dados e decisão</span></div>
           </div>
         </div>
       </section>
@@ -1865,95 +1885,62 @@ html {
 
           <div class="problema-grid">
             <h2 class="display h-xl" data-reveal>
-              <span class="reveal-line"><span class="reveal-word">Postar não é</span></span>
-            <span class="reveal-line"><span class="reveal-word">estratégia.</span></span>
+              <span class="reveal-line"><span class="reveal-word">Aparecer é fácil.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Vender é método.</span></span>
             </h2>
             <p class="lead" data-reveal data-delay="1">
-              A maioria das empresas não tem um problema de produto — tem um problema de
+              A maioria das empresas não tem problema de produto — tem problema de
               distribuição. O conteúdo sai sem direção, a verba é queimada no impulsionar e
-              ninguém consegue dizer quanto custa conquistar um cliente. É exatamente aí que
-              a JVI entra.
+              o clique não tem para onde ir. É aí que a JVI entra.
             </p>
           </div>
 
           <div class="grid-cards">
-          <div class="card" data-reveal data-delay="0"><span class="card-num">01</span><h3>Posta sem estratégia</h3><p>O perfil publica por obrigação, sem linha editorial, sem oferta e sem chamada para ação. Conteúdo bonito que não move o caixa.</p></div>
-          <div class="card" data-reveal data-delay="1"><span class="card-num">02</span><h3>Impulsiona no escuro</h3><p>Botão "impulsionar" no lugar de campanha estruturada: sem público definido, sem criativo testado e sem leitura de custo por resultado.</p></div>
-          <div class="card" data-reveal data-delay="2"><span class="card-num">03</span><h3>Não sabe o que funcionou</h3><p>Sem rastreamento, sem CRM e sem relatório. No fim do mês sobra a sensação de que "gastou" — e não de que investiu.</p></div>
+          <div class="card" data-reveal data-delay="0"><span class="card-num">01</span><h3>Posta sem estratégia</h3><p>Conteúdo por obrigação, sem oferta e sem chamada para ação. Bonito, mas não move o caixa.</p></div>
+          <div class="card" data-reveal data-delay="1"><span class="card-num">02</span><h3>Impulsiona no escuro</h3><p>Botão "impulsionar" no lugar de campanha: sem público definido e sem leitura de custo.</p></div>
+          <div class="card" data-reveal data-delay="2"><span class="card-num">03</span><h3>Não tem para onde mandar</h3><p>Sem site ou página de conversão, o clique morre no perfil — e o cliente vai para o concorrente.</p></div>
           </div>
         </div>
 
-        <div class="marquee" style="margin-top: clamp(56px, 9vw, 110px)" aria-hidden="true">
-          <div class="marquee-track"><span>Social Media <i>•</i> Tráfego Pago <i>•</i> Estratégia <i>•</i> Criativo <i>•</i> Conversão <i>•</i> Agência JVI <i>•</i> Social Media <i>•</i> Tráfego Pago <i>•</i> Estratégia <i>•</i> Criativo <i>•</i> Conversão <i>•</i> Agência JVI <i>•</i> </span><span>Social Media <i>•</i> Tráfego Pago <i>•</i> Estratégia <i>•</i> Criativo <i>•</i> Conversão <i>•</i> Agência JVI <i>•</i> Social Media <i>•</i> Tráfego Pago <i>•</i> Estratégia <i>•</i> Criativo <i>•</i> Conversão <i>•</i> Agência JVI <i>•</i> </span></div>
+        <div class="marquee" style="margin-top: clamp(48px, 8vw, 90px)" aria-hidden="true">
+          <div class="marquee-track"><span>Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> </span><span>Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> Tráfego Pago <i>•</i> Criação de Sites <i>•</i> Social Media <i>•</i> Agência JVI <i>•</i> </span></div>
         </div>
       </section>
 
-      <!-- 03 · SOLUÇÕES -->
-      <section class="section-pad" id="solucoes" style="background: #040405">
+      <!-- 03 · SERVIÇOS -->
+      <section class="section-pad" id="servicos" style="background: #040405">
         <div class="wrap">
-          <p class="eyebrow" data-reveal style="margin-bottom: 34px">As soluções</p>
+          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Serviços</p>
           <h2 class="display h-xl" data-reveal>
-            <span class="reveal-line"><span class="reveal-word">Duas frentes.</span></span>
-            <span class="reveal-line"><span class="reveal-word">Um só objetivo: vender.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Três frentes.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Um objetivo: vender.</span></span>
           </h2>
           <p class="lead" data-reveal data-delay="1" style="margin-top: clamp(20px, 3vw, 30px)">
-            Social media constrói o desejo e a confiança. Tráfego pago leva essa mensagem para
-            fora da sua bolha, todos os dias, com custo medido. Juntas, as duas frentes formam
-            a máquina comercial da sua marca.
+            Contrate uma frente ou as três. Juntas, elas formam o caminho completo: o anúncio
+            atrai, o site converte e o conteúdo sustenta a confiança de quem ainda não comprou.
           </p>
 
-          <div class="pilares">
-            <article class="pilar glass" data-reveal>
-              <div class="pilar-head">
-                <span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2H9.5L5 21.2c-.7.5-1.6 0-1.6-.8V17H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm3 5v2h10V9H7zm0 4v2h6.5v-2H7z"/></svg></span>
-                <span class="pilar-tag">Pilar 01</span>
-              </div>
-              <h3 class="display h-lg">Social Media</h3>
-              <p class="pilar-text">
-                Sua marca com presença profissional, ritmo constante e conteúdo que vende sem
-                parecer anúncio.
-              </p>
-              <ul class="check-list">
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Diagnóstico de perfil e da concorrência</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Planejamento e linha editorial mensal</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Direção de arte e identidade visual dos posts</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Roteiro, edição e legenda de Reels</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Design de feed, carrosséis e stories diários</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Copywriting focado em autoridade e venda</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Calendário de publicação e agendamento</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Gestão de comentários e direct comercial</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório mensal de alcance, engajamento e crescimento</li>
-              </ul>
-            </article>
-
-            <article class="pilar glass" data-reveal data-delay="1">
-              <div class="pilar-head">
-                <span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2zm2.5 0v7.5H22A10 10 0 0 0 14.5 2zM12 7a5 5 0 1 0 5 5h-5V7z"/></svg></span>
-                <span class="pilar-tag">Pilar 02</span>
-              </div>
-              <h3 class="display h-lg">Tráfego Pago</h3>
-              <p class="pilar-text">
-                Campanhas estruturadas no Meta Ads e no Google Ads, com verba tratada como
-                investimento — e cobrada por resultado.
-              </p>
-              <ul class="check-list">
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Configuração de Meta Ads e Google Ads</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Pixel, tags e eventos de conversão rastreados</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Estruturação de campanhas, conjuntos e públicos</li>
+          <div class="pilares pilares-3">
+            <article class="pilar glass" data-reveal data-delay="0"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2zm2.5 0v7.5H22A10 10 0 0 0 14.5 2zM12 7a5 5 0 1 0 5 5h-5V7z"/></svg></span><span class="pilar-tag">Serviço 01</span></div><h3 class="display h-lg">Tráfego Pago</h3><p class="pilar-text">Anúncio no ar com verba tratada como investimento — e cobrado por resultado.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Campanhas no Meta Ads e no Google Ads</li>
               <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Públicos frios, quentes e remarketing</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Criativos testados em variações (A/B)</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Landing page e jornada de conversão otimizadas</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Gestão diária de verba: escala no que vende, corte no que queima</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Acompanhamento de CPL, CPA, CTR e ROAS</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório semanal com leitura e próximos passos</li>
-              </ul>
-            </article>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Criativos testados em variação (A/B)</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Pixel e conversões rastreadas de verdade</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório com custo por lead e por venda</li></ul></article>
+            <article class="pilar glass" data-reveal data-delay="1"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M3 3h18c.6 0 1 .4 1 1v16c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1zm1 5v11h16V8H4zm0-2h16V5H4v1zm2.4 4.8L9 13.4l-2.6 2.6-1.4-1.4 1.2-1.2-1.2-1.2 1.4-1.4zM11 15h6v2h-6v-2z"/></svg></span><span class="pilar-tag">Serviço 02</span></div><h3 class="display h-lg">Criação de Sites</h3><p class="pilar-text">O endereço da sua marca na internet: rápido, bonito no celular e feito para converter.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Site institucional ou landing page de venda</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Design exclusivo, sem tema pronto</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Carregamento rápido e pronto para o Google</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Textos escritos para vender, não para enfeitar</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>WhatsApp e formulário integrados</li></ul></article>
+            <article class="pilar glass" data-reveal data-delay="2"><div class="pilar-head"><span class="pilar-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2H9.5L5 21.2c-.7.5-1.6 0-1.6-.8V17H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm3 5v2h10V9H7zm0 4v2h6.5v-2H7z"/></svg></span><span class="pilar-tag">Serviço 03</span></div><h3 class="display h-lg">Social Media</h3><p class="pilar-text">Presença profissional, ritmo constante e conteúdo que vende sem parecer anúncio.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Linha editorial e calendário do mês</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Feed, carrosséis e stories</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Reels roteirizados e editados</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Copy que constrói autoridade</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório de alcance e crescimento</li></ul></article>
           </div>
 
           <div class="chips" data-reveal aria-label="Plataformas e ferramentas">
             <span class="chip">Meta Ads</span><span class="chip">Google Ads</span>
-            <span class="chip">Instagram</span><span class="chip">Facebook</span>
-            <span class="chip">YouTube</span><span class="chip">WhatsApp Business</span>
+            <span class="chip">Instagram</span><span class="chip">WhatsApp Business</span>
             <span class="chip">Google Analytics</span><span class="chip">Looker Studio</span>
           </div>
         </div>
@@ -1964,48 +1951,21 @@ html {
         <div class="wrap">
           <p class="eyebrow" data-reveal style="margin-bottom: 34px">O método JVI</p>
           <h2 class="display h-xl" data-reveal>
-            <span class="reveal-line"><span class="reveal-word">Cinco etapas.</span></span>
-            <span class="reveal-line"><span class="reveal-word">Zero achismo.</span></span>
+            <span class="reveal-line"><span class="reveal-word">Como a gente</span></span>
+            <span class="reveal-line"><span class="reveal-word">trabalha.</span></span>
           </h2>
 
           <div class="steps">
-          <div class="step" data-reveal data-delay="0"><span class="step-num">01</span><div class="step-body"><h3>Diagnóstico</h3><p>Entendemos produto, margem, ticket, público e canais. Auditamos o perfil, os anúncios existentes e a concorrência direta.</p></div></div>
-          <div class="step" data-reveal data-delay="1"><span class="step-num">02</span><div class="step-body"><h3>Estratégia</h3><p>Definimos posicionamento, oferta, linha editorial, funil e as metas de custo por lead e por venda do período.</p></div></div>
-          <div class="step" data-reveal data-delay="2"><span class="step-num">03</span><div class="step-body"><h3>Produção</h3><p>Direção de arte, roteiro, design e copy. Conteúdo de marca e criativos de performance saem do mesmo conceito.</p></div></div>
-          <div class="step" data-reveal data-delay="3"><span class="step-num">04</span><div class="step-body"><h3>Veiculação</h3><p>Campanhas no ar com rastreamento correto, públicos segmentados e verba distribuída por etapa do funil.</p></div></div>
-          <div class="step" data-reveal data-delay="4"><span class="step-num">05</span><div class="step-body"><h3>Otimização</h3><p>Leitura de dados, corte do que não performa, escala do que vende e relatório com decisão — não só com gráfico.</p></div></div>
+          <div class="step" data-reveal data-delay="0"><span class="step-num">01</span><div class="step-body"><h3>Diagnóstico</h3><p>Produto, ticket, público e concorrência na mesa antes de qualquer criativo.</p></div></div>
+          <div class="step" data-reveal data-delay="1"><span class="step-num">02</span><div class="step-body"><h3>Estratégia</h3><p>Posicionamento, oferta, funil e a meta de custo por lead do período.</p></div></div>
+          <div class="step" data-reveal data-delay="2"><span class="step-num">03</span><div class="step-body"><h3>Execução</h3><p>Site, conteúdo e campanhas saem do mesmo conceito e entram no ar.</p></div></div>
+          <div class="step" data-reveal data-delay="3"><span class="step-num">04</span><div class="step-body"><h3>Otimização</h3><p>Corte no que não performa, escala no que vende, relatório com decisão.</p></div></div>
           </div>
         </div>
       </section>
 
-      <!-- 05 · PRIMEIROS 90 DIAS -->
-      <section class="section-pad" id="cronograma" style="background: #040405">
-        <div class="wrap">
-          <p class="eyebrow" data-reveal style="margin-bottom: 34px">Primeiros 90 dias</p>
-          <h2 class="display h-xl" data-reveal>
-            <span class="reveal-line"><span class="reveal-word">O que acontece</span></span>
-            <span class="reveal-line"><span class="reveal-word">depois do sim.</span></span>
-          </h2>
-
-          <div class="fases">
-          <div class="fase" data-reveal data-delay="0"><span class="fase-tag">Primeiros 30 dias</span><h3 class="display">Estrutura</h3><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Acessos, pixel e rastreamento configurados</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Identidade visual do conteúdo definida</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Primeiras campanhas no ar</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Base de criativos em teste</li></ul></div>
-          <div class="fase" data-reveal data-delay="1"><span class="fase-tag">60 dias</span><h3 class="display">Tração</h3><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Criativos vencedores identificados</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Custo por lead em queda</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Perfil com ritmo de publicação constante</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Rotina comercial alinhada ao volume de leads</li></ul></div>
-          <div class="fase" data-reveal data-delay="2"><span class="fase-tag">90 dias</span><h3 class="display">Escala</h3><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Verba ampliada no que já converte</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Remarketing e recorrência ativos</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Autoridade de marca consolidada</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Previsibilidade de vendas mês a mês</li></ul></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 06 · PLANOS -->
-      <section class="section-pad" id="planos">
+      <!-- 05 · PLANOS -->
+      <section class="section-pad" id="planos" style="background: #040405">
         <div class="wrap">
           <p class="eyebrow" data-reveal style="margin-bottom: 34px">Planos</p>
           <h2 class="display h-xl" data-reveal>
@@ -2013,29 +1973,24 @@ html {
             <span class="reveal-line"><span class="reveal-word">da sua operação.</span></span>
           </h2>
           <p class="lead" data-reveal data-delay="1" style="margin-top: clamp(20px, 3vw, 30px)">
-            Todo plano começa com diagnóstico gratuito. O escopo final e o investimento são
-            definidos na proposta, de acordo com o seu segmento, o seu ticket e o volume de
-            demanda que você precisa gerar.
+            Todo plano começa com diagnóstico gratuito. O escopo final e o investimento saem na
+            proposta, de acordo com o seu segmento e o volume de demanda que você precisa gerar.
           </p>
 
           <div class="planos">
-          <article class="plano glass" data-reveal data-delay="0"><h3 class="display">Essencial</h3><p class="plano-resumo">Para quem precisa existir bem no digital e começar a gerar demanda.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>12 publicações por mês</li>
+          <article class="plano glass" data-reveal data-delay="0"><h3 class="display">Essencial</h3><p class="plano-resumo">Para existir bem no digital e começar a gerar demanda.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>12 publicações por mês</li>
               <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>4 Reels editados</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Stories em dias úteis</li>
               <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>1 campanha de tráfego ativa</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
-          <article class="plano glass plano-destaque" data-reveal data-delay="1"><span class="plano-badge">Mais contratado</span><h3 class="display">Performance</h3><p class="plano-resumo">Social media e tráfego pago rodando juntos, com foco em lead qualificado.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>20 publicações por mês</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+          <article class="plano glass plano-destaque" data-reveal data-delay="1"><span class="plano-badge">Mais contratado</span><h3 class="display">Performance</h3><p class="plano-resumo">As três frentes rodando juntas, com foco em lead qualificado.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>20 publicações por mês</li>
               <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>8 Reels editados</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Stories diários + gestão de direct</li>
               <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Até 3 campanhas simultâneas</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Testes A/B de criativo semanais</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório semanal + reunião mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
-          <article class="plano glass" data-reveal data-delay="2"><h3 class="display">Autoridade</h3><p class="plano-resumo">Operação completa para marcas que querem dominar a categoria e escalar.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Conteúdo sob demanda, sem teto fixo</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Reels, VSL e criativos de campanha</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Funil completo com remarketing</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Landing page dedicada por oferta</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Gestão de verba sem limite de campanhas</li>
-              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Squad dedicado e reunião quinzenal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Landing page de conversão</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Relatório semanal + reunião mensal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
+          <article class="plano glass" data-reveal data-delay="2"><h3 class="display">Autoridade</h3><p class="plano-resumo">Operação completa para dominar a categoria e escalar.</p><ul class="check-list"><li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Conteúdo sob demanda, sem teto fixo</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Site institucional completo</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Funil com remarketing e verba sem limite</li>
+              <li><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Squad dedicado e reunião quinzenal</li></ul><div class="plano-preco"><small>Investimento</small><b>Sob proposta</b></div><a class="btn btn-ghost" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">Solicitar proposta <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg></a></article>
           </div>
 
           <p class="nota" data-reveal>
@@ -2045,8 +2000,8 @@ html {
         </div>
       </section>
 
-      <!-- 07 · RESULTADOS -->
-      <section class="section-pad" id="resultados" style="background: #040405">
+      <!-- 06 · RESULTADOS -->
+      <section class="section-pad" id="resultados">
         <div class="wrap">
           <p class="eyebrow" data-reveal style="margin-bottom: 34px">Resultados</p>
           <h2 class="display h-xl" data-reveal>
@@ -2072,68 +2027,26 @@ html {
               <div class="stat-label">Mais autoridade</div>
             </div>
           </div>
-
-          <div class="compare">
-            <div class="compare-head"><span>Antes da JVI</span><span>Com a JVI</span></div>
-          <div class="compare-row" data-reveal data-delay="0"><span class="compare-antes">Publicar quando sobra tempo</span><span class="compare-depois"><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Calendário editorial cumprido todo mês</span></div>
-          <div class="compare-row" data-reveal data-delay="1"><span class="compare-antes">Impulsionar post no automático</span><span class="compare-depois"><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Campanhas segmentadas por etapa do funil</span></div>
-          <div class="compare-row" data-reveal data-delay="2"><span class="compare-antes">Depender de indicação</span><span class="compare-depois"><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Fluxo previsível de leads todo dia</span></div>
-          <div class="compare-row" data-reveal data-delay="3"><span class="compare-antes">Não saber o custo do cliente</span><span class="compare-depois"><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>CPL, CPA e ROAS acompanhados de perto</span></div>
-          <div class="compare-row" data-reveal data-delay="4"><span class="compare-antes">Marca parecida com todas</span><span class="compare-depois"><span class="check"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="currentColor"><path d="M9.6 16.2 5.4 12l-1.4 1.4 5.6 5.6L20.4 8.2 19 6.8 9.6 16.2z"/></svg></span>Posicionamento claro e reconhecível</span></div>
-          </div>
         </div>
       </section>
 
-      <!-- 08 · EQUIPE -->
-      <section class="equipe" id="equipe">
-        <div class="equipe-media">
-          <img src="/art/equipe-mesa.jpg" loading="lazy"
-            alt="Equipe da Agência JVI reunida em uma mesa preta com iluminação azul" />
-        </div>
-        <div class="equipe-scrim"></div>
-
-        <div class="equipe-content">
-          <div class="wrap">
-            <p class="eyebrow" data-reveal style="justify-content: center; margin-bottom: 28px">
-              Quem executa
-            </p>
-            <h2 class="display h-xl" data-reveal>
-              <span class="reveal-line"><span class="reveal-word">Um time por trás</span></span>
-            <span class="reveal-line"><span class="reveal-word">de cada campanha.</span></span>
-            </h2>
-            <div class="rule"></div>
-            <p class="lead" data-reveal data-delay="1" style="margin: 0 auto">
-              Estrategista, designer, redator e gestor de tráfego trabalhando no mesmo
-              conceito. Você fala com quem executa — sem intermediário e sem resposta pronta.
-            </p>
-            <div class="hero-cta" data-reveal data-delay="2" style="justify-content: center">
-              <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
-                Agendar conversa <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 09 · FAQ -->
-      <section class="section-pad" id="faq">
+      <!-- 07 · FAQ -->
+      <section class="section-pad" id="faq" style="background: #040405">
         <div class="wrap">
           <p class="eyebrow" data-reveal style="margin-bottom: 34px">Perguntas frequentes</p>
           <h2 class="display h-xl" data-reveal><span class="reveal-line"><span class="reveal-word">Antes de fechar.</span></span></h2>
 
           <div class="faq">
-          <div class="faq-item open" data-reveal data-delay="0"><button type="button" class="faq-q" id="faq-btn-0" aria-controls="faq-panel-0" aria-expanded="true"><span>Em quanto tempo eu vejo resultado?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-0" role="region" aria-labelledby="faq-btn-0"><div><p>Tráfego pago costuma trazer os primeiros leads na primeira ou segunda semana de veiculação. Consistência de custo e volume aparece por volta do 30º ao 60º dia, quando os criativos vencedores já foram identificados. Autoridade de marca no social media é construção contínua: os efeitos mais fortes aparecem a partir do terceiro mês.</p></div></div></div>
-          <div class="faq-item" data-reveal data-delay="1"><button type="button" class="faq-q" id="faq-btn-1" aria-controls="faq-panel-1" aria-expanded="false"><span>A verba de anúncio está inclusa no valor do serviço?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1"><div><p>Não. O investimento em mídia é pago diretamente por você às plataformas (Meta e Google) e fica 100% no seu cartão e no seu gerenciador. Nosso valor é a gestão: estratégia, criativo, configuração, otimização e relatório.</p></div></div></div>
-          <div class="faq-item" data-reveal data-delay="2"><button type="button" class="faq-q" id="faq-btn-2" aria-controls="faq-panel-2" aria-expanded="false"><span>Preciso contratar social media e tráfego juntos?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2"><div><p>Não é obrigatório, mas é o que entrega o melhor resultado. O tráfego acelera a demanda e o social media sustenta a confiança de quem chega pelo anúncio. Separados, um empurra e o outro não segura.</p></div></div></div>
-          <div class="faq-item" data-reveal data-delay="3"><button type="button" class="faq-q" id="faq-btn-3" aria-controls="faq-panel-3" aria-expanded="false"><span>De quem são as contas e os dados?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3"><div><p>Sempre seus. Trabalhamos dentro do seu Gerenciador de Negócios, com acesso de parceiro. Se um dia a parceria terminar, campanhas, públicos, pixel e histórico continuam com você.</p></div></div></div>
-          <div class="faq-item" data-reveal data-delay="4"><button type="button" class="faq-q" id="faq-btn-4" aria-controls="faq-panel-4" aria-expanded="false"><span>Vocês atendem qualquer segmento?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4"><div><p>Atendemos negócios locais, serviços, comércio e infoprodutos. Antes de fechar, fazemos um diagnóstico gratuito para confirmar se o seu ticket e a sua operação comercial suportam o volume de leads que vamos gerar. Se não fizer sentido, falamos isso na reunião.</p></div></div></div>
-          <div class="faq-item" data-reveal data-delay="5"><button type="button" class="faq-q" id="faq-btn-5" aria-controls="faq-panel-5" aria-expanded="false"><span>Existe fidelidade de contrato?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5"><div><p>O ciclo mínimo sugerido é de 3 meses — tempo necessário para estruturar, testar e otimizar com honestidade. Não trabalhamos com multa surpresa: as condições ficam claras na proposta.</p></div></div></div>
+          <div class="faq-item open" data-reveal data-delay="0"><button type="button" class="faq-q" id="faq-btn-0" aria-controls="faq-panel-0" aria-expanded="true"><span>Em quanto tempo eu vejo resultado?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-0" role="region" aria-labelledby="faq-btn-0"><div><p>Tráfego pago costuma trazer os primeiros leads na primeira ou segunda semana. Consistência de custo aparece entre o 30º e o 60º dia, quando os criativos vencedores já foram identificados. Um site novo entra no ar em 2 a 4 semanas, dependendo do escopo.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="1"><button type="button" class="faq-q" id="faq-btn-1" aria-controls="faq-panel-1" aria-expanded="false"><span>A verba de anúncio está inclusa no valor?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1"><div><p>Não. O investimento em mídia é pago por você diretamente às plataformas (Meta e Google) e fica 100% no seu cartão e no seu gerenciador. Nosso valor cobre estratégia, criação, gestão e relatório.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="2"><button type="button" class="faq-q" id="faq-btn-2" aria-controls="faq-panel-2" aria-expanded="false"><span>De quem são as contas, os dados e o site?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2"><div><p>Sempre seus. Trabalhamos dentro do seu Gerenciador de Negócios, com acesso de parceiro, e o site é registrado no seu domínio. Se a parceria terminar, tudo continua com você.</p></div></div></div>
+          <div class="faq-item" data-reveal data-delay="3"><button type="button" class="faq-q" id="faq-btn-3" aria-controls="faq-panel-3" aria-expanded="false"><span>Existe fidelidade de contrato?</span><span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/></svg></span></button><div class="faq-a" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3"><div><p>O ciclo mínimo sugerido é de 3 meses — o tempo de estruturar, testar e otimizar com honestidade. Sem multa surpresa: as condições ficam claras na proposta.</p></div></div></div>
           </div>
         </div>
       </section>
 
-      <!-- 10 · CONTATO -->
-      <section class="section-pad" id="contato" style="background: #040405">
+      <!-- 08 · CONTATO -->
+      <section class="section-pad" id="contato">
         <div class="wrap">
           <p class="eyebrow" data-reveal style="margin-bottom: 34px">Próximo passo</p>
           <h2 class="display h-xl" data-reveal>
@@ -2162,16 +2075,16 @@ html {
             <div class="cta-panel glass" data-reveal data-delay="1">
               <h3 class="display h-lg" style="margin: 0">Diagnóstico gratuito</h3>
               <p class="lead" style="margin-top: 16px; font-size: 1rem">
-                Em 30 minutos analisamos seu perfil, seus anúncios e sua concorrência — e
-                mostramos, na prática, o que precisa mudar para o seu negócio vender mais
-                online. Sem compromisso.
+                Em 30 minutos analisamos seu perfil, seus anúncios e seu site — e mostramos, na
+                prática, o que precisa mudar para o seu negócio vender mais online. Sem
+                compromisso.
               </p>
               <ol class="passos">
                 <li>Conversa de diagnóstico</li>
                 <li>Proposta com escopo e investimento</li>
                 <li>Kickoff e campanhas no ar</li>
               </ol>
-              <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
+              <a class="btn" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer">
                 Falar no WhatsApp <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M13.2 4.6 20.6 12l-7.4 7.4-1.4-1.4 5-5H3.4v-2h13.4l-5-5 1.4-1.4z"/></svg>
               </a>
             </div>
@@ -2186,12 +2099,12 @@ html {
           <img class="logo-img" src="/art/marca-jvi.png" alt="" aria-hidden="true" />
           <span class="logo-word">Agência JVI</span>
         </a>
-        <span>© <span id="ano">2026</span> Agência JVI — Social Media &amp; Tráfego Pago</span>
+        <span>© <span id="ano">2026</span> Agência JVI — Tráfego pago, sites e social media</span>
         <span>Recife · PE · Brasil</span>
       </div>
     </footer>
 
-    <a class="wa-float" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20social%20media%20e%20tr%C3%A1fego%20pago%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer"
+    <a class="wa-float" href="https://wa.me/5581995757305?text=Ol%C3%A1%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20comercial%20e%20quero%20falar%20com%20a%20Ag%C3%AAncia%20JVI" target="_blank" rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.2 1.3-2 1.4-.5.1-1.2.2-3.5-.7-2.9-1.2-4.8-4.2-5-4.4-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.3.3c-.1.1-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 .9c.2.1.4.2.4.3.1.2.1.7-.1 1.4z"/></svg></a>
 
     <div class="vignette" aria-hidden="true"></div>
