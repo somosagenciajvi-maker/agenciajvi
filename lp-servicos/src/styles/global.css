@@ -302,47 +302,63 @@ ul {
   transition: color 0.45s ease, border-color 0.45s ease;
 }
 
+/* A cortina branca do hover fica ATRÁS do conteúdo, nunca por cima.
+   `isolation` prende o z-index negativo dentro do botão, então a cortina
+   passa acima do fundo azul e abaixo do texto. Sem isso ela cobria o
+   rótulo — que é um nó de texto solto e, ao contrário do <svg>, não pode
+   receber z-index — e o botão ficava branco e vazio ao passar o mouse. */
+.btn {
+  isolation: isolate;
+}
+
 .btn::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: -1;
   background: #fff;
   transform: scaleY(0);
   transform-origin: bottom;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn > *,
-.btn svg {
-  position: relative;
-  z-index: 1;
-}
-
-.btn:hover {
-  color: var(--blue);
-}
-
-.btn:hover::after {
-  transform: scaleY(1);
-}
-
 .btn svg {
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn:hover svg {
-  transform: translateX(5px);
+/* Só onde existe ponteiro de verdade. No celular o toque dispara :hover e
+   ele fica grudado depois do tap: o botão continuaria branco até a pessoa
+   tocar em outro lugar. */
+@media (hover: hover) {
+  .btn:hover {
+    color: var(--blue);
+  }
+
+  .btn:hover::after {
+    transform: scaleY(1);
+  }
+
+  .btn:hover svg {
+    transform: translateX(5px);
+  }
+
+  .btn-ghost:hover {
+    color: var(--ink);
+    border-color: #fff;
+  }
+}
+
+/* no toque, o retorno é o próprio afundar do botão */
+@media (hover: none) {
+  .btn:active {
+    transform: scale(0.985);
+  }
 }
 
 .btn-ghost {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.22);
   color: #fff;
-}
-
-.btn-ghost:hover {
-  color: var(--ink);
-  border-color: #fff;
 }
 
 .btn-sm {
@@ -595,8 +611,10 @@ ul {
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hero-line:hover::before {
-  transform: scaleX(1);
+@media (hover: hover) {
+  .hero-line:hover::before {
+    transform: scaleX(1);
+  }
 }
 
 .hero-line:hover {
