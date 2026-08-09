@@ -115,6 +115,53 @@ dd {
   position: relative;
   padding: var(--pad-y) 0;
   border-top: 1px solid var(--line-2);
+  isolation: isolate;
+}
+
+/* ---------- halo de fundo ----------
+   mancha azul desfocada atrás de algumas seções: é o que dá a
+   atmosfera das artes da JVI sem sujar a leitura do texto */
+.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: min(78vw, 900px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(10, 92, 255, 0.2), transparent 62%);
+}
+
+/* o halo alterna de lado a cada capítulo — cada seção é filha única do
+   seu capítulo, então quem conta é a posição do capítulo em <main> */
+.capitulo:nth-child(odd) .section::before {
+  left: -22%;
+  top: 4%;
+}
+
+.capitulo:nth-child(even) .section::before {
+  right: -22%;
+  bottom: 2%;
+}
+
+.section-light::before,
+.section-sem-halo::before {
+  display: none;
+}
+
+/* ---------- capítulos ---------- */
+.capitulo {
+  position: relative;
+  background: var(--ink);
+  transform-origin: 50% 40%;
+}
+
+.capitulo-veu {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: #000;
+  pointer-events: none;
 }
 
 .split {
@@ -234,7 +281,6 @@ dd {
 
 .line-inner {
   display: inline-block;
-  will-change: transform;
 }
 
 .hairline {
@@ -371,16 +417,31 @@ dd {
   gap: 11px;
 }
 
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  background: var(--blue);
+/* ---------- marca vetorial ---------- */
+.logo-barra {
+  fill: var(--blue);
+}
+
+.logo-letra {
+  fill: #fff;
   font-family: var(--display);
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  color: #fff;
+  font-size: 26px;
+  letter-spacing: 0.01em;
+}
+
+.logo-seta {
+  stroke: var(--blue);
+}
+
+.logo-seta-ponta {
+  fill: var(--blue);
+}
+
+.logo-mark {
+  width: auto;
+  height: 34px;
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(10, 92, 255, 0.55));
 }
 
 .logo-word {
@@ -474,8 +535,38 @@ dd {
   aspect-ratio: 1;
   left: -14%;
   bottom: -26%;
-  background: radial-gradient(circle, rgba(10, 92, 255, 0.28), transparent 62%);
+  background: radial-gradient(circle, rgba(10, 92, 255, 0.32), transparent 62%);
   pointer-events: none;
+}
+
+/* ---------- a marca em tamanho de parede ---------- */
+.hero-marca {
+  position: absolute;
+  z-index: 1;
+  right: -8%;
+  top: 14%;
+  width: min(52vw, 420px);
+  pointer-events: none;
+  filter: drop-shadow(0 0 90px rgba(10, 92, 255, 0.65));
+}
+
+.hero-marca svg {
+  width: 100%;
+  height: auto;
+}
+
+/* dentro da marca gigante as letras somem: só a arquitetura da marca
+   — barras e seta — fica legível nesse tamanho */
+.hero-marca .logo-letra {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .hero-marca {
+    right: 3%;
+    top: 12%;
+    width: min(34vw, 470px);
+  }
 }
 
 .hero-inner {

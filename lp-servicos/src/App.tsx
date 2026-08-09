@@ -4,6 +4,7 @@ import {
   LazyMotion,
   domAnimation,
   m,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -11,6 +12,7 @@ import {
 import { useSmoothScroll } from './components/useSmoothScroll'
 import { EASE, Hairline, LineReveal, Rise } from './components/motion'
 import { AdsMock, FeedMock, PageMock, SistemaDiagrama } from './components/visuals'
+import { Logo, LogoMark } from './components/Logo'
 import {
   ArrowIcon,
   InstagramIcon,
@@ -60,10 +62,7 @@ function Nav() {
   return (
     <header className={`nav${solid ? ' is-solid' : ''}${hidden ? ' is-hidden' : ''}`}>
       <div className="wrap nav-inner">
-        <a className="logo" href="#topo" aria-label="Agência JVI — início">
-          <span className="logo-mark">JVI</span>
-          <span className="logo-word">Agência</span>
-        </a>
+        <Logo />
 
         <nav className="nav-links" aria-label="Navegação principal">
           {NAV_LINKS.map((l) => (
@@ -89,6 +88,7 @@ function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '-12%'])
   const fade = useTransform(scrollYProgress, [0, 0.85], [1, 0])
+  const marcaY = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
 
   return (
     <section className="hero" id="topo" ref={ref}>
@@ -100,6 +100,18 @@ function Hero() {
         <span />
       </div>
       <div className="hero-glow" aria-hidden="true" />
+
+      {/* a marca em tamanho de parede atrás do título */}
+      <m.div
+        className="hero-marca"
+        aria-hidden="true"
+        initial={{ opacity: 0, scale: 1.14 }}
+        animate={{ opacity: 0.13, scale: 1 }}
+        transition={{ duration: 2, ease: EASE, delay: 0.15 }}
+        style={{ y: marcaY }}
+      >
+        <LogoMark />
+      </m.div>
 
       <m.div className="wrap hero-inner" style={{ y, opacity: fade }}>
         <m.p
@@ -170,6 +182,34 @@ function Hero() {
         </m.dl>
       </m.div>
     </section>
+  )
+}
+
+/* ================================================================
+   CAPÍTULO — a seção que sai recua e escurece enquanto a próxima
+   chega inteira por cima. O recuo é para o centro, então o que
+   aparece nas bordas é o próprio preto da página: nenhuma fresta.
+================================================================ */
+function Capitulo({ children, z }: { children: React.ReactNode; z: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const semMovimento = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['end end', 'end start'] })
+  const escala = useTransform(scrollYProgress, [0, 1], [1, 0.93])
+  const veu = useTransform(scrollYProgress, [0, 1], [0, 0.82])
+
+  if (semMovimento) {
+    return (
+      <div className="capitulo" style={{ zIndex: z }}>
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <m.div className="capitulo" ref={ref} style={{ zIndex: z, scale: escala }}>
+      {children}
+      <m.div className="capitulo-veu" style={{ opacity: veu }} aria-hidden="true" />
+    </m.div>
   )
 }
 
@@ -631,10 +671,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="wrap footer-inner">
-        <a className="logo" href="#topo" aria-label="Agência JVI">
-          <span className="logo-mark">JVI</span>
-          <span className="logo-word">Agência</span>
-        </a>
+        <Logo />
         <span>© {new Date().getFullYear()} Agência JVI — Do boca a boca ao digital</span>
         <span>{CONTATO.praca}</span>
       </div>
@@ -661,16 +698,22 @@ export default function App() {
 
       <main>
         <Hero />
-        <Diagnostico />
-        <Sistema />
-        {SERVICOS.map((s, i) => (
-          <ServicoBloco key={s.id} s={s} visual={visuais[i]} flip={i % 2 === 1} />
+        {[
+          <Diagnostico key="diagnostico" />,
+          <Sistema key="sistema" />,
+          ...SERVICOS.map((s, i) => (
+            <ServicoBloco key={s.id} s={s} visual={visuais[i]} flip={i % 2 === 1} />
+          )),
+          <Metodo key="metodo" />,
+          <Principios key="principios" />,
+          <Jvi key="jvi" />,
+          <Faq key="faq" />,
+          <Contato key="contato" />,
+        ].map((secao, i) => (
+          <Capitulo key={secao.key} z={i + 1}>
+            {secao}
+          </Capitulo>
         ))}
-        <Metodo />
-        <Principios />
-        <Jvi />
-        <Faq />
-        <Contato />
       </main>
 
       <Footer />
