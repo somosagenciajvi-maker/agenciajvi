@@ -93,13 +93,13 @@ export const SERVICOS: Servico[] = [
   {
     id: 'social-media',
     index: '03',
-    nome: 'Social Media',
+    nome: 'Social Mídia',
     papel: 'Autoridade',
     titulo: 'Presença que\nconstrói autoridade\ntodo dia.',
     problema:
       'Postar por postar não constrói marca. Sem narrativa e sem ritmo, o perfil vira mural de avisos — e quem chega pelo anúncio não encontra motivo para confiar.',
     texto:
-      'O social media sustenta as outras duas frentes. É onde a pessoa confere se a marca é real antes de comprar, e onde a sua marca deixa de ser mais uma opção para virar a escolha óbvia dentro da categoria.',
+      'Essa é a frente que sustenta as outras duas. É onde a pessoa confere se a marca é real antes de comprar, e onde a sua marca deixa de ser mais uma opção para virar a escolha óbvia dentro da categoria.',
     entra: [
       'Linha editorial: o que a marca fala, com quem fala e o que ela nunca fala',
       'Direção de arte aplicada — feed que se reconhece antes de ler o @',
@@ -115,14 +115,14 @@ export const SERVICOS: Servico[] = [
       'Relatório com o que repetir e o que aposentar',
     ],
     cta: 'Quero minha marca no ar',
-    wa: wa('Olá, quero social media com a Agência JVI'),
+    wa: wa('Olá, quero social mídia com a Agência JVI'),
   },
 ]
 
 export const SISTEMA = [
   {
     n: '01',
-    nome: 'Social Media',
+    nome: 'Social Mídia',
     papel: 'Autoridade',
     texto: 'Constrói a confiança que o anúncio sozinho não compra.',
   },
@@ -219,7 +219,7 @@ export const FAQ = [
   },
   {
     p: 'Em quanto tempo eu vejo resultado?',
-    r: 'Depende da frente. Tráfego pago dá sinal nos primeiros dias — sinal, não venda garantida. Landing page muda a taxa de conversão assim que entra no ar. Social media é construção: aparece na constância, não na primeira semana. Quem promete data exata está chutando.',
+    r: 'Depende da frente. Tráfego pago dá sinal nos primeiros dias — sinal, não venda garantida. Landing page muda a taxa de conversão assim que entra no ar. Social mídia é construção: aparece na constância, não na primeira semana. Quem promete data exata está chutando.',
   },
   {
     p: 'Vocês atendem fora de Recife?',

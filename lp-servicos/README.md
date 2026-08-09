@@ -1,7 +1,7 @@
 # Agência JVI — LP de Serviços
 
 Landing page de apresentação das três frentes de serviço: **criação de landing
-page**, **tráfego pago** e **social media**.
+page**, **tráfego pago** e **social mídia**.
 
 Projeto independente do site principal (que fica na raiz do repositório): tem
 o próprio `package.json`, o próprio build e pode ser publicado sozinho, em

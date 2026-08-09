@@ -123,7 +123,7 @@ function Hero() {
           Agência JVI — Recife, PE
         </m.p>
 
-        <h1 className="hero-title" aria-label="Landing page, tráfego pago e social media.">
+        <h1 className="hero-title" aria-label="Landing page, tráfego pago e social mídia.">
           {SERVICOS.map((s, i) => (
             <a className="hero-line" href={`#${s.id}`} key={s.id} aria-hidden="true">
               <span className="hero-idx">{s.index}</span>

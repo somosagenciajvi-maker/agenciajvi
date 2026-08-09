@@ -74,12 +74,12 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#070709">
-<title>Agência JVI — Landing Page, Tráfego Pago e Social Media</title>
-<meta name="description" content="As três frentes que tiram a sua marca da dependência do boca a boca: landing pages que convertem, tráfego pago gerido com dados e social media que constrói autoridade. Agência JVI, Recife/PE.">
+<title>Agência JVI — Landing Page, Tráfego Pago e Social Mídia</title>
+<meta name="description" content="As três frentes que tiram a sua marca da dependência do boca a boca: landing pages que convertem, tráfego pago gerido com dados e social mídia que constrói autoridade. Agência JVI, Recife/PE.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Agência JVI">
-<meta property="og:title" content="Agência JVI — Landing Page, Tráfego Pago e Social Media">
+<meta property="og:title" content="Agência JVI — Landing Page, Tráfego Pago e Social Mídia">
 <meta property="og:description" content="Três frentes, um sistema de vendas. Do boca a boca ao digital.">
 <link rel="icon" href="data:image/svg+xml;base64,${favicon}">
 <style>${fontes}</style>

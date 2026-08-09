@@ -207,7 +207,7 @@ export function SistemaDiagrama() {
       className="diagrama"
       viewBox="0 0 720 320"
       role="img"
-      aria-label="Diagrama: social media constrói autoridade, tráfego pago gera demanda e a landing page converte, alimentando o ciclo de volta."
+      aria-label="Diagrama: social mídia constrói autoridade, tráfego pago gera demanda e a landing page converte, alimentando o ciclo de volta."
     >
       <defs>
         <marker id="seta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
