@@ -146,7 +146,7 @@ export function AdsMock() {
           viewport={viewport}
           transition={{ duration: 0.8, ease: EASE, delay: 0.8 }}
         >
-          A verba não fica parada esperando o fim do mês.
+          A verba não espera o fim do mês.
         </m.p>
       </div>
     </div>

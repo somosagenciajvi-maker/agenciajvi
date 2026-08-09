@@ -46,15 +46,15 @@ export const SERVICOS: Servico[] = [
     papel: 'Conversão',
     titulo: 'A página que\ntransforma clique\nem conversa.',
     problema:
-      'O anúncio está bom, o clique acontece — e a pessoa cai num perfil sem link ou num site institucional de 2015. O dinheiro foi gasto antes da conversa começar.',
+      'O anúncio está bom, o clique acontece, e a pessoa cai num perfil sem link ou num site institucional de 2015. O dinheiro foi gasto antes da conversa começar.',
     texto:
       'Uma landing page conduz quem chegou até a próxima ação: uma oferta, um argumento, um caminho.',
     entra: [
       'Diagnóstico da oferta e do público antes da primeira linha de código',
       'Copy e arquitetura de argumento: o que vem primeiro, o que vem depois e por quê',
-      'Direção de arte exclusiva, desenhada para a sua marca — nada de tema comprado',
-      'Desenvolvimento próprio: carrega rápido e funciona no celular real, não no print',
-      'Rastreamento desde o primeiro dia — Pixel da Meta, GA4 e evento de conversão',
+      'Direção de arte exclusiva. Nada de tema comprado e recolorido',
+      'Desenvolvimento próprio: abre rápido no 4G e é testado no celular, não no print',
+      'Rastreamento no ar desde o primeiro dia: Pixel da Meta, GA4 e evento de conversão',
     ],
     recebe: [
       'Página publicada no seu domínio',
@@ -74,21 +74,20 @@ export const SERVICOS: Servico[] = [
     problema:
       'Impulsionar publicação não é tráfego pago. Sem estrutura de campanha, público definido e criativo testado, o anúncio vira aluguel de alcance: parou de pagar, sumiu.',
     texto:
-      'É a única frente que coloca a sua marca na frente de quem ainda não te conhece — hoje, no volume que você decidir.',
+      'É a única frente que coloca a sua marca na frente de quem ainda não te conhece. Hoje, no volume que você decidir.',
     entra: [
       'Estruturação da conta e das campanhas no Meta Ads e no Google Ads',
       'Pesquisa de público: quem já te conhece e quem nunca ouviu falar',
       'Criativos com roteiro, edição e variações para teste',
       'Gestão contínua: ajuste de rota durante o mês, não só no fim',
-      'Relatório com leitura — o que aconteceu e o que muda no próximo ciclo',
+      'Relatório com leitura: o que aconteceu e o que muda no ciclo seguinte',
     ],
     recebe: [
       'Conta de anúncios estruturada e no seu nome',
       'Campanhas separadas por objetivo e por público',
       'Leads chegando com origem identificada',
-      'Relatório que você entende sem tradutor',
     ],
-    cta: 'Quero anunciar com estratégia',
+    cta: 'Quero anunciar com estrutura',
     wa: wa('Olá, quero gestão de tráfego pago com a Agência JVI'),
   },
   {
@@ -96,14 +95,14 @@ export const SERVICOS: Servico[] = [
     index: '03',
     nome: 'Social Mídia',
     papel: 'Autoridade',
-    titulo: 'Presença que\nconstrói autoridade\ntodo dia.',
+    titulo: 'Quem chega pelo\nanúncio olha o\nperfil primeiro.',
     problema:
-      'Postar por postar não constrói marca. Sem narrativa e sem ritmo, o perfil vira mural de avisos — e quem chega pelo anúncio não encontra motivo para confiar.',
+      'Postar por postar não constrói marca. Sem narrativa e sem ritmo o perfil vira mural de avisos, e quem chega pelo anúncio não encontra motivo para confiar.',
     texto:
-      'É onde a pessoa confere se a marca é real antes de comprar, e onde a sua deixa de ser mais uma opção.',
+      'É onde a pessoa confere se a marca é real antes de comprar.',
     entra: [
       'Linha editorial: o que a marca fala, com quem fala e o que ela nunca fala',
-      'Direção de arte aplicada — feed que se reconhece antes de ler o @',
+      'Direção de arte aplicada: dá para reconhecer o feed antes de ler o @',
       'Roteiro e direção de gravação: você grava, a gente conduz. E edita.',
       'Grade de publicação com ritmo definido e combinado com você',
       'Leitura de desempenho e aposentadoria do que não engaja',
@@ -112,9 +111,8 @@ export const SERVICOS: Servico[] = [
       'Calendário aprovado antes de ir ao ar',
       'Peças entregues prontas para publicar',
       'Perfil organizado: bio, destaques e link',
-      'Relatório com o que repetir e o que aposentar',
     ],
-    cta: 'Quero minha marca no ar',
+    cta: 'Quero o perfil no ritmo',
     wa: wa('Olá, quero social mídia com a Agência JVI'),
   },
 ]

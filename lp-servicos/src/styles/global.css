@@ -11,15 +11,19 @@
   --ink-3: #101014;
   --bone: #f1ede6;
   --bone-2: #e7e2d9;
-  --bone-ink: #0a0a0c;
-  --bone-line: rgba(10, 10, 12, 0.14);
+  /* tinta quente sobre papel, tinta fria sobre preto: o cinza nunca é neutro */
+  --bone-ink: #14110b;
+  --bone-mute: rgba(28, 22, 12, 0.54);
+  --bone-mute-2: rgba(28, 22, 12, 0.42);
+  --bone-line: rgba(28, 22, 12, 0.16);
   --blue: #0a5cff;
   --blue-lo: rgba(10, 92, 255, 0.14);
   --white: #ffffff;
-  --muted: rgba(255, 255, 255, 0.54);
-  --muted-2: rgba(255, 255, 255, 0.38);
-  --line: rgba(255, 255, 255, 0.11);
-  --line-2: rgba(255, 255, 255, 0.055);
+  /* cinzas puxados para o azul da marca — cinza puro é cor de ninguém */
+  --muted: rgba(206, 217, 240, 0.56);
+  --muted-2: rgba(192, 206, 235, 0.4);
+  --line: rgba(186, 202, 236, 0.13);
+  --line-2: rgba(186, 202, 236, 0.07);
 
   --display: 'Anton', 'Oswald', Impact, 'Arial Narrow', sans-serif;
   --cond: 'Oswald', 'Inter', sans-serif;
@@ -76,9 +80,23 @@ ul {
   color: #fff;
 }
 
+/* foco de teclado que se vê nos três fundos da página: um anel branco
+   por fora do azul. Só azul sobre o botão azul não aparece. */
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 4px;
+}
+
+.btn:focus-visible,
+.hero-line:focus-visible,
+.wa-float:focus-visible {
+  outline-color: #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(10, 92, 255, 0.55);
+}
+
+.servico.is-claro :focus-visible {
+  outline-color: var(--blue);
 }
 
 .grain {
@@ -151,11 +169,14 @@ ul {
 /* ================================================================
    TIPOGRAFIA
 ================================================================ */
+/* rótulo: line-height 1 faz a caixa abraçar as maiúsculas, e só assim o
+   filete alinha opticamente com o meio da letra, não com o meio da linha */
 .tag {
   margin: 0;
   font-family: var(--cond);
   font-weight: 500;
   font-size: 11px;
+  line-height: 1;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--muted);
@@ -169,7 +190,9 @@ ul {
   width: 22px;
   height: 1px;
   flex: 0 0 auto;
-  background: var(--blue);
+  background: currentColor;
+  opacity: 0.5;
+  transform: translateY(0.5px);
 }
 
 .eyebrow {
@@ -177,6 +200,7 @@ ul {
   font-family: var(--cond);
   font-weight: 400;
   font-size: clamp(11px, 1vw, 13px);
+  line-height: 1;
   letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--muted);
@@ -192,21 +216,37 @@ ul {
   background: var(--blue);
 }
 
+/* Anton em corpo grande pede entrelinha fechada e tracking negativo:
+   sem isso o título fica com cara de placeholder de template. */
 .display {
   margin: 0;
   font-family: var(--display);
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.004em;
+  line-height: 0.85;
+  letter-spacing: -0.018em;
 }
 
 .h-xl {
-  font-size: clamp(2.6rem, 7vw, 6.4rem);
+  font-size: clamp(2.7rem, 7.4vw, 6.8rem);
 }
 
+/* peso do capítulo: 01 abre grande, 02 fala no corpo do texto,
+   03 volta a subir. As três frentes não pesam o mesmo. */
 .h-lg {
-  font-size: clamp(2.1rem, 5.2vw, 4.6rem);
+  font-size: var(--h-svc, clamp(2.1rem, 5.2vw, 4.6rem));
+}
+
+#landing-page {
+  --h-svc: clamp(2.3rem, 6vw, 5.5rem);
+}
+
+#trafego-pago {
+  --h-svc: clamp(2rem, 4.6vw, 4.05rem);
+}
+
+#social-media {
+  --h-svc: clamp(2.15rem, 5.4vw, 4.9rem);
 }
 
 .h-sm {
@@ -223,7 +263,7 @@ ul {
 }
 
 .lead-lg {
-  margin-top: clamp(20px, 2.6vw, 30px);
+  margin-top: clamp(14px, 1.6vw, 19px);
   font-size: clamp(1.05rem, 1.45vw, 1.28rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.76);
@@ -516,13 +556,14 @@ ul {
 }
 
 .hero-title {
+  --fs: clamp(2.4rem, 8.2vw, 7.6rem);
   margin: 0;
   font-family: var(--display);
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: -0.006em;
-  font-size: clamp(2.4rem, 8.2vw, 7.6rem);
+  line-height: 0.85;
+  letter-spacing: -0.022em;
+  font-size: var(--fs);
 }
 
 .hero-line {
@@ -562,13 +603,16 @@ ul {
   padding-left: calc(var(--pad) + clamp(8px, 1.4vw, 22px));
 }
 
+/* o rótulo pequeno alinha com o topo da maiúscula do Anton, não com o
+   topo da caixa de linha — é isso que faz o filete parecer desenhado */
 .hero-idx {
   font-family: var(--cond);
   font-weight: 500;
   font-size: clamp(10px, 0.95vw, 12px);
+  line-height: 1;
   letter-spacing: 0.24em;
   color: var(--blue);
-  padding-top: clamp(8px, 1.1vw, 16px);
+  margin-top: calc(var(--fs) * -0.055);
   transition: color 0.5s ease;
 }
 
@@ -590,10 +634,11 @@ ul {
     font-family: var(--cond);
     font-weight: 400;
     font-size: 11px;
+    line-height: 1;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--muted-2);
-    padding-top: clamp(8px, 1.1vw, 16px);
+    margin-top: calc(var(--fs) * -0.055);
     transition: color 0.5s ease;
   }
 
@@ -730,9 +775,23 @@ ul {
     top: 108px;
   }
 
+  /* o filete do capítulo cresce a cada frente, como a barra da marca:
+     01 curto, 02 médio, 03 longo. A página inteira sobe. */
   .svc-rule {
     width: 46px;
     margin: 20px 0 18px;
+  }
+
+  #landing-page .svc-rule {
+    width: 30px;
+  }
+
+  #trafego-pago .svc-rule {
+    width: 52px;
+  }
+
+  #social-media .svc-rule {
+    width: 74px;
   }
 
   .svc-name,
@@ -745,14 +804,16 @@ ul {
   }
 }
 
+/* hierarquia de distância: o problema afasta-se do título (é outro
+   assunto) e a resposta gruda no problema (é a réplica dele) */
 .problema {
-  margin-top: clamp(24px, 3.2vw, 38px);
+  margin-top: clamp(30px, 4.4vw, 58px);
   padding-left: clamp(16px, 2vw, 26px);
-  border-left: 1px solid var(--blue);
+  border-left: 2px solid var(--blue);
 }
 
 .problema .tag {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .problema .tag::before {
@@ -778,8 +839,19 @@ ul {
 }
 
 @media (min-width: 1000px) {
-  .servico-corpo {
-    grid-template-columns: 1fr 1fr;
+  /* três composições diferentes: a peça manda em 01, o texto manda em 02,
+     e em 03 o feed encolhe porque a arte já é densa. Metade-metade nas
+     três seria a assinatura de um gerador. */
+  #landing-page .servico-corpo {
+    grid-template-columns: 1.12fr 0.88fr;
+  }
+
+  #trafego-pago .servico-corpo {
+    grid-template-columns: 1fr 1.04fr;
+  }
+
+  #social-media .servico-corpo {
+    grid-template-columns: 0.8fr 1.2fr;
   }
 
   /* o capítulo claro espelha o layout: o olho percebe a virada */
@@ -793,63 +865,74 @@ ul {
   }
 }
 
+/* o rótulo gruda na sua lista (11px), a lista se afasta do próximo
+   assunto (clamp) — mesma distância para tudo é o que denuncia máquina */
 .escopo-lista {
-  margin: 20px 0 clamp(34px, 4.4vw, 52px);
+  margin: 11px 0 clamp(38px, 5vw, 58px);
   border-top: 1px solid var(--line-2);
 }
 
 .escopo-lista li {
   display: grid;
   grid-template-columns: 34px 1fr;
+  align-items: baseline;
   gap: 10px;
   padding: 15px 0;
   border-bottom: 1px solid var(--line-2);
   font-weight: 300;
   font-size: 0.97rem;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(226, 232, 245, 0.76);
 }
 
+/* baseline do número casa com a primeira linha do item: sem padding mágico */
 .escopo-num {
   font-family: var(--cond);
   font-size: 11px;
   letter-spacing: 0.14em;
-  color: var(--blue);
-  padding-top: 4px;
+  color: var(--muted-2);
 }
 
+/* "Você recebe" era uma grade de caixas idênticas — o móvel padrão de
+   template. Vira lista com filete e o marcador é a própria marca:
+   três barras que sobem, a última em azul. */
 .recebe-lista {
   display: grid;
-  gap: 1px;
-  margin: 20px 0 clamp(30px, 3.6vw, 44px);
-  background: var(--line-2);
-  border: 1px solid var(--line-2);
+  margin: 11px 0 clamp(32px, 4vw, 46px);
+  border-top: 1px solid var(--line-2);
 }
 
-@media (min-width: 560px) {
+@media (min-width: 620px) {
   .recebe-lista {
     grid-template-columns: 1fr 1fr;
+    column-gap: clamp(20px, 2.4vw, 34px);
   }
 }
 
 .recebe-lista li {
-  position: relative;
-  background: var(--ink-2);
-  padding: 17px 20px 17px 38px;
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  align-items: baseline;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line-2);
   font-weight: 300;
   font-size: 0.9rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.5;
+  color: rgba(226, 232, 245, 0.82);
 }
 
 .recebe-lista li::before {
   content: '';
-  position: absolute;
-  left: 20px;
-  top: 25px;
-  width: 8px;
-  height: 1px;
-  background: var(--blue);
+  width: 13px;
+  height: 10px;
+  background-image: linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor), linear-gradient(var(--blue), var(--blue));
+  background-size: 3px 4px, 3px 7px, 3px 10px;
+  background-position: 0 100%, 5px 100%, 10px 100%;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  align-self: baseline;
 }
 
 /* ---------- o capítulo sobre papel ---------- */
@@ -864,33 +947,27 @@ ul {
 }
 
 .servico.is-claro .tag,
-.servico.is-claro .svc-role {
-  color: rgba(10, 10, 12, 0.5);
+.servico.is-claro .svc-role,
+.servico.is-claro .escopo-num {
+  color: var(--bone-mute);
 }
 
 .servico.is-claro .lead {
-  color: rgba(10, 10, 12, 0.66);
+  color: rgba(20, 17, 11, 0.68);
 }
 
 .servico.is-claro .svc-rule,
 .servico.is-claro .servico-corpo,
 .servico.is-claro .escopo-lista,
-.servico.is-claro .escopo-lista li {
-  border-color: var(--bone-line);
-}
-
-.servico.is-claro .escopo-lista li {
-  color: rgba(10, 10, 12, 0.74);
-}
-
-.servico.is-claro .recebe-lista {
-  background: var(--bone-line);
-  border-color: var(--bone-line);
-}
-
+.servico.is-claro .escopo-lista li,
+.servico.is-claro .recebe-lista,
 .servico.is-claro .recebe-lista li {
-  background: var(--bone-2);
-  color: rgba(10, 10, 12, 0.8);
+  border-color: var(--bone-line);
+}
+
+.servico.is-claro .escopo-lista li,
+.servico.is-claro .recebe-lista li {
+  color: rgba(20, 17, 11, 0.78);
 }
 
 /* ================================================================
@@ -904,8 +981,8 @@ ul {
 }
 
 .servico.is-claro .mock {
-  border-color: rgba(10, 10, 12, 0.9);
-  box-shadow: 0 30px 70px rgba(10, 10, 12, 0.22);
+  border-color: var(--bone-ink);
+  box-shadow: 0 30px 70px rgba(28, 22, 12, 0.24);
 }
 
 .mock-chrome {
@@ -1064,7 +1141,7 @@ ul {
 .mock-note-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--blue));
+  background: linear-gradient(90deg, transparent, rgba(206, 217, 240, 0.45));
 }
 
 /* --- disputa de verba --- */
@@ -1234,19 +1311,34 @@ ul {
   background: var(--ink-3);
 }
 
+/* o ícone não decide nada: fica em cinza e só acende quando o dedo
+   chega nele. Azul aceso em três chips o dia inteiro é azul gasto. */
 .canal-icon {
   flex: 0 0 auto;
   width: 40px;
   height: 40px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(10, 92, 255, 0.5);
-  background: var(--blue-lo);
+  border: 1px solid var(--line);
+  background: transparent;
+  transition: border-color 0.4s ease, background 0.4s ease;
 }
 
 .canal-icon svg {
   width: 17px;
   height: 17px;
+  fill: var(--muted);
+  transition: fill 0.4s ease;
+}
+
+.canal:hover .canal-icon,
+.canal:focus-visible .canal-icon {
+  border-color: rgba(10, 92, 255, 0.55);
+  background: var(--blue-lo);
+}
+
+.canal:hover .canal-icon svg,
+.canal:focus-visible .canal-icon svg {
   fill: var(--blue);
 }
 
@@ -1281,22 +1373,26 @@ ul {
   color: var(--blue);
 }
 
+/* era um cartão de vidro com degradê — o móvel de série de qualquer
+   template. Vira ficha: chapa lisa, filete e uma barra azul no topo,
+   que é o único lugar do fechamento onde o azul decide alguma coisa. */
 .orcamento {
   position: relative;
   overflow: hidden;
   padding: clamp(28px, 3.4vw, 44px);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  border-top: 3px solid var(--blue);
+  background: var(--ink-2);
 }
 
 .orcamento::before {
   content: '';
   position: absolute;
-  width: 340px;
-  height: 340px;
-  right: -150px;
-  top: -170px;
-  background: radial-gradient(circle, rgba(10, 92, 255, 0.5), transparent 65%);
+  width: 300px;
+  height: 300px;
+  right: -140px;
+  top: -160px;
+  background: radial-gradient(circle, rgba(10, 92, 255, 0.34), transparent 65%);
   pointer-events: none;
 }
 
@@ -1377,6 +1473,20 @@ ul {
   width: 26px;
   height: 26px;
   fill: #fff;
+}
+
+/* no celular o botão flutuante estava comendo a última palavra das
+   linhas de texto: encolhe e recua para a quina */
+@media (max-width: 640px) {
+  .wa-float {
+    width: 46px;
+    height: 46px;
+  }
+
+  .wa-float svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .progress {

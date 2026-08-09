@@ -129,8 +129,8 @@ function Hero() {
           transition={{ duration: 1, ease: EASE, delay: 0.85 }}
         >
           <p className="lead">
-            Três frentes que tiram a sua marca da dependência do boca a boca. Cada uma resolve um
-            problema diferente — e funciona sozinha.
+            Três frentes para a sua marca parar de depender do boca a boca. Cada uma resolve um
+            problema diferente e nenhuma precisa das outras para funcionar.
           </p>
           <div className="cta-row">
             <a className="btn" href="#contato">
@@ -310,7 +310,7 @@ function Contato() {
         <LineReveal
           as="h2"
           className="display h-xl"
-          text={'Comece por uma\nfrente. Ou pelas três.'}
+          text={'Comece por uma frente.\nOu pelas três.'}
           stagger={0.07}
         />
 
@@ -341,8 +341,8 @@ function Contato() {
             <div className="orcamento">
               <h3 className="display h-sm">Solicite seu orçamento</h3>
               <p>
-                Resposta no mesmo dia útil. Sem enrolação, sem contrato surpresa — apenas o plano
-                para a sua marca vender mais online.
+                Conte o que você vende e para quem. A gente responde no mesmo dia útil com escopo,
+                prazo e valor por escrito.
               </p>
               <a className="btn" href={CONTATO.whatsapp} target="_blank" rel="noopener noreferrer">
                 Solicitar orçamento <ArrowIcon />
