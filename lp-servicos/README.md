@@ -25,6 +25,18 @@ npm run preview    # confere o build de produção antes de subir
 O conteúdo de `dist/` é estático: sobe em qualquer hospedagem (Vercel,
 Netlify, Cloudflare Pages, Hostinger, S3). Não precisa de servidor Node.
 
+## Arquivo único, para enviar
+
+```bash
+npm run build
+npm run arquivo-unico   # gera dist/agenciajvi-servicos.html
+```
+
+Um `.html` só, com CSS, JavaScript, fontes e artes embutidos (~1,7 MB).
+Abre com dois cliques, offline, sem servidor — serve para mandar por
+WhatsApp, anexar numa proposta ou guardar como registro de uma versão.
+Não é o formato de publicação: para o site no ar, use `dist/`.
+
 ## Onde mexer
 
 | O que | Arquivo |
