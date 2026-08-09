@@ -93,19 +93,3 @@ export function LineReveal({
     </Tag>
   )
 }
-
-/* ----------------------------------------------------------------
-   Hairline — filete que se desenha da esquerda para a direita.
-   Usado como separador entre blocos: é o detalhe que dá ritmo.
----------------------------------------------------------------- */
-export function Hairline({ delay = 0, className }: { delay?: number; className?: string }) {
-  return (
-    <m.div
-      className={`hairline${className ? ` ${className}` : ''}`}
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      viewport={{ once: true, amount: 1 }}
-      transition={{ duration: 1.1, ease: EASE, delay }}
-    />
-  )
-}

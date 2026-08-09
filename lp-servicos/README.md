@@ -62,9 +62,15 @@ originais continuam intactos como arquivo-fonte.
 
 ## Decisões que valem manter
 
-- **Sem números de resultado inventados.** A página constrói credibilidade
-  por método, escopo e entregáveis. Quando houver case ou depoimento real,
-  o lugar natural é entre `Princípios` e `Por que a JVI`.
+- **A página é só os serviços.** Abertura, três blocos e contato. Método,
+  diferenciais, equipe e FAQ foram removidos em favor do foco — estão no
+  histórico do git (commit `ff9b3e9`) se um dia fizerem falta.
+- **Sem números de resultado inventados.** A credibilidade vem do escopo e
+  dos entregáveis declarados. Quando houver case ou depoimento real, o
+  lugar natural é logo antes do contato.
+- **O bloco do meio vai sobre papel.** O corte claro no miolo é o que dá
+  respiro e marca a virada de capítulo. Trocar é mudar `claro={i === 1}`
+  em `App.tsx`.
 - **Sem preço na página.** Todo CTA leva para o WhatsApp, com mensagem
   específica por serviço (`src/content.ts`).
 - **Sem foto de banco de imagem.** O que ilustra cada frente é um artefato
