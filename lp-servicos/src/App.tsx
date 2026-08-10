@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   LazyMotion,
+  MotionConfig,
   domAnimation,
   m,
   useReducedMotion,
@@ -13,7 +14,7 @@ import { EASE, LineReveal, Rise, usePonteiro } from './components/motion'
 import { AdsMock, FeedMock, PageMock, type VisualProps } from './components/visuals'
 import { Logo, LogoMark } from './components/Logo'
 import { ArrowIcon, InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from './components/icons'
-import { CONTATO, SERVICOS, type Servico } from './content'
+import { ABERTURA, CONTATO, FECHAMENTO, SEM_ATRITO, SERVICOS, type Servico } from './content'
 
 /* ================================================================
    NAV — os links são os próprios serviços. A página é só isso.
@@ -54,7 +55,7 @@ function Nav() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Falar com a JVI <ArrowIcon />
+          {ABERTURA.navCta} <ArrowIcon />
         </a>
       </div>
     </header>
@@ -123,7 +124,11 @@ function Hero() {
                   className="line-inner"
                   initial={{ y: '105%' }}
                   animate={{ y: '0%' }}
-                  transition={{ duration: 1.1, ease: EASE, delay: 0.32 + i * 0.12 }}
+                  transition={{
+                    duration: 1.1,
+                    ease: EASE,
+                    delay: 0.32 + i * 0.12,
+                  }}
                 >
                   {s.nome}
                 </m.span>
@@ -139,37 +144,22 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: EASE, delay: 0.85 }}
         >
-          <p className="lead">
-            Três frentes para a sua marca parar de depender do boca a boca. Cada uma resolve um
-            problema diferente e nenhuma precisa das outras para funcionar.
-          </p>
-          <div className="cta-row">
-            <a className="btn" href="#contato">
-              Solicitar orçamento <ArrowIcon />
+          <p className="lead">{ABERTURA.lead}</p>
+
+          {/* o botão que fecha é o azul; o que só rola virou link.
+              Dois blocos de mesmo peso é uma pergunta a mais para
+              quem chegou decidido. */}
+          <div className="cta-bloco">
+            <a className="btn" href={CONTATO.whatsapp} target="_blank" rel="noopener noreferrer">
+              {ABERTURA.ctaPrimario} <ArrowIcon />
             </a>
-            <a
-              className="btn btn-ghost"
-              href={CONTATO.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Falar no WhatsApp
+            <p className="cta-nota">{SEM_ATRITO}</p>
+            <a className="cta-seco" href={`#${SERVICOS[0]?.id ?? 'contato'}`}>
+              {ABERTURA.ctaSecundario}
             </a>
           </div>
         </m.div>
       </m.div>
-
-      <m.a
-        className="scroll-cue"
-        href={`#${SERVICOS[0]?.id ?? 'contato'}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: EASE, delay: 1.3 }}
-        style={{ opacity: fade }}
-      >
-        <span>Ver as três frentes</span>
-        <span className="scroll-cue-line" />
-      </m.a>
     </section>
   )
 }
@@ -303,10 +293,15 @@ function ServicoBloco({
               ))}
             </ul>
 
+            {/* o bloco fecha sozinho: quem se convenceu aqui não precisa
+                procurar o fim da página para pedir */}
             <Rise delay={0.08}>
-              <a className="btn" href={s.wa} target="_blank" rel="noopener noreferrer">
-                {s.cta} <ArrowIcon />
-              </a>
+              <div className="cta-bloco cta-bloco-svc">
+                <a className="btn" href={s.wa} target="_blank" rel="noopener noreferrer">
+                  {s.cta} <ArrowIcon />
+                </a>
+                <p className="cta-nota">{SEM_ATRITO}</p>
+              </div>
             </Rise>
           </div>
         </div>
@@ -353,51 +348,69 @@ function Contato() {
         <Rise>
           <p className="tag">Contato</p>
         </Rise>
-        <LineReveal
-          as="h2"
-          className="display h-xl"
-          text={'Comece por uma frente.\nOu pelas três.'}
-          stagger={0.07}
-        />
+        <LineReveal as="h2" className="display h-xl" text={FECHAMENTO.titulo} stagger={0.07} />
 
+        {/* o fechamento parou de listar canais e passou a responder
+            "o que acontece se eu mandar?" — é essa pergunta que segura
+            o dedo antes do clique */}
         <div className="contato-grid">
-          <div className="contato-canais">
-            {canais.map((c, i) => (
-              <Rise delay={i * 0.07} key={c.label}>
-                <a
-                  className="canal"
-                  href={c.href}
-                  target={c.href.startsWith('http') ? '_blank' : undefined}
-                  rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  <span className="canal-icon">{c.icon}</span>
-                  <span className="canal-txt">
-                    <small>{c.label}</small>
-                    <b>{c.valor}</b>
-                  </span>
-                  <span className="canal-seta">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </Rise>
-            ))}
-          </div>
-
-          <Rise delay={0.1}>
+          <Rise>
             <div className="orcamento" ref={painel}>
               <m.div
                 className="orcamento-glow"
                 aria-hidden="true"
                 style={ativo ? { x: glowX, y: glowY } : undefined}
               />
-              <h3 className="display h-sm">Solicite seu orçamento</h3>
-              <p>
-                Conte o que você vende e para quem. A gente responde no mesmo dia útil com escopo,
-                prazo e valor por escrito.
-              </p>
-              <a className="btn" href={CONTATO.whatsapp} target="_blank" rel="noopener noreferrer">
-                Solicitar orçamento <ArrowIcon />
+              <p className="tag">{FECHAMENTO.chamada}</p>
+
+              <ol className="passos">
+                {FECHAMENTO.passos.map((p) => (
+                  <li key={p.n}>
+                    <span className="passo-n">{p.n}</span>
+                    <span className="passo-txt">
+                      <b>{p.t}</b>
+                      <small>{p.d}</small>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+
+              <a
+                className="btn"
+                href={CONTATO.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-fecho="true"
+              >
+                {FECHAMENTO.cta} <ArrowIcon />
               </a>
+              <p className="cta-nota">{SEM_ATRITO}</p>
+            </div>
+          </Rise>
+
+          <Rise delay={0.1}>
+            <div className="contato-lado">
+              <p className="canais-titulo">{FECHAMENTO.canaisTitulo}</p>
+              <div className="contato-canais">
+                {canais.map((c) => (
+                  <a
+                    className="canal"
+                    key={c.label}
+                    href={c.href}
+                    target={c.href.startsWith('http') ? '_blank' : undefined}
+                    rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    <span className="canal-icon">{c.icon}</span>
+                    <span className="canal-txt">
+                      <small>{c.label}</small>
+                      <b>{c.valor}</b>
+                    </span>
+                    <span className="canal-seta">
+                      <ArrowIcon />
+                    </span>
+                  </a>
+                ))}
+              </div>
               <span className="orcamento-nota">{CONTATO.praca}</span>
             </div>
           </Rise>
@@ -420,6 +433,105 @@ function Footer() {
 }
 
 /* ================================================================
+   BARRA DE AÇÃO — o botão flutuante era um ícone mudo que ainda por
+   cima cobria a última palavra das linhas no celular. No lugar dele,
+   uma prateleira ancorada na zona do polegar que sabe onde a pessoa
+   está: lendo o 02, o botão fala de tráfego pago e já abre a conversa
+   daquele serviço. Some sozinha quando o fechamento entra em tela —
+   dois pedidos idênticos empilhados anulam um ao outro.
+================================================================ */
+function BarraAcao() {
+  const [servico, setServico] = useState<Servico | null>(null)
+  const [visivel, setVisivel] = useState(false)
+
+  useEffect(() => {
+    const alvos = SERVICOS.map((s) => document.getElementById(s.id)).filter(
+      (el): el is HTMLElement => !!el,
+    )
+    if (!alvos.length) return
+
+    const razoes = new Map<string, number>()
+    const io = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) razoes.set(e.target.id, e.intersectionRatio)
+        let idTopo = ''
+        let topo = 0
+        razoes.forEach((v, k) => {
+          if (v > topo) {
+            topo = v
+            idTopo = k
+          }
+        })
+        setServico(topo > 0.16 ? (SERVICOS.find((s) => s.id === idTopo) ?? null) : null)
+      },
+      { threshold: [0, 0.08, 0.16, 0.3, 0.5, 0.7, 0.9] },
+    )
+    alvos.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  /* aparece depois que a abertura sai (lá o CTA grande já está na tela)
+     e se recolhe no fim: sobre o botão do fechamento ela seria o mesmo
+     pedido duas vezes, e sobre o rodapé estaria cobrindo texto */
+  useEffect(() => {
+    const hero = document.getElementById('topo')
+    if (!hero) return
+
+    let heroFora = false
+    const fim = new Set<Element>()
+    const aplicar = () => setVisivel(heroFora && fim.size === 0)
+
+    const ioHero = new IntersectionObserver(
+      ([e]) => {
+        heroFora = !e.isIntersecting
+        aplicar()
+      },
+      { threshold: 0, rootMargin: '-45% 0px 0px 0px' },
+    )
+    ioHero.observe(hero)
+
+    const finais = [document.querySelector('[data-fecho]'), document.querySelector('.footer')]
+    const ioFim = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) {
+          if (e.isIntersecting) fim.add(e.target)
+          else fim.delete(e.target)
+        }
+        aplicar()
+      },
+      { threshold: 0 },
+    )
+    finais.forEach((el) => el && ioFim.observe(el))
+
+    return () => {
+      ioHero.disconnect()
+      ioFim.disconnect()
+    }
+  }, [])
+
+  const href = servico ? servico.wa : CONTATO.whatsapp
+  const rotulo = servico ? `Falar sobre ${servico.nome}` : ABERTURA.navCta
+
+  return (
+    <div className={`barra-acao${visivel ? ' is-on' : ''}`} aria-hidden={!visivel}>
+      <div className="barra-inner">
+        <p className="barra-nota">{SEM_ATRITO}</p>
+        <a
+          className="btn barra-btn"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={visivel ? 0 : -1}
+        >
+          <WhatsAppIcon />
+          <span>{rotulo}</span>
+        </a>
+      </div>
+    </div>
+  )
+}
+
+/* ================================================================
    APP
 ================================================================ */
 export default function App() {
@@ -430,44 +542,37 @@ export default function App() {
   const visuais = [PageMock, AdsMock, FeedMock]
 
   return (
+    /* as peças já checavam useReducedMotion; faltavam as entradas de
+       texto, que continuavam subindo e revelando por máscara. O
+       MotionConfig desliga o deslocamento de todas elas de uma vez —
+       o conteúdo aparece, parado. */
     <LazyMotion features={domAnimation} strict>
-      <m.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
-      <Nav />
+      <MotionConfig reducedMotion="user">
+        <m.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
+        <Nav />
 
-      <main>
-        <Hero />
-        {[
-          /* o módulo protege o caso de content.ts ganhar um quarto serviço:
+        <main>
+          <Hero />
+          {[
+            /* o módulo protege o caso de content.ts ganhar um quarto serviço:
              sem ele o Visual viria undefined e o React derrubaria a página
              inteira em tela branca por causa de um item novo na lista */
-          ...SERVICOS.map((s, i) => (
-            <ServicoBloco
-              key={s.id}
-              s={s}
-              Visual={visuais[i % visuais.length]}
-              claro={i === 1}
-            />
-          )),
-          <Contato key="contato" />,
-        ].map((secao, i) => (
-          <Capitulo key={secao.key} z={i + 1}>
-            {secao}
-          </Capitulo>
-        ))}
-      </main>
+            ...SERVICOS.map((s, i) => (
+              <ServicoBloco key={s.id} s={s} Visual={visuais[i % visuais.length]} claro={i === 1} />
+            )),
+            <Contato key="contato" />,
+          ].map((secao, i) => (
+            <Capitulo key={secao.key} z={i + 1}>
+              {secao}
+            </Capitulo>
+          ))}
+        </main>
 
-      <Footer />
+        <Footer />
 
-      <a
-        className="wa-float"
-        href={CONTATO.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Falar no WhatsApp"
-      >
-        <WhatsAppIcon />
-      </a>
-      <div className="grain" aria-hidden="true" />
+        <BarraAcao />
+        <div className="grain" aria-hidden="true" />
+      </MotionConfig>
     </LazyMotion>
   )
 }

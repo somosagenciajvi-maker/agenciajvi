@@ -21,7 +21,51 @@ export const CONTATO = {
   email: 'somosagenciajvi@gmail.com',
   emailHref: 'mailto:somosagenciajvi@gmail.com',
   praca: 'Recife · PE · Brasil',
-  whatsapp: wa('Olá, quero vender mais com a Agência JVI'),
+  whatsapp: wa('Olá! Vim pela página de serviços da JVI e quero pedir um orçamento.'),
+}
+
+/* A única coisa que a página precisa que aconteça é a conversa abrir.
+   Então o que tira o medo de abrir fica escrito debaixo de cada botão
+   — e é a descrição do mecanismo, não promessa: o wa.me realmente
+   abre o WhatsApp com o texto já digitado. */
+export const SEM_ATRITO = 'Abre o WhatsApp com a mensagem já escrita. Você só aperta enviar.'
+
+export const ABERTURA = {
+  eyebrow: 'Agência JVI — Recife, PE',
+  /* quem não se reconhece na primeira frase vai embora; quem se
+     reconhece lê o resto. A frase sai dos três problemas lá de baixo. */
+  lead:
+    'Para quem já vende no boca a boca e trava na hora de anunciar. A página que recebe o clique, a verba que traz gente nova, o perfil que sustenta a confiança — cada uma funciona sozinha.',
+  ctaPrimario: 'Pedir orçamento no WhatsApp',
+  ctaSecundario: 'Ver as três frentes',
+  navCta: 'Pedir orçamento',
+}
+
+/* O fechamento não lista canais: ele conta o que acontece depois do
+   clique. Os três passos são a frase que já estava no painel de
+   orçamento, aberta em etapas — o "e depois?" é o que segura o dedo. */
+export const FECHAMENTO = {
+  titulo: 'Comece por uma frente.\nOu pelas três.',
+  chamada: 'Como começa',
+  passos: [
+    {
+      n: '01',
+      t: 'Você abre a conversa',
+      d: 'A mensagem já vai escrita. Nenhum formulário, nenhum cadastro.',
+    },
+    {
+      n: '02',
+      t: 'A gente pergunta o essencial',
+      d: 'O que você vende e para quem. Sem reunião obrigatória para isso.',
+    },
+    {
+      n: '03',
+      t: 'Você recebe por escrito',
+      d: 'Escopo, prazo e valor no mesmo dia útil. Aí você decide.',
+    },
+  ],
+  cta: 'Pedir orçamento no WhatsApp',
+  canaisTitulo: 'Prefere outro canal?',
 }
 
 export type Servico = {
