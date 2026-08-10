@@ -17,13 +17,54 @@ const DIST = join(PROJETO, 'dist')
 const PUBLICO = join(PROJETO, '..', 'public')
 const SAIDA = join(DIST, 'agenciajvi-servicos.html')
 
+/* ----------------------------------------------------------------
+   Fronteira de contexto: o que entra numa tag não pode fechá-la.
+
+   Tudo aqui é interpolado dentro de <script> e <style>. O parser de
+   HTML não sabe que aquilo é JavaScript ou CSS: para ele, o elemento
+   termina na primeira sequência de fechamento que aparecer no texto.
+   Um "</style>" dentro de uma string de CSS encerra o <style> ali, e
+   o que vem depois vira markup — inclusive um <img onerror> que
+   executa. O arquivo final vai por WhatsApp e em anexo de proposta,
+   então ele tem que ser inerte por construção, não por sorte.
+
+   O bundle do Vite hoje já sai escapado pelo esbuild, mas isso é
+   propriedade do minificador, não deste script: fonts.css é lido cru
+   do disco e nunca passa por ele. Escapamos aqui de qualquer forma —
+   é a única camada que continua valendo se a build mudar.
+---------------------------------------------------------------- */
+
+/* Em JavaScript, "\/" é apenas "/" e "\!" é apenas "!": o código roda
+   igual. O que muda é que o parser de HTML deixa de enxergar as
+   sequências. "<!--" importa porque coloca o parser em modo escapado,
+   onde o </script> legítimo do fim do arquivo para de fechar a tag. */
+const escaparScript = (s) =>
+  s.replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--')
+
+/* Em CSS, "\3c " é o escape hexadecimal de "<" — mesma técnica que o
+   próprio Vite aplica ao minificar. O espaço encerra o escape e é
+   consumido, então o valor final continua idêntico. */
+const escaparStyle = (s) => s.replace(/<\/(style)/gi, '\\3c /$1')
+
 const assets = readdirSync(join(DIST, 'assets'))
-const nomeJs = assets.find((f) => f.endsWith('.js'))
-const nomeCss = assets.find((f) => f.endsWith('.css'))
-if (!nomeJs || !nomeCss) {
+const jsEncontrados = assets.filter((f) => f.endsWith('.js'))
+const cssEncontrados = assets.filter((f) => f.endsWith('.css'))
+if (!jsEncontrados.length || !cssEncontrados.length) {
   console.error('dist/assets vazio — rode `npm run build` antes.')
   process.exit(1)
 }
+/* Mais de um bundle significa sobra de build anterior ou code-splitting
+   novo. Escolher um em silêncio entregaria ao cliente um arquivo com
+   metade da página; melhor parar e avisar. */
+if (jsEncontrados.length > 1 || cssEncontrados.length > 1) {
+  console.error(
+    `dist/assets tem mais de um bundle (js: ${jsEncontrados.join(', ')} | css: ${cssEncontrados.join(', ')}).\n` +
+      'Apague dist/ e rode `npm run build` de novo.',
+  )
+  process.exit(1)
+}
+const [nomeJs] = jsEncontrados
+const [nomeCss] = cssEncontrados
 
 let js = readFileSync(join(DIST, 'assets', nomeJs), 'utf8')
 const css = readFileSync(join(DIST, 'assets', nomeCss), 'utf8')
@@ -82,8 +123,8 @@ const html = `<!doctype html>
 <meta property="og:title" content="Agência JVI — Landing Page, Tráfego Pago e Social Mídia">
 <meta property="og:description" content="Três frentes, um sistema de vendas. Do boca a boca ao digital.">
 <link rel="icon" href="data:image/svg+xml;base64,${favicon}">
-<style>${fontes}</style>
-<style>${css}</style>
+<style>${escaparStyle(fontes)}</style>
+<style>${escaparStyle(css)}</style>
 </head>
 <body>
 <div id="root"></div>
@@ -101,10 +142,30 @@ const html = `<!doctype html>
     </p>
   </div>
 </noscript>
-<script type="module">${js}</script>
+<script type="module">${escaparScript(js)}</script>
 </body>
 </html>
 `
+
+/* ----------------------------------------------------------------
+   Conferência antes de gravar. O escape acima é a defesa; isto é a
+   prova de que ela pegou tudo. Se sobrar uma sequência de fechamento
+   a mais do que as tags que realmente abrimos, alguma coisa escapou
+   do filtro e o arquivo não pode sair — um .html adulterado que ainda
+   renderiza bonito é pior do que nenhum arquivo.
+---------------------------------------------------------------- */
+const conta = (agulha) => html.split(agulha).length - 1
+const ESPERADO = { '</script': 1, '</style': 2 }
+for (const [seq, esperado] of Object.entries(ESPERADO)) {
+  const achado = conta(seq)
+  if (achado !== esperado) {
+    console.error(
+      `ABORTADO: "${seq}" aparece ${achado}x no HTML, esperado ${esperado}x.\n` +
+        'Conteúdo embutido está fechando a tag antes da hora — o arquivo seria vulnerável a injeção.',
+    )
+    process.exit(1)
+  }
+}
 
 writeFileSync(SAIDA, html)
 console.log(`${SAIDA} — ${(html.length / 1024 / 1024).toFixed(2)} MB`)

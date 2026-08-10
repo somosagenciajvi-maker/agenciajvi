@@ -37,6 +37,15 @@ Abre com dois cliques, offline, sem servidor — serve para mandar por
 WhatsApp, anexar numa proposta ou guardar como registro de uma versão.
 Não é o formato de publicação: para o site no ar, use `dist/`.
 
+> **Apague-o antes de publicar.** Ele é gravado dentro de `dist/`, então
+> sobe junto se você mandar a pasta inteira para a hospedagem — e lá ele
+> abre em branco, porque a CSP de `public/_headers` bloqueia `<script>` e
+> fontes embutidas (o motivo está comentado no próprio arquivo).
+>
+> ```bash
+> rm lp-servicos/dist/agenciajvi-servicos.html
+> ```
+
 ## Onde mexer
 
 | O que | Arquivo |

@@ -161,7 +161,7 @@ function Hero() {
 
       <m.a
         className="scroll-cue"
-        href={`#${SERVICOS[0].id}`}
+        href={`#${SERVICOS[0]?.id ?? 'contato'}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: EASE, delay: 1.3 }}
@@ -437,8 +437,16 @@ export default function App() {
       <main>
         <Hero />
         {[
+          /* o módulo protege o caso de content.ts ganhar um quarto serviço:
+             sem ele o Visual viria undefined e o React derrubaria a página
+             inteira em tela branca por causa de um item novo na lista */
           ...SERVICOS.map((s, i) => (
-            <ServicoBloco key={s.id} s={s} Visual={visuais[i]} claro={i === 1} />
+            <ServicoBloco
+              key={s.id}
+              s={s}
+              Visual={visuais[i % visuais.length]}
+              claro={i === 1}
+            />
           )),
           <Contato key="contato" />,
         ].map((secao, i) => (
