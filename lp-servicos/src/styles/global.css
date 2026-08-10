@@ -553,6 +553,69 @@ ul {
   height: auto;
 }
 
+/* A marca é uma barra que sobe com uma seta: na abertura ela faz esse
+   gesto em vez de nascer pronta. Três barras crescem do chão, a seta se
+   desenha por cima e a ponta chega por último. */
+.hero-marca-desenha {
+  width: 100%;
+}
+
+.hero-marca .logo-barra {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: jvi-barra 1.15s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.hero-marca g:nth-of-type(1) .logo-barra {
+  animation-delay: 0.35s;
+}
+
+.hero-marca g:nth-of-type(2) .logo-barra {
+  animation-delay: 0.5s;
+}
+
+.hero-marca g:nth-of-type(3) .logo-barra {
+  animation-delay: 0.65s;
+}
+
+.hero-marca .logo-seta {
+  stroke-dasharray: 210;
+  stroke-dashoffset: 210;
+  animation: jvi-seta 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+}
+
+.hero-marca .logo-seta-ponta {
+  transform-box: fill-box;
+  transform-origin: 20% 80%;
+  animation: jvi-ponta 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.1s backwards;
+}
+
+@keyframes jvi-barra {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes jvi-seta {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes jvi-ponta {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* nesse tamanho as letras somem: fica a arquitetura da marca */
 .hero-marca .logo-letra {
   display: none;
@@ -764,10 +827,23 @@ ul {
   color: var(--blue);
 }
 
+/* o filete deixou de ser enfeite: ele é a barra de leitura do capítulo.
+   Enquanto a coluna de texto rola ao lado, o azul avança dentro dele. */
 .svc-rule {
+  position: relative;
+  display: block;
   width: 34px;
-  height: 1px;
+  height: 2px;
   background: var(--line);
+  overflow: hidden;
+}
+
+.svc-rule-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
 }
 
 .svc-name {
@@ -901,6 +977,65 @@ ul {
   font-size: 0.97rem;
   line-height: 1.55;
   color: rgba(226, 232, 245, 0.76);
+}
+
+/* cada item de escopo é uma entrega, não um bullet: quando o ponteiro
+   chega, o filete de baixo acende em azul e o item dá um passo à frente.
+   O mesmo gesto se repete em "Você recebe" e nos canais de contato —
+   um gesto só, três lugares: isso é sistema, não efeito. */
+.escopo-lista li,
+.recebe-lista li,
+.canal {
+  position: relative;
+}
+
+.escopo-lista li::after,
+.recebe-lista li::after,
+.canal::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .escopo-lista li,
+  .recebe-lista li {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+  }
+
+  .escopo-lista li:hover,
+  .recebe-lista li:hover {
+    transform: translateX(6px);
+    color: #fff;
+  }
+
+  .servico.is-claro .escopo-lista li:hover,
+  .servico.is-claro .recebe-lista li:hover {
+    color: var(--bone-ink);
+  }
+
+  .escopo-lista li:hover .escopo-num {
+    color: var(--blue);
+  }
+
+  .escopo-lista li:hover::after,
+  .recebe-lista li:hover::after,
+  .canal:hover::after,
+  .canal:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+.escopo-num {
+  transition: color 0.4s ease;
 }
 
 /* baseline do número casa com a primeira linha do item: sem padding mágico */
@@ -1040,6 +1175,30 @@ ul {
 .mock-canvas {
   position: relative;
   padding: clamp(18px, 2.4vw, 28px);
+}
+
+/* a peça é um objeto sobre a mesa: inclina de leve na direção do
+   ponteiro. Só isso — nada de flutuar sozinha. */
+.mock-perspectiva {
+  perspective: 1300px;
+}
+
+.mock-perspectiva .mock {
+  will-change: transform;
+}
+
+/* a linha de leitura: desce a página no ritmo da rolagem e é ela que
+   acende cada bloco. É o percurso do visitante, desenhado. */
+.mock-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--blue) 18%, var(--blue) 82%, transparent);
+  box-shadow: 0 0 22px 2px rgba(10, 92, 255, 0.55);
 }
 
 /* --- esqueleto de página --- */
@@ -1225,9 +1384,13 @@ ul {
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* a barra é escalada, nunca redimensionada: verba se movendo não pode
+   custar layout a cada quadro */
 .ad-fill {
   display: block;
+  width: 100%;
   height: 100%;
+  transform-origin: 0 50%;
   background: rgba(255, 255, 255, 0.24);
 }
 
@@ -1237,6 +1400,24 @@ ul {
 
 .ad-corte .ad-fill {
   background: rgba(255, 255, 255, 0.12);
+}
+
+/* apontar uma linha é escolher onde a verba vai: a apontada fica,
+   as outras somem de vista. Vale só onde existe ponteiro. */
+@media (hover: hover) and (pointer: fine) {
+  .ad-thumb,
+  .ad-body {
+    transition: opacity 0.4s ease;
+  }
+
+  .mock-ads .mock-canvas:hover .ad-row:not(:hover) .ad-thumb,
+  .mock-ads .mock-canvas:hover .ad-row:not(:hover) .ad-body {
+    opacity: 0.3;
+  }
+
+  .ad-row:hover .ad-name {
+    color: #fff;
+  }
 }
 
 .mock-caption {
@@ -1269,11 +1450,24 @@ ul {
   padding: 2px;
 }
 
-.feed-tile {
+/* a célula é o alvo do ponteiro; o quadro por dentro é do framer */
+.feed-cel {
   position: relative;
   aspect-ratio: 1;
+}
+
+.feed-tile {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   background: #000;
+}
+
+/* a caixa que desliza é maior que o quadro: a coluna pode andar
+   sem nunca mostrar borda */
+.feed-desliza {
+  position: absolute;
+  inset: -24px 0;
 }
 
 .feed-tile img {
@@ -1284,9 +1478,26 @@ ul {
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
 
-.feed-tile:hover img {
-  transform: scale(1.06);
-  filter: contrast(112%) brightness(1);
+@media (hover: hover) and (pointer: fine) {
+  .feed-cel {
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+  }
+
+  /* um post de cada vez: o apontado vem à frente, o resto recua */
+  .feed-grid:hover .feed-cel {
+    opacity: 0.4;
+  }
+
+  .feed-grid .feed-cel:hover {
+    opacity: 1;
+    transform: scale(1.06);
+    z-index: 2;
+  }
+
+  .feed-cel:hover img {
+    transform: scale(1.06);
+    filter: contrast(112%) brightness(1.04);
+  }
 }
 
 /* ================================================================
@@ -1403,8 +1614,9 @@ ul {
   background: var(--ink-2);
 }
 
-.orcamento::before {
-  content: '';
+/* o halo deixou de ficar preso na quina: ele se inclina na direção de
+   quem chega no painel. A ficha responde antes do clique. */
+.orcamento-glow {
   position: absolute;
   width: 300px;
   height: 300px;
@@ -1412,6 +1624,7 @@ ul {
   top: -160px;
   background: radial-gradient(circle, rgba(10, 92, 255, 0.34), transparent 65%);
   pointer-events: none;
+  will-change: transform;
 }
 
 .orcamento h3,
@@ -1527,6 +1740,23 @@ ul {
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
+  }
+
+  /* quem pediu menos movimento recebe a marca inteira, sem gesto */
+  .hero-marca .logo-barra,
+  .hero-marca .logo-seta-ponta {
+    animation: none;
+  }
+
+  .hero-marca .logo-seta {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  /* e a barra de leitura do capítulo nasce cheia em vez de crescer */
+  .svc-rule-fill {
+    transform: scaleX(1);
   }
 }

@@ -1,5 +1,5 @@
-import { m, type Variants } from 'framer-motion'
-import type { ReactNode } from 'react'
+import { m, useMotionValue, useReducedMotion, useSpring, type Variants } from 'framer-motion'
+import { useEffect, useState, type ReactNode, type RefObject } from 'react'
 
 /* Curva única para o site inteiro. Um easing só é o que faz a página parecer
    uma peça e não uma colagem de componentes. */
@@ -51,6 +51,75 @@ const lineContainer: Variants = {
 const lineItem: Variants = {
   hidden: { y: '105%' },
   show: { y: '0%', transition: { duration: 1.05, ease: EASE } },
+}
+
+/* ----------------------------------------------------------------
+   useHoverFino — só é verdade em aparelho com ponteiro de verdade.
+   No toque, efeito de hover gruda depois do tap: aqui ele nem começa.
+---------------------------------------------------------------- */
+export function useHoverFino() {
+  const [fino, setFino] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const ler = () => setFino(mq.matches)
+    ler()
+    mq.addEventListener('change', ler)
+    return () => mq.removeEventListener('change', ler)
+  }, [])
+  return fino
+}
+
+/* ----------------------------------------------------------------
+   usePonteiro — devolve dois valores amortecidos de -1 a 1 com a
+   posição do ponteiro dentro do elemento. Desliga em toque e em
+   movimento reduzido: nesses casos fica parado no centro.
+---------------------------------------------------------------- */
+export function usePonteiro(ref: RefObject<HTMLElement>) {
+  const cru = { stiffness: 110, damping: 20, mass: 0.4 }
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const mx = useSpring(x, cru)
+  const my = useSpring(y, cru)
+  const fino = useHoverFino()
+  const semMovimento = useReducedMotion()
+  const ativo = fino && !semMovimento
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !ativo) return
+    const mover = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return
+      const r = el.getBoundingClientRect()
+      x.set(((e.clientX - r.left) / r.width) * 2 - 1)
+      y.set(((e.clientY - r.top) / r.height) * 2 - 1)
+    }
+    const sair = () => {
+      x.set(0)
+      y.set(0)
+    }
+    el.addEventListener('pointermove', mover)
+    el.addEventListener('pointerleave', sair)
+    return () => {
+      el.removeEventListener('pointermove', mover)
+      el.removeEventListener('pointerleave', sair)
+    }
+  }, [ref, ativo, x, y])
+
+  return { mx, my, ativo }
+}
+
+/* altura viva do elemento — para converter progresso de rolagem em px */
+export function useAltura(ref: RefObject<HTMLElement>) {
+  const [h, setH] = useState(0)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ro = new ResizeObserver(() => setH(el.offsetHeight))
+    ro.observe(el)
+    setH(el.offsetHeight)
+    return () => ro.disconnect()
+  }, [ref])
+  return h
 }
 
 export function LineReveal({

@@ -9,8 +9,8 @@ import {
   useTransform,
 } from 'framer-motion'
 import { useSmoothScroll } from './components/useSmoothScroll'
-import { EASE, LineReveal, Rise } from './components/motion'
-import { AdsMock, FeedMock, PageMock } from './components/visuals'
+import { EASE, LineReveal, Rise, usePonteiro } from './components/motion'
+import { AdsMock, FeedMock, PageMock, type VisualProps } from './components/visuals'
 import { Logo, LogoMark } from './components/Logo'
 import { ArrowIcon, InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from './components/icons'
 import { CONTATO, SERVICOS, type Servico } from './content'
@@ -71,6 +71,12 @@ function Hero() {
   const fade = useTransform(scrollYProgress, [0, 0.85], [1, 0])
   const marcaY = useTransform(scrollYProgress, [0, 1], ['0%', '22%'])
 
+  /* a marca de parede deixa de ser adesivo: ela se desloca contra o
+     ponteiro, como um objeto atrás do vidro do título */
+  const { mx, my, ativo } = usePonteiro(ref)
+  const marcaX = useTransform(mx, [-1, 1], [26, -26])
+  const marcaDy = useTransform(my, [-1, 1], [18, -18])
+
   return (
     <section className="hero" id="topo" ref={ref}>
       <div className="grid-lines" aria-hidden="true">
@@ -90,7 +96,12 @@ function Hero() {
         transition={{ duration: 2, ease: EASE, delay: 0.15 }}
         style={{ y: marcaY }}
       >
-        <LogoMark />
+        <m.div
+          className="hero-marca-desenha"
+          style={ativo ? { x: marcaX, y: marcaDy } : undefined}
+        >
+          <LogoMark />
+        </m.div>
       </m.div>
 
       <m.div className="wrap hero-inner" style={{ y, opacity: fade }}>
@@ -172,8 +183,12 @@ function Capitulo({ children, z }: { children: React.ReactNode; z: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const semMovimento = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['end end', 'end start'] })
-  const escala = useTransform(scrollYProgress, [0, 1], [1, 0.93])
-  const veu = useTransform(scrollYProgress, [0, 1], [0, 0.82])
+  /* o recuo tem que ter peso: a seção que sai vai para trás e sobe um
+     pouco, como página virada. O que aparece na borda é o preto da
+     página, então não abre fresta. */
+  const escala = useTransform(scrollYProgress, [0, 1], [1, 0.88])
+  const recuo = useTransform(scrollYProgress, [0, 1], [0, -46])
+  const veu = useTransform(scrollYProgress, [0, 1], [0, 0.88])
 
   if (semMovimento) {
     return (
@@ -184,7 +199,7 @@ function Capitulo({ children, z }: { children: React.ReactNode; z: number }) {
   }
 
   return (
-    <m.div className="capitulo" ref={ref} style={{ zIndex: z, scale: escala }}>
+    <m.div className="capitulo" ref={ref} style={{ zIndex: z, scale: escala, y: recuo }}>
       {children}
       <m.div className="capitulo-veu" style={{ opacity: veu }} aria-hidden="true" />
     </m.div>
@@ -201,20 +216,42 @@ function Capitulo({ children, z }: { children: React.ReactNode; z: number }) {
 ================================================================ */
 function ServicoBloco({
   s,
-  visual,
+  Visual,
   claro,
 }: {
   s: Servico
-  visual: React.ReactNode
+  Visual: React.ComponentType<VisualProps>
   claro: boolean
 }) {
+  const semMovimento = useReducedMotion()
+  const secao = useRef<HTMLElement>(null)
+  const corpo = useRef<HTMLDivElement>(null)
+
+  /* o filete do índice mede quanto do capítulo você já leu */
+  const { scrollYProgress: pSecao } = useScroll({
+    target: secao,
+    offset: ['start start', 'end end'],
+  })
+  const lido = useSpring(pSecao, { stiffness: 120, damping: 28, mass: 0.4 })
+
+  /* e a peça ilustrativa encena o serviço no ritmo da coluna ao lado */
+  const { scrollYProgress: pCorpo } = useScroll({
+    target: corpo,
+    offset: ['start 0.82', 'end 0.72'],
+  })
+
   return (
-    <section className={`section servico${claro ? ' is-claro' : ''}`} id={s.id}>
+    <section className={`section servico${claro ? ' is-claro' : ''}`} id={s.id} ref={secao}>
       <div className="wrap">
         <div className="servico-topo">
           <div className="svc-rail">
             <span className="svc-idx">{s.index}</span>
-            <span className="svc-rule" />
+            <span className="svc-rule">
+              <m.span
+                className="svc-rule-fill"
+                style={semMovimento ? undefined : { scaleX: lido }}
+              />
+            </span>
             <span className="svc-name">{s.nome}</span>
             <span className="svc-role">{s.papel}</span>
           </div>
@@ -233,8 +270,10 @@ function ServicoBloco({
           </div>
         </div>
 
-        <div className="servico-corpo">
-          <div className="servico-visual">{visual}</div>
+        <div className="servico-corpo" ref={corpo}>
+          <div className="servico-visual">
+            <Visual progresso={pCorpo} />
+          </div>
 
           <div className="servico-escopo">
             <Rise>
@@ -280,6 +319,13 @@ function ServicoBloco({
    FECHAMENTO
 ================================================================ */
 function Contato() {
+  /* o painel de orçamento acende na direção de quem chega nele:
+     o halo azul persegue o ponteiro em vez de ficar de enfeite na quina */
+  const painel = useRef<HTMLDivElement>(null)
+  const { mx, my, ativo } = usePonteiro(painel)
+  const glowX = useTransform(mx, [-1, 1], [-95, 95])
+  const glowY = useTransform(my, [-1, 1], [-70, 70])
+
   const canais = [
     {
       icon: <PhoneIcon />,
@@ -338,7 +384,12 @@ function Contato() {
           </div>
 
           <Rise delay={0.1}>
-            <div className="orcamento">
+            <div className="orcamento" ref={painel}>
+              <m.div
+                className="orcamento-glow"
+                aria-hidden="true"
+                style={ativo ? { x: glowX, y: glowY } : undefined}
+              />
               <h3 className="display h-sm">Solicite seu orçamento</h3>
               <p>
                 Conte o que você vende e para quem. A gente responde no mesmo dia útil com escopo,
@@ -376,7 +427,7 @@ export default function App() {
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 26, mass: 0.3 })
 
-  const visuais = [<PageMock key="p" />, <AdsMock key="a" />, <FeedMock key="f" />]
+  const visuais = [PageMock, AdsMock, FeedMock]
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -387,7 +438,7 @@ export default function App() {
         <Hero />
         {[
           ...SERVICOS.map((s, i) => (
-            <ServicoBloco key={s.id} s={s} visual={visuais[i]} claro={i === 1} />
+            <ServicoBloco key={s.id} s={s} Visual={visuais[i]} claro={i === 1} />
           )),
           <Contato key="contato" />,
         ].map((secao, i) => (
