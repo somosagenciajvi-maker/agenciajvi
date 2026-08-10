@@ -44,6 +44,24 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Rolagem animada nativa ao clicar numa âncora. Existe para o arquivo
+     estático, que não tem JavaScript: sem isto o clique dá um salto
+     seco e a pessoa não entende que a página se moveu. */
+  scroll-behavior: smooth;
+  /* o menu é fixo: sem esta folga o topo da seção fica escondido atrás */
+  scroll-padding-top: 92px;
+}
+
+/* Com JavaScript, quem anima a rolagem é o Lenis, que marca a raiz.
+   Deixar os dois ligados faz a rolagem brigar consigo mesma. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 html,
@@ -2159,5 +2177,87 @@ ul {
 
   .medidor-fill {
     transform: scaleY(1) !important;
+  }
+}
+
+/* ================================================================
+   RESPOSTA AO CLIQUE
+   O clique precisa de três respostas: a linha reconhece o toque, a
+   página caminha até a seção, e a seção avisa que você chegou. Sem
+   isso o clique parece que não funcionou — ou pior, a página salta e
+   a pessoa não entende que se moveu.
+================================================================ */
+
+/* 1. a linha reconhece o toque na hora — funciona com dedo e com mouse,
+   e não depende de hover, que no celular não existe */
+.hero-line:active::before {
+  transform: scaleX(1);
+  transition-duration: 0.16s;
+}
+
+.hero-line:active .hero-cue {
+  color: #fff;
+}
+
+.hero-line:active .hero-cue svg {
+  transform: translateX(4px);
+}
+
+/* 2. a caminhada é a rolagem animada declarada lá em cima */
+
+/* 3. a seção avisa que você chegou: um filete azul atravessa o topo
+   uma vez e o índice do capítulo pisca em branco. Só CSS, então
+   funciona no arquivo estático, que é onde o clique era mais seco. */
+.servico::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.servico:target::after {
+  animation: chegada 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.servico:target .svc-idx {
+  animation: piscaIndice 1.2s ease 0.2s both;
+}
+
+@keyframes chegada {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  55% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+@keyframes piscaIndice {
+  0%,
+  100% {
+    color: var(--blue);
+  }
+  25% {
+    color: #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servico:target::after,
+  .servico:target .svc-idx {
+    animation: none;
   }
 }
