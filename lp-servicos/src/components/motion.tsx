@@ -1,5 +1,13 @@
-import { m, useMotionValue, useReducedMotion, useSpring, type Variants } from 'framer-motion'
-import { useEffect, useState, type ReactNode, type RefObject } from 'react'
+import {
+  m,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+  type MotionValue,
+  type Variants,
+} from 'framer-motion'
+import { useEffect, useMemo, useState, type ReactNode, type RefObject } from 'react'
 
 /* Curva única para o site inteiro. Um easing só é o que faz a página parecer
    uma peça e não uma colagem de componentes. */
@@ -120,6 +128,167 @@ export function useAltura(ref: RefObject<HTMLElement>) {
     return () => ro.disconnect()
   }, [ref])
   return h
+}
+
+/* ----------------------------------------------------------------
+   TravaTexto — o rótulo chega como mostrador de instrumento: cada
+   caractere rola dentro da própria célula e trava no glifo certo,
+   da esquerda para a direita.
+
+   A célula tem a largura do caractere FINAL (o espaçador invisível
+   segura a caixa) e o rolo é absoluto por cima. Assim nada de largura
+   muda durante a animação: nenhum salto de layout, nenhuma linha que
+   reflui. O texto acessível fica no aria-label; o rolo é decorativo.
+---------------------------------------------------------------- */
+const GLIFOS = 'ILTFEHKXVANMRSUZ'
+const DIGITOS = '0123456789'
+const PASSOS = 4
+
+/* pseudo-aleatório determinístico: o mesmo rótulo sorteia sempre os
+   mesmos glifos, então nada pisca diferente entre montagens */
+function sorteio(semente: number, conjunto: string) {
+  const x = Math.sin(semente * 91.7) * 43758.5453
+  return conjunto[Math.floor((x - Math.floor(x)) * conjunto.length)] ?? conjunto[0]
+}
+
+export function TravaTexto({
+  text,
+  delay = 0,
+  passo = 0.03,
+}: {
+  text: string
+  delay?: number
+  passo?: number
+}) {
+  const semMovimento = useReducedMotion()
+
+  const celulas = useMemo(
+    () =>
+      Array.from(text).map((ch, i) => {
+        const conjunto = /[0-9]/.test(ch) ? DIGITOS : GLIFOS
+        return {
+          ch,
+          rolo: Array.from({ length: PASSOS }, (_, k) => sorteio(i * 13 + k * 7 + 1, conjunto)),
+        }
+      }),
+    [text],
+  )
+
+  if (semMovimento) return <>{text}</>
+
+  /* o gatilho fica no PAI, nunca no rolo: o rolo vive dentro de uma
+     célula com overflow:hidden e o IntersectionObserver enxerga só a
+     fatia visível dele — com limiar alto a animação jamais disparava e
+     o rótulo congelava no primeiro glifo sorteado. */
+  return (
+    <m.span
+      className="trava"
+      aria-label={text}
+      initial="cru"
+      whileInView="travado"
+      viewport={{ once: true, amount: 0.6 }}
+    >
+      {celulas.map((c, i) =>
+        c.ch === ' ' ? (
+          <span className="trava-espaco" key={i} aria-hidden="true">
+            &nbsp;
+          </span>
+        ) : (
+          <span className="trava-ch" key={i} aria-hidden="true">
+            <span className="trava-fix">{c.ch}</span>
+            <m.span
+              className="trava-rolo"
+              variants={{
+                cru: { y: '0%' },
+                travado: {
+                  y: `-${(PASSOS / (PASSOS + 1)) * 100}%`,
+                  transition: { duration: 0.46, ease: EASE, delay: delay + i * passo },
+                },
+              }}
+            >
+              {c.rolo.map((g, k) => (
+                <span key={k}>{g}</span>
+              ))}
+              <span>{c.ch}</span>
+            </m.span>
+          </span>
+        ),
+      )}
+    </m.span>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Varredura — o gesto da peça 01 virando linguagem da página: um
+   filete de leitura desce o bloco uma única vez quando ele entra em
+   cena. Não é enfeite: é o que a JVI faz com o que recebe — lê de
+   cima a baixo antes de decidir.
+---------------------------------------------------------------- */
+export function Varredura({
+  children,
+  className,
+  delay = 0,
+  duracao = 1.15,
+}: {
+  children: ReactNode
+  className?: string
+  delay?: number
+  duracao?: number
+}) {
+  const semMovimento = useReducedMotion()
+
+  return (
+    <div className={`varre${className ? ` ${className}` : ''}`}>
+      {!semMovimento && (
+        /* Dois acertos que o filete exigiu:
+           1. `y` e `opacity` precisam do MESMO número de quadros-chave,
+              senão o `times` não casa e a animação inteira é descartada.
+           2. porcentagem em `y` é relativa à altura do PRÓPRIO elemento:
+              num filete de 1px, `100%` andava um pixel. Quem anda agora é
+              um trilho da altura do bloco, com o filete desenhado no topo
+              dele — assim `100%` é a altura do bloco de verdade. */
+        <m.span
+          className="varre-trilho"
+          aria-hidden="true"
+          initial={{ y: '0%', opacity: 0 }}
+          whileInView={{
+            y: ['0%', '10%', '82%', '100%'],
+            opacity: [0, 1, 1, 0],
+          }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: duracao, ease: 'linear', delay, times: [0, 0.1, 0.82, 1] }}
+        />
+      )}
+      {children}
+    </div>
+  )
+}
+
+/* ----------------------------------------------------------------
+   Medidor — as três barras da marca funcionando como instrumento:
+   elas se enchem conforme o capítulo é lido. O dado que ele mostra é
+   a própria leitura da página, nada inventado.
+---------------------------------------------------------------- */
+function BarraMedidor({ p, faixa }: { p: MotionValue<number>; faixa: number }) {
+  const escala = useTransform(p, [faixa / 3, (faixa + 1) / 3], [0, 1], { clamp: true })
+  return (
+    <span className="medidor-barra">
+      <m.span className="medidor-fill" style={{ scaleY: escala }} />
+    </span>
+  )
+}
+
+export function Medidor({ p }: { p: MotionValue<number> }) {
+  const semMovimento = useReducedMotion()
+  const parado = useMotionValue(1)
+
+  return (
+    <span className="medidor" aria-hidden="true">
+      {[0, 1, 2].map((i) => (
+        <BarraMedidor key={i} p={semMovimento ? parado : p} faixa={i} />
+      ))}
+    </span>
+  )
 }
 
 export function LineReveal({

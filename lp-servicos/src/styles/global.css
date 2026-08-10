@@ -53,7 +53,13 @@ body {
   background: var(--ink);
   color: var(--white);
   font-family: var(--sans);
+  /* `hidden` aqui criava um contexto de rolagem e matava todo
+     position:sticky da página — o trilho do capítulo, com a barra de
+     leitura dentro, saía de tela em vez de acompanhar o texto. `clip`
+     recorta igual e não cria contexto. Quem não conhece `clip` fica com
+     `hidden` e o comportamento de antes: ninguém perde nada. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -1875,6 +1881,173 @@ ul {
 }
 
 /* ================================================================
+   INSTRUMENTO
+   O vocabulário desta rodada: leitura, varredura, calibração. Nada
+   aqui anima layout — só transform e opacity — e nada roda em laço.
+================================================================ */
+
+/* ---------- mostrador que trava ----------
+   A célula recebe a largura do caractere FINAL (o espaçador invisível
+   segura a caixa) e o rolo passa por dentro, recortado. Por isso a
+   linha nunca reflui e nada salta de lugar enquanto o rótulo resolve. */
+.trava {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.trava-ch {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  line-height: 1;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+/* O caractere de verdade fica aqui, ocupando a largura da célula.
+   `color: transparent` em vez de `visibility: hidden`: escondido dá a
+   mesma largura, mas tira o texto do conteúdo da página — quem
+   selecionasse e copiasse levava os glifos do rolo, e o rótulo real
+   sumia do texto que os buscadores leem. Transparente pinta nada e
+   continua sendo texto. */
+.trava-fix {
+  color: transparent;
+}
+
+.trava-espaco {
+  display: inline-block;
+}
+
+.trava-rolo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  /* o rolo é decorativo: não entra na seleção de quem copia o texto */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.trava-rolo > span {
+  display: block;
+  height: 1em;
+  line-height: 1;
+  white-space: pre;
+}
+
+/* ---------- varredura ---------- */
+.varre {
+  position: relative;
+}
+
+/* o trilho tem a altura do bloco; o filete é a borda de cima dele.
+   É o trilho que anda — por isso `y:100%` percorre o bloco inteiro. */
+.varre-trilho {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.varre-trilho::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue) 14%, var(--blue) 72%, transparent);
+}
+
+/* ---------- medidor: a marca virando instrumento ---------- */
+.medidor {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .medidor {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 22px;
+    margin-bottom: 16px;
+  }
+
+  .medidor-barra {
+    position: relative;
+    display: block;
+    width: 5px;
+    background: var(--line);
+  }
+
+  .medidor-barra:nth-child(1) {
+    height: 46%;
+  }
+
+  .medidor-barra:nth-child(2) {
+    height: 72%;
+  }
+
+  .medidor-barra:nth-child(3) {
+    height: 100%;
+  }
+
+  .medidor-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--blue);
+    transform-origin: 50% 100%;
+  }
+
+  .servico.is-claro .medidor-barra {
+    background: var(--bone-line);
+  }
+}
+
+/* ---------- aresta cromática no azul ----------
+   Profundidade sem vidro fosco: a mesma tinta azul com a quina de cima
+   um grau mais clara e a de baixo um grau mais funda. É metal pintado,
+   não vidro. */
+.btn:not(.btn-ghost) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(2, 22, 66, 0.5),
+    0 1px 0 rgba(2, 22, 66, 0.45);
+}
+
+.orcamento {
+  box-shadow: inset 0 1px 0 rgba(186, 202, 236, 0.07);
+}
+
+/* a régua da abertura se monta de cima para baixo, e a coluna sob o
+   ponteiro acende em azul: régua de instrumento, não papel de parede */
+.grid-lines span {
+  position: relative;
+  transform-origin: 50% 0%;
+}
+
+.grid-acesa {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(10, 92, 255, 0.62) 26%,
+    rgba(10, 92, 255, 0.62) 74%,
+    transparent
+  );
+}
+
+/* ================================================================
    ACESSIBILIDADE
 ================================================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -1901,5 +2074,16 @@ ul {
   /* e a barra de leitura do capítulo nasce cheia em vez de crescer */
   .svc-rule-fill {
     transform: scaleX(1);
+  }
+
+  /* a régua nasce desenhada e o medidor nasce cheio: instrumento
+     parado ainda é instrumento */
+  .grid-lines span {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .medidor-fill {
+    transform: scaleY(1) !important;
   }
 }

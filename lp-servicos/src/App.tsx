@@ -7,10 +7,20 @@ import {
   useReducedMotion,
   useScroll,
   useSpring,
+  useMotionValue,
   useTransform,
+  type MotionValue,
 } from 'framer-motion'
 import { useSmoothScroll } from './components/useSmoothScroll'
-import { EASE, LineReveal, Rise, usePonteiro } from './components/motion'
+import {
+  EASE,
+  LineReveal,
+  Medidor,
+  Rise,
+  TravaTexto,
+  Varredura,
+  usePonteiro,
+} from './components/motion'
 import { AdsMock, FeedMock, PageMock, type VisualProps } from './components/visuals'
 import { Logo, LogoMark } from './components/Logo'
 import { ArrowIcon, InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from './components/icons'
@@ -63,6 +73,69 @@ function Nav() {
 }
 
 /* ================================================================
+   GRADE VIVA — as cinco verticais da abertura eram papel de parede.
+   Agora são régua: elas se montam de cima para baixo na entrada e a
+   coluna sob o ponteiro acende, como a linha de um mostrador que
+   responde ao dedo. Só opacidade e transform; em toque e em movimento
+   reduzido a régua fica desenhada e parada.
+================================================================ */
+const COLUNAS = 5
+
+function ColunaGrade({
+  mx,
+  presenca,
+  i,
+  ativo,
+}: {
+  mx: MotionValue<number>
+  presenca: MotionValue<number>
+  i: number
+  ativo: boolean
+}) {
+  const centro = ((i + 0.5) / COLUNAS) * 2 - 1
+  /* 0 longe do ponteiro, 1 sob ele. O filete base continua quase
+     invisível — quem acende é o traço azul por dentro. Mexer só na
+     opacidade da linha de 3,5% não dava leitura nenhuma na tela.
+
+     A presença multiplica tudo: em repouso o ponteiro vale 0,0, que é o
+     centro da abertura — sem isso a coluna do meio ficava acesa sozinha
+     em toda visita, e uma régua que acende sem ninguém por perto não
+     está medindo nada. */
+  const acesa = useTransform(mx, (v: number) =>
+    Math.max(0, 1 - Math.abs(v - centro) / (2 / COLUNAS)),
+  )
+  const opacidade = useTransform([acesa, presenca], ([a, p]: number[]) => (a ?? 0) * (p ?? 0))
+
+  return (
+    <m.span
+      initial={{ scaleY: 0 }}
+      animate={{ scaleY: 1 }}
+      transition={{ duration: 1.3, ease: EASE, delay: 0.18 + i * 0.07 }}
+    >
+      {ativo && <m.i className="grid-acesa" style={{ opacity: opacidade }} />}
+    </m.span>
+  )
+}
+
+function GradeViva({
+  mx,
+  presenca,
+  ativo,
+}: {
+  mx: MotionValue<number>
+  presenca: MotionValue<number>
+  ativo: boolean
+}) {
+  return (
+    <div className="grid-lines" aria-hidden="true">
+      {Array.from({ length: COLUNAS }, (_, i) => (
+        <ColunaGrade key={i} mx={mx} presenca={presenca} i={i} ativo={ativo} />
+      ))}
+    </div>
+  )
+}
+
+/* ================================================================
    ABERTURA — o título é o índice dos três serviços.
 ================================================================ */
 function Hero() {
@@ -78,15 +151,19 @@ function Hero() {
   const marcaX = useTransform(mx, [-1, 1], [26, -26])
   const marcaDy = useTransform(my, [-1, 1], [18, -18])
 
+  /* presença do ponteiro na abertura: 0 quando não há ninguém */
+  const presencaCrua = useMotionValue(0)
+  const presenca = useSpring(presencaCrua, { stiffness: 120, damping: 26, mass: 0.4 })
+
   return (
-    <section className="hero" id="topo" ref={ref}>
-      <div className="grid-lines" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
+    <section
+      className="hero"
+      id="topo"
+      ref={ref}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && presencaCrua.set(1)}
+      onPointerLeave={(e) => e.pointerType === 'mouse' && presencaCrua.set(0)}
+    >
+      <GradeViva mx={mx} presenca={presenca} ativo={ativo} />
       <div className="hero-glow" aria-hidden="true" />
 
       <m.div
@@ -224,6 +301,17 @@ function ServicoBloco({
   })
   const lido = useSpring(pSecao, { stiffness: 120, damping: 28, mass: 0.4 })
 
+  /* o medidor da marca se calibra na chegada do capítulo: as três
+     barras sobem enquanto o bloco entra em cena e travam cheias. Ele
+     vive no trilho do topo, então é medido pelo que está à vista —
+     amarrá-lo à leitura do capítulo inteiro deixaria o instrumento
+     saindo de tela pela metade, mostrando o que ninguém veria. */
+  const { scrollYProgress: pEntrada } = useScroll({
+    target: secao,
+    offset: ['start 0.95', 'start 0.3'],
+  })
+  const calibra = useSpring(pEntrada, { stiffness: 90, damping: 24, mass: 0.5 })
+
   /* e a peça ilustrativa encena o serviço no ritmo da coluna ao lado */
   const { scrollYProgress: pCorpo } = useScroll({
     target: corpo,
@@ -235,6 +323,9 @@ function ServicoBloco({
       <div className="wrap">
         <div className="servico-topo">
           <div className="svc-rail">
+            {/* as barras da marca funcionando como instrumento: enchem
+                conforme o capítulo é lido. O que medem é a leitura. */}
+            <Medidor p={calibra} />
             <span className="svc-idx">{s.index}</span>
             <span className="svc-rule">
               <m.span
@@ -250,7 +341,9 @@ function ServicoBloco({
             <LineReveal as="h2" className="display h-lg" text={s.titulo} stagger={0.08} />
             <Rise delay={0.12}>
               <div className="problema">
-                <span className="tag">O problema</span>
+                <span className="tag">
+                  <TravaTexto text="O problema" />
+                </span>
                 <p>{s.problema}</p>
               </div>
             </Rise>
@@ -267,25 +360,36 @@ function ServicoBloco({
 
           <div className="servico-escopo">
             <Rise>
-              <p className="tag">O que entra</p>
+              <p className="tag">
+                <TravaTexto text="O que entra" />
+              </p>
             </Rise>
-            <ul className="escopo-lista">
-              {s.entra.map((item, i) => (
-                <m.li
-                  key={item}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.6 }}
-                  transition={{ duration: 0.55, ease: EASE, delay: i * 0.05 }}
-                >
-                  <span className="escopo-num">{String(i + 1).padStart(2, '0')}</span>
-                  {item}
-                </m.li>
-              ))}
-            </ul>
+            {/* a varredura da peça 01 vira linguagem: o filete desce a
+                lista e cada item acende quando ele passa. É leitura, não
+                cascata decorativa — os itens entram no ritmo da linha. */}
+            <Varredura duracao={1.25}>
+              <ul className="escopo-lista">
+                {s.entra.map((item, i) => (
+                  <m.li
+                    key={item}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ duration: 0.5, ease: EASE, delay: 0.14 + i * 0.11 }}
+                  >
+                    <span className="escopo-num">
+                      <TravaTexto text={String(i + 1).padStart(2, '0')} delay={0.14 + i * 0.11} />
+                    </span>
+                    {item}
+                  </m.li>
+                ))}
+              </ul>
+            </Varredura>
 
             <Rise>
-              <p className="tag">Você recebe</p>
+              <p className="tag">
+                <TravaTexto text="Você recebe" />
+              </p>
             </Rise>
             <ul className="recebe-lista">
               {s.recebe.map((item) => (
@@ -346,7 +450,9 @@ function Contato() {
     <section className="section contato" id="contato">
       <div className="wrap">
         <Rise>
-          <p className="tag">Contato</p>
+          <p className="tag">
+            <TravaTexto text="Contato" />
+          </p>
         </Rise>
         <LineReveal as="h2" className="display h-xl" text={FECHAMENTO.titulo} stagger={0.07} />
 
@@ -361,17 +467,30 @@ function Contato() {
                 aria-hidden="true"
                 style={ativo ? { x: glowX, y: glowY } : undefined}
               />
-              <p className="tag">{FECHAMENTO.chamada}</p>
+              <p className="tag">
+                <TravaTexto text={FECHAMENTO.chamada} />
+              </p>
 
+              {/* estado de calibração: os três passos chegam fora de
+                  esquadro e se acertam na mesma prumada, como agulha que
+                  estabiliza. O número trava por último. */}
               <ol className="passos">
-                {FECHAMENTO.passos.map((p) => (
-                  <li key={p.n}>
-                    <span className="passo-n">{p.n}</span>
+                {FECHAMENTO.passos.map((p, i) => (
+                  <m.li
+                    key={p.n}
+                    initial={{ opacity: 0, x: i % 2 === 0 ? 18 : -14 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.75, ease: EASE, delay: 0.1 + i * 0.13 }}
+                  >
+                    <span className="passo-n">
+                      <TravaTexto text={p.n} delay={0.3 + i * 0.13} />
+                    </span>
                     <span className="passo-txt">
                       <b>{p.t}</b>
                       <small>{p.d}</small>
                     </span>
-                  </li>
+                  </m.li>
                 ))}
               </ol>
 
