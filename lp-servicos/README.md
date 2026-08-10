@@ -28,14 +28,28 @@ Netlify, Cloudflare Pages, Hostinger, S3). Não precisa de servidor Node.
 ## Arquivo único, para enviar
 
 ```bash
-npm run build
-npm run arquivo-unico   # gera dist/agenciajvi-servicos.html
+npm run arquivo-unico   # gera dist-unico/agenciajvi-servicos.html
 ```
 
 Um `.html` só, com CSS, JavaScript, fontes e artes embutidos (~1,7 MB).
 Abre com dois cliques, offline, sem servidor — serve para mandar por
 WhatsApp, anexar numa proposta ou guardar como registro de uma versão.
 Não é o formato de publicação: para o site no ar, use `dist/`.
+
+Ele sai de uma build própria (`--mode unico`), em **script clássico e
+não módulo ES**. Isso não é detalhe: módulo aberto por `file://` é
+bloqueado pela política de origem na maioria dos navegadores de celular
+— o CSS carrega, o fundo preto aparece e o React nunca monta. Quem
+receber o arquivo veria uma tela preta. Script clássico não tem essa
+restrição.
+
+O arquivo também carrega uma rede de segurança: se o app não montar em
+2,5 s por qualquer motivo, aparecem os contatos da JVI em vez de uma
+tela sem explicação.
+
+Como ele agora nasce em `dist-unico/`, **não** vai mais junto ao
+publicar `dist/` — o cuidado que estava documentado em `public/_headers`
+deixou de ser necessário.
 
 > **Apague-o antes de publicar.** Ele é gravado dentro de `dist/`, então
 > sobe junto se você mandar a pasta inteira para a hospedagem — e lá ele

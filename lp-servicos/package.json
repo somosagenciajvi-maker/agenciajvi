@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "arquivo-unico": "node scripts/arquivo-unico.mjs",
-    "preview": "vite preview"
+    "arquivo-unico": "npm run build:unico && node scripts/arquivo-unico.mjs",
+    "preview": "vite preview",
+    "build:unico": "tsc -b && vite build --mode unico"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

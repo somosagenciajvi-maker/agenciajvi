@@ -13,9 +13,9 @@ import { fileURLToPath } from 'node:url'
 
 const AQUI = dirname(fileURLToPath(import.meta.url))
 const PROJETO = join(AQUI, '..')
-const DIST = join(PROJETO, 'dist')
+const DIST = join(PROJETO, 'dist-unico')
 const PUBLICO = join(PROJETO, '..', 'public')
-const SAIDA = join(DIST, 'agenciajvi-servicos.html')
+const SAIDA = join(PROJETO, 'dist-unico', 'agenciajvi-servicos.html')
 
 /* ----------------------------------------------------------------
    Fronteira de contexto: o que entra numa tag não pode fechá-la.
@@ -50,7 +50,7 @@ const assets = readdirSync(join(DIST, 'assets'))
 const jsEncontrados = assets.filter((f) => f.endsWith('.js'))
 const cssEncontrados = assets.filter((f) => f.endsWith('.css'))
 if (!jsEncontrados.length || !cssEncontrados.length) {
-  console.error('dist/assets vazio — rode `npm run build` antes.')
+  console.error('dist-unico/assets vazio — rode `npm run build:unico` antes.')
   process.exit(1)
 }
 /* Mais de um bundle significa sobra de build anterior ou code-splitting
@@ -59,7 +59,7 @@ if (!jsEncontrados.length || !cssEncontrados.length) {
 if (jsEncontrados.length > 1 || cssEncontrados.length > 1) {
   console.error(
     `dist/assets tem mais de um bundle (js: ${jsEncontrados.join(', ')} | css: ${cssEncontrados.join(', ')}).\n` +
-      'Apague dist/ e rode `npm run build` de novo.',
+      'Apague dist-unico/ e rode `npm run build:unico` de novo.',
   )
   process.exit(1)
 }
@@ -109,6 +109,24 @@ const faviconSvg =
   '</g></svg>'
 const favicon = Buffer.from(faviconSvg, 'utf8').toString('base64')
 
+/* Aviso com os contatos. Serve a dois casos: JavaScript desligado
+   (via <noscript>) e app que não montou por qualquer outro motivo
+   (via a rede de segurança lá embaixo). Nos dois, a pessoa vê como
+   falar com a JVI em vez de uma tela preta sem explicação. */
+const aviso = `
+  <div style="padding:48px 24px;font-family:system-ui,sans-serif;color:#fff;background:#070709">
+    <h1 style="font-size:28px;margin:0 0 12px">Agência JVI</h1>
+    <p style="color:rgba(255,255,255,.7);margin:0 0 24px;line-height:1.6">
+      Não foi possível exibir a página completa neste aparelho.
+      Fale com a gente:
+    </p>
+    <p style="line-height:2;margin:0">
+      Telefone e WhatsApp: <a style="color:#0a5cff" href="tel:+5581995757305">+55 81 99575-7305</a><br>
+      Instagram: <a style="color:#0a5cff" href="https://instagram.com/agencia.jvi">@agencia.jvi</a><br>
+      E-mail: <a style="color:#0a5cff" href="mailto:somosagenciajvi@gmail.com">somosagenciajvi@gmail.com</a>
+    </p>
+  </div>`
+
 const html = `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -128,21 +146,19 @@ const html = `<!doctype html>
 </head>
 <body>
 <div id="root"></div>
-<noscript>
-  <div style="padding:48px 24px;font-family:system-ui,sans-serif;color:#fff;background:#070709">
-    <h1 style="font-size:28px;margin:0 0 12px">Agência JVI</h1>
-    <p style="color:rgba(255,255,255,.7);margin:0 0 24px">
-      Esta página precisa de JavaScript para exibir o conteúdo completo.
-      Enquanto isso, fale com a gente:
-    </p>
-    <p style="line-height:2;margin:0">
-      Telefone e WhatsApp: <a style="color:#0a5cff" href="tel:+5581995757305">+55 81 99575-7305</a><br>
-      Instagram: <a style="color:#0a5cff" href="https://instagram.com/agencia.jvi">@agencia.jvi</a><br>
-      E-mail: <a style="color:#0a5cff" href="mailto:somosagenciajvi@gmail.com">somosagenciajvi@gmail.com</a>
-    </p>
-  </div>
-</noscript>
-<script type="module">${escaparScript(js)}</script>
+<div id="saida-emergencia" hidden>${aviso}</div>
+<noscript>${aviso}</noscript>
+<script>${escaparScript(js)}</script>
+<!-- Rede de segurança: se por qualquer motivo o app não montar (script
+     bloqueado pelo visualizador, navegador antigo), a pessoa vê os
+     contatos em vez de uma tela preta sem explicação. -->
+<script>
+  setTimeout(function () {
+    var raiz = document.getElementById('root')
+    var saida = document.getElementById('saida-emergencia')
+    if (raiz && !raiz.firstChild && saida) saida.hidden = false
+  }, 2500)
+</script>
 </body>
 </html>
 `
@@ -155,7 +171,11 @@ const html = `<!doctype html>
    renderiza bonito é pior do que nenhum arquivo.
 ---------------------------------------------------------------- */
 const conta = (agulha) => html.split(agulha).length - 1
-const ESPERADO = { '</script': 1, '</style': 2 }
+/* duas tags <script>: o app e a rede de segurança que revela os
+   contatos se o app não montar. Se este número divergir do markup,
+   a build para — é essa conferência que impede um arquivo adulterado
+   de sair parecendo normal. */
+const ESPERADO = { '</script': 2, '</style': 2 }
 for (const [seq, esperado] of Object.entries(ESPERADO)) {
   const achado = conta(seq)
   if (achado !== esperado) {
