@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "arquivo-unico": "npm run build:unico && node scripts/arquivo-unico.mjs",
     "preview": "vite preview",
-    "build:unico": "tsc -b && vite build --mode unico"
+    "build:unico": "tsc -b && vite build --mode unico",
+    "arquivo-estatico": "node scripts/arquivo-estatico.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",

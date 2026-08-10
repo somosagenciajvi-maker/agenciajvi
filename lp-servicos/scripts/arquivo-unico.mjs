@@ -148,6 +148,14 @@ const html = `<!doctype html>
 <div id="root"></div>
 <div id="saida-emergencia" hidden>${aviso}</div>
 <noscript>${aviso}</noscript>
+<script>
+  /* Object.hasOwn é de 2022 e o bundle usa. Sem isto, aparelho mais
+     antigo derruba o React e a página fica preta. */
+  Object.hasOwn ||
+    (Object.hasOwn = function (o, k) {
+      return Object.prototype.hasOwnProperty.call(o, k)
+    })
+</script>
 <script>${escaparScript(js)}</script>
 <!-- Rede de segurança: se por qualquer motivo o app não montar (script
      bloqueado pelo visualizador, navegador antigo), a pessoa vê os
@@ -171,11 +179,11 @@ const html = `<!doctype html>
    renderiza bonito é pior do que nenhum arquivo.
 ---------------------------------------------------------------- */
 const conta = (agulha) => html.split(agulha).length - 1
-/* duas tags <script>: o app e a rede de segurança que revela os
-   contatos se o app não montar. Se este número divergir do markup,
+/* três tags <script>: o polyfill, o app e a rede de segurança que
+   revela os contatos se o app não montar. Se este número divergir do markup,
    a build para — é essa conferência que impede um arquivo adulterado
    de sair parecendo normal. */
-const ESPERADO = { '</script': 2, '</style': 2 }
+const ESPERADO = { '</script': 3, '</style': 2 }
 for (const [seq, esperado] of Object.entries(ESPERADO)) {
   const achado = conta(seq)
   if (achado !== esperado) {

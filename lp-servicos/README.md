@@ -36,6 +36,21 @@ Abre com dois cliques, offline, sem servidor — serve para mandar por
 WhatsApp, anexar numa proposta ou guardar como registro de uma versão.
 Não é o formato de publicação: para o site no ar, use `dist/`.
 
+### Duas versões, e qual mandar
+
+```bash
+npm run arquivo-unico     # dist-unico/agenciajvi-servicos.html          (com animação)
+npm run arquivo-estatico  # dist-unico/agenciajvi-servicos-estatico.html (sem script)
+```
+
+**Mande a versão estática.** Ela é um retrato do desenho final, sem
+`<script>` nenhum: abre em qualquer aparelho, qualquer navegador,
+qualquer visualizador — não existe JavaScript para falhar. Perde a
+animação e o hover; ganha nunca abrir em branco na mão do cliente.
+
+A versão com animação serve para arquivo próprio e para quem você sabe
+que está num navegador atual.
+
 Ele sai de uma build própria (`--mode unico`), em **script clássico e
 não módulo ES**. Isso não é detalhe: módulo aberto por `file://` é
 bloqueado pela política de origem na maioria dos navegadores de celular

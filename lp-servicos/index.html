@@ -76,6 +76,15 @@
         }
       }
     </script>
+    <!-- Object.hasOwn é de 2022 e o bundle usa: em aparelho mais antigo
+         a ausência derruba o React e a página fica preta. Três linhas
+         resolvem, e o navegador atual ignora. -->
+    <script>
+      Object.hasOwn ||
+        (Object.hasOwn = function (o, k) {
+          return Object.prototype.hasOwnProperty.call(o, k)
+        })
+    </script>
   </head>
   <body>
     <div id="root"></div>

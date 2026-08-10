@@ -18,7 +18,10 @@ export default defineConfig(({ mode }) => {
     server: { port: 5174 },
     preview: { port: 5174 },
     build: {
-      target: 'es2019',
+      /* es2017: o alvo anterior (es2019) deixava passar `?.`, que é
+         erro de sintaxe em iOS anterior ao 13.4 — e erro de sintaxe
+         derruba o arquivo inteiro, não só a linha. */
+      target: 'es2017',
       assetsInlineLimit: 0,
       ...(unico
         ? {
