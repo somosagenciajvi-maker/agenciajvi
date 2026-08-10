@@ -740,12 +740,15 @@ ul {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: auto 1fr;
+  /* índice | nome | aviso de clique. A terceira coluna existe desde o
+     celular: é lá que a indicação mais faz falta, porque sem ponteiro
+     não há hover para revelar que a linha leva a algum lugar. */
+  grid-template-columns: auto 1fr auto;
   align-items: start;
   /* cada linha do título é um link para a frente correspondente:
      no celular ela encolhia para 40px e virava alvo de unha */
   min-height: 44px;
-  column-gap: clamp(12px, 2vw, 32px);
+  column-gap: clamp(10px, 1.6vw, 26px);
   margin-inline: calc(var(--pad) * -1);
   padding: clamp(3px, 0.7vw, 9px) var(--pad);
   border-top: 1px solid var(--line);
@@ -794,13 +797,84 @@ ul {
   color: #fff;
 }
 
+/* ---------- aviso de que a linha leva a algum lugar ----------
+   Sempre visível, não só no hover: no celular não existe hover, e sem
+   isto ninguém descobre que o título é um caminho para a seção. */
+.hero-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: clamp(9px, 1.2vw, 17px);
+  font-family: var(--cond);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  white-space: nowrap;
+  transition: color 0.45s ease;
+  /* cada linha é uma grade própria, então sem largura mínima os avisos
+     saem escalonados: "CONVERSÃO" e "AUTORIDADE" não medem o mesmo */
+  justify-content: flex-end;
+}
+
+@media (min-width: 900px) {
+  .hero-cue {
+    min-width: 118px;
+  }
+
+  .hero-role {
+    min-width: 96px;
+    text-align: right;
+  }
+}
+
+.hero-cue svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* na linha preenchida de azul, o aviso vira branco para continuar legível */
+.hero-line:hover .hero-cue {
+  color: #fff;
+}
+
+.hero-line:hover .hero-cue svg {
+  transform: translateX(4px);
+}
+
+/* em tela estreita fica só a seta dentro de um quadro: o texto brigaria
+   com o título e a seta sozinha já diz que há para onde ir */
+.hero-cue-txt {
+  display: none;
+}
+
+@media (min-width: 620px) {
+  .hero-cue-txt {
+    display: inline;
+  }
+}
+
+@media (max-width: 619px) {
+  .hero-cue {
+    width: 26px;
+    height: 26px;
+    justify-content: center;
+    padding-top: 0;
+    align-self: center;
+    border: 1px solid rgba(10, 92, 255, 0.55);
+  }
+}
+
 .hero-role {
   display: none;
 }
 
 @media (min-width: 900px) {
   .hero-line {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
+    column-gap: clamp(12px, 1.6vw, 26px);
   }
 
   .hero-role {

@@ -194,9 +194,19 @@ function Hero() {
 
         <h1 className="hero-title" aria-label="Landing page, tráfego pago e social mídia.">
           {SERVICOS.map((s, i) => (
-            <a className="hero-line" href={`#${s.id}`} key={s.id} aria-hidden="true">
-              <span className="hero-idx">{s.index}</span>
-              <span className="line-mask">
+            /* O link precisa continuar acessível ao teclado e ao leitor de
+               tela: o aria-label descreve o destino, e só as camadas
+               decorativas da máscara ficam escondidas. */
+            <a
+              className="hero-line"
+              href={`#${s.id}`}
+              key={s.id}
+              aria-label={`${s.nome} — ver o serviço`}
+            >
+              <span className="hero-idx" aria-hidden="true">
+                {s.index}
+              </span>
+              <span className="line-mask" aria-hidden="true">
                 <m.span
                   className="line-inner"
                   initial={{ y: '105%' }}
@@ -210,7 +220,16 @@ function Hero() {
                   {s.nome}
                 </m.span>
               </span>
-              <span className="hero-role">{s.papel}</span>
+              {/* Aviso de que a linha leva a algum lugar. Fica sempre
+                  visível, não só no hover: no celular não existe hover,
+                  e sem isto ninguém descobre que dá para tocar. */}
+              <span className="hero-cue" aria-hidden="true">
+                <span className="hero-cue-txt">Clique aqui</span>
+                <ArrowIcon />
+              </span>
+              <span className="hero-role" aria-hidden="true">
+                {s.papel}
+              </span>
             </a>
           ))}
         </h1>
