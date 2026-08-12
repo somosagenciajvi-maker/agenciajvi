@@ -1,10 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
 import App from './App'
 import './styles/global.css'
+import './styles/sections.css'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+const container = document.getElementById('root')
+
+if (!container) {
+  throw new Error('Elemento #root não encontrado no index.html')
+}
+
+createRoot(container).render(
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 )
