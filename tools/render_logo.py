@@ -24,6 +24,7 @@ JOBS = [
     ("jvi-logo-horizontal.svg", "jvi-logo-horizontal-2400.png", 2400, True),
     ("jvi-icone.svg", "jvi-icone-512.png", 512, False),
     ("jvi-icone-transparente.svg", "jvi-icone-transparente-1024.png", 1024, True),
+    ("jvi-prancha-01.svg", "jvi-prancha-01.png", 2400, False),
 ]
 
 
