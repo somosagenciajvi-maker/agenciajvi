@@ -1,0 +1,67 @@
+# ================================================================
+# Cabeçalhos de segurança — Agência JVI
+#
+# Formato `_headers`, lido por Netlify e Cloudflare Pages. Este arquivo
+# vive na pasta pública compartilhada, então o Vite o copia para o dist
+# dos dois projetos (site institucional e lp-servicos): basta publicar a
+# pasta dist e os cabeçalhos sobem junto.
+#
+# Hospedagem que não lê `_headers`:
+#   Vercel  -> traduzir para a chave "headers" do vercel.json
+#   Apache  -> .htaccess com `Header set <nome> "<valor>"`
+#   Nginx   -> `add_header <nome> "<valor>" always;` no bloco server
+#
+# ----------------------------------------------------------------
+# ARQUIVO ÚNICO (agenciajvi-servicos.html) — leia antes de publicar
+#
+# Ele é peça de ENVIO, não de hospedagem: vai por WhatsApp e anexado em
+# proposta, e abre por file://, onde cabeçalho HTTP não existe. A CSP
+# abaixo não o alcança nesse uso — ele funciona normalmente.
+#
+# Se um dia ele for HOSPEDADO neste mesmo site, esta CSP o quebra e a
+# página abre em branco. Verificado em navegador: `script-src 'self'`
+# recusa o <script> embutido, e `font-src 'self'` recusa as fontes, que
+# nele são data: URI. Não adianta criar uma segunda regra abaixo só para
+# esse arquivo — Netlify e Cloudflare somam as duas CSPs e o navegador
+# aplica a interseção, que continua bloqueando.
+#
+# O script de empacotamento grava o arquivo dentro de dist/, então ele
+# sobe junto se você publicar a pasta inteira. Antes de publicar:
+#     rm lp-servicos/dist/agenciajvi-servicos.html
+# Se precisar mesmo de um link para ele, hospede-o em outro domínio
+# (ou subdomínio) que não receba estes cabeçalhos.
+# ================================================================
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Notas sobre as escolhas acima
+#
+# style-src 'unsafe-inline'  — obrigatório, não é descuido. O framer-motion
+#   anima escrevendo no atributo style dos elementos, e o JSX usa style={{}}
+#   em vários pontos. Sem 'unsafe-inline' o navegador bloqueia esses
+#   atributos e a página perde todo o movimento e parte do layout.
+#   Não afeta script-src: JavaScript inline continua bloqueado.
+#
+# img-src data:  — o ruído de fundo (.grain) é um SVG embutido como data URI
+#   dentro do CSS. Sem `data:` o fundo texturizado some.
+#
+# frame-ancestors 'none'  — ninguém embute o site em iframe. Substitui o
+#   antigo X-Frame-Options, que não é mais necessário em navegador atual.
+#
+# form-action 'none'  — o site não tem formulário. Se um dia entrar um,
+#   troque para 'self' ou para o domínio que recebe o envio.
+#
+# connect-src 'self'  — a página não faz fetch/XHR para lugar nenhum. Se
+#   entrar Pixel da Meta ou GA4, este é o valor que precisa mudar, junto
+#   com script-src.
+#
+# Strict-Transport-Security  — não incluído de propósito: é decisão do dono
+#   do domínio e trava o domínio inteiro em HTTPS por meses. Netlify e
+#   Cloudflare Pages já servem HTTPS e oferecem HSTS no painel. Para ligar
+#   aqui, adicione ao bloco acima:
+#   Strict-Transport-Security: max-age=31536000

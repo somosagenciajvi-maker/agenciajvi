@@ -1,9 +1,5 @@
 import Lenis from 'lenis'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect } from 'react'
-
-gsap.registerPlugin(ScrollTrigger)
 
 /** Resolve o alvo de uma âncora. Tenta o valor literal e, se não achar,
  *  a versão decodificada — href pode vir percent-encoded ("#se%C3%A7ao").
@@ -19,8 +15,12 @@ function buscarAncora(alvo: string): HTMLElement | null {
 }
 
 /**
- * Lenis smooth scroll wired into GSAP's ticker + ScrollTrigger so every
- * scroll-driven animation stays in sync with the eased scroll position.
+ * Scroll suave via Lenis, no próprio requestAnimationFrame.
+ *
+ * Sem GSAP: a página não usa nenhuma animação de timeline, então carregar
+ * gsap + ScrollTrigger só para girar o ticker custaria ~70 kB à toa. O
+ * Lenis atualiza a posição real de scroll, então o `useScroll` do
+ * framer-motion continua enxergando tudo normalmente.
  */
 export function useSmoothScroll() {
   useEffect(() => {
@@ -34,11 +34,10 @@ export function useSmoothScroll() {
       touchMultiplier: 1.6,
     })
 
-    lenis.on('scroll', ScrollTrigger.update)
-
-    const raf = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(raf)
-    gsap.ticker.lagSmoothing(0)
+    let frame = requestAnimationFrame(function loop(time: number) {
+      lenis.raf(time)
+      frame = requestAnimationFrame(loop)
+    })
 
     const anchorHandler = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest('a[href^="#"]')
@@ -59,10 +58,8 @@ export function useSmoothScroll() {
 
     return () => {
       document.removeEventListener('click', anchorHandler)
-      gsap.ticker.remove(raf)
+      cancelAnimationFrame(frame)
       lenis.destroy()
     }
   }, [])
 }
-
-export { gsap, ScrollTrigger }
