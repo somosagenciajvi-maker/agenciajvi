@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#050505"/>
-  <rect x="8" y="8" width="48" height="48" fill="#0A5CFF"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Impact, Anton, sans-serif" font-size="26" fill="#fff">JVI</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Agência JVI"><rect width="64" height="64" fill="#050505"/><rect x="10" y="28" width="12" height="18" fill="#0b2fb8"/><rect x="26" y="21" width="12" height="25" fill="#0a46dc"/><rect x="42" y="14" width="12" height="32" fill="#0a5cff"/></svg>
