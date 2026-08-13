@@ -51,12 +51,38 @@ await page.evaluate(() => document.fonts.ready)
 await page.waitForTimeout(600)
 
 const slides = await page.$$('.slide')
+let overflowed = 0
+
 for (let i = 0; i < slides.length; i++) {
-  const file = join(OUT, `jvi-carrossel-${String(i + 1).padStart(2, '0')}.png`)
+  const n = String(i + 1).padStart(2, '0')
+  const file = join(OUT, `jvi-carrossel-${n}.png`)
+
+  // O slide tem altura fixa e overflow:hidden, então conteúdo em excesso seria
+  // cortado sem aviso. Medimos até onde o conteúdo desce, ignorando as camadas
+  // decorativas (orbes, vinheta e grão) que sangram de propósito para fora.
+  const overflow = await slides[i].evaluate((el) => {
+    const top = el.getBoundingClientRect().top
+    const limit = el.clientHeight - parseFloat(getComputedStyle(el).paddingBottom)
+    let bottom = 0
+    for (const child of el.children) {
+      if (child.matches('.orb, .vig, .grain')) continue
+      bottom = Math.max(bottom, child.getBoundingClientRect().bottom - top)
+    }
+    return Math.round(bottom - limit)
+  })
+  if (overflow > 1) {
+    overflowed++
+    console.warn(`⚠ slide ${n}: conteúdo estoura ${overflow}px além dos 1350px`)
+  }
+
   await slides[i].screenshot({ path: file })
-  const box = await slides[i].boundingBox()
-  console.log(`✓ ${file}  (${Math.round(box.width)}x${Math.round(box.height)})`)
+  console.log(`✓ ${file}`)
 }
 
 await browser.close()
 server.close()
+
+if (overflowed > 0) {
+  console.error(`\n${overflowed} slide(s) com conteúdo cortado — reduza texto ou tamanho de fonte.`)
+  process.exitCode = 1
+}
