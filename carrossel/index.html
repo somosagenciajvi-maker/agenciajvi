@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Carrossel Instagram — Agência JVI</title>
+<style>
+/* ================= FONTES DA MARCA (locais) ================= */
+@font-face { font-family:'Anton';  font-style:normal; font-weight:400; font-display:block; src:url(../public/fonts/anton-400-latin.woff2) format('woff2'); }
+@font-face { font-family:'Anton';  font-style:normal; font-weight:400; font-display:block; src:url(../public/fonts/anton-400-latin-ext.woff2) format('woff2'); unicode-range:U+0100-02BA,U+1E00-1E9F,U+1EF2-1EFF; }
+@font-face { font-family:'Oswald'; font-style:normal; font-weight:400; font-display:block; src:url(../public/fonts/oswald-400-latin.woff2) format('woff2'); }
+@font-face { font-family:'Oswald'; font-style:normal; font-weight:500; font-display:block; src:url(../public/fonts/oswald-500-latin.woff2) format('woff2'); }
+@font-face { font-family:'Oswald'; font-style:normal; font-weight:600; font-display:block; src:url(../public/fonts/oswald-600-latin.woff2) format('woff2'); }
+@font-face { font-family:'Inter';  font-style:normal; font-weight:300; font-display:block; src:url(../public/fonts/inter-300-latin.woff2) format('woff2'); }
+@font-face { font-family:'Inter';  font-style:normal; font-weight:400; font-display:block; src:url(../public/fonts/inter-400-latin.woff2) format('woff2'); }
+@font-face { font-family:'Inter';  font-style:normal; font-weight:500; font-display:block; src:url(../public/fonts/inter-500-latin.woff2) format('woff2'); }
+@font-face { font-family:'Inter';  font-style:normal; font-weight:600; font-display:block; src:url(../public/fonts/inter-600-latin.woff2) format('woff2'); }
+@font-face { font-family:'Inter';  font-style:normal; font-weight:700; font-display:block; src:url(../public/fonts/inter-700-latin.woff2) format('woff2'); }
+
+/* ================= TOKENS ================= */
+:root{
+  --black:#050505;
+  --black-2:#0a0a0c;
+  --blue:#0a5cff;
+  --blue-deep:#0b2fb8;
+  --white:#ffffff;
+  --muted:rgba(255,255,255,.56);
+  --dim:rgba(255,255,255,.40);
+  --line:rgba(255,255,255,.09);
+  --glass:rgba(255,255,255,.04);
+  --display:'Anton',Impact,sans-serif;
+  --cond:'Oswald',sans-serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --pad:96px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#111;}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+.deck{display:flex;flex-direction:column;align-items:center;gap:40px;padding:40px 0;}
+
+/* ================= SLIDE BASE ================= */
+.slide{
+  position:relative;
+  width:1080px;height:1350px;
+  background:var(--black);
+  color:var(--white);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  padding:var(--pad);
+  isolation:isolate;
+}
+.slide *{position:relative;z-index:2;}
+
+/* brilhos de fundo */
+.orb{position:absolute;border-radius:50%;filter:blur(120px);z-index:0!important;pointer-events:none;}
+.orb-a{width:760px;height:760px;background:rgba(10,92,255,.30);left:-260px;top:-200px;}
+.orb-b{width:620px;height:620px;background:rgba(11,47,184,.28);right:-240px;bottom:-220px;}
+
+/* grão + vinheta (mesmo tratamento do site) */
+.grain{position:absolute;inset:0;z-index:9!important;opacity:.05;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.9'/></svg>");}
+.vig{position:absolute;inset:0;z-index:8!important;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 40%,transparent 38%,rgba(0,0,0,.78) 100%);}
+
+/* ================= TIPOGRAFIA ================= */
+.eyebrow{
+  font-family:var(--cond);font-weight:500;font-size:20px;
+  letter-spacing:.42em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:18px;margin:0;
+}
+.eyebrow::before{content:'';width:56px;height:2px;background:var(--blue);box-shadow:0 0 14px var(--blue);flex:none;}
+
+.display{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  line-height:.92;letter-spacing:-.01em;margin:0;
+}
+.h-xxl{font-size:112px;}
+.h-xl{font-size:92px;}
+.h-lg{font-size:72px;}
+.h-md{font-size:56px;}
+
+.accent{color:var(--blue);text-shadow:0 0 42px rgba(10,92,255,.55);}
+
+.lead{
+  font-family:var(--sans);font-weight:300;font-size:31px;line-height:1.5;
+  color:rgba(255,255,255,.78);margin:0;
+}
+.body{
+  font-family:var(--sans);font-weight:300;font-size:26px;line-height:1.55;
+  color:var(--muted);margin:0;
+}
+
+.rule{height:2px;background:linear-gradient(90deg,var(--blue),rgba(10,92,255,0));border-radius:2px;}
+
+/* ================= RODAPÉ ================= */
+.foot{
+  margin-top:auto;padding-top:34px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--cond);font-weight:400;font-size:20px;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--dim);
+}
+.foot b{color:rgba(255,255,255,.72);font-weight:500;}
+
+/* seta arrastar */
+.swipe{display:flex;align-items:center;gap:16px;font-family:var(--cond);font-weight:500;
+  font-size:22px;letter-spacing:.32em;text-transform:uppercase;color:var(--white);}
+.swipe .dot{width:52px;height:52px;border-radius:50%;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 46px rgba(10,92,255,.75);}
+.swipe svg{width:22px;height:22px;}
+
+/* ================= CAPA ================= */
+.cover{padding:0;}
+.cover-media{position:absolute;inset:0 0 auto 0;height:660px;z-index:1!important;}
+.cover-media img{width:100%;height:100%;object-fit:cover;object-position:center 41%;display:block;}
+.cover-media::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,5,5,.30) 0%,rgba(5,5,5,0) 26%,rgba(5,5,5,0) 62%,rgba(5,5,5,.90) 86%,#050505 96%);}
+.cover-inner{position:relative;z-index:3;margin-top:auto;padding:var(--pad);display:flex;flex-direction:column;gap:32px;}
+.cover .h-xxl{font-size:104px;}
+
+/* ================= SERVIÇOS ================= */
+.svc{display:flex;flex-direction:column;gap:30px;margin-top:56px;}
+.svc-item{
+  border:1px solid var(--line);border-radius:26px;background:var(--glass);
+  padding:38px 40px;display:flex;gap:30px;align-items:flex-start;
+}
+.svc-num{
+  font-family:var(--display);font-size:52px;line-height:1;color:var(--blue);
+  text-shadow:0 0 34px rgba(10,92,255,.5);flex:none;width:96px;
+}
+.svc-tag{font-family:var(--cond);font-weight:500;font-size:18px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--dim);margin:0 0 10px;}
+.svc-title{font-family:var(--display);font-size:44px;line-height:1;text-transform:uppercase;margin:0 0 14px;}
+.svc-text{font-family:var(--sans);font-weight:300;font-size:24px;line-height:1.45;color:var(--muted);margin:0;}
+
+/* ================= MÉTODO ================= */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:54px;}
+.step{border:1px solid var(--line);border-radius:24px;background:var(--glass);padding:34px 32px;}
+.step-n{font-family:var(--display);font-size:40px;line-height:1;color:var(--blue);
+  text-shadow:0 0 30px rgba(10,92,255,.5);display:block;margin-bottom:16px;}
+.step h3{font-family:var(--display);font-size:38px;line-height:1;text-transform:uppercase;margin:0 0 12px;}
+.step p{font-family:var(--sans);font-weight:300;font-size:22px;line-height:1.45;color:var(--muted);margin:0;}
+
+/* ================= RESULTADOS ================= */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:60px;}
+.stat{border:1px solid var(--line);border-radius:26px;background:var(--glass);padding:44px 38px;}
+.stat-num{
+  font-family:var(--display);font-size:112px;line-height:.9;
+  background:linear-gradient(180deg,#ffffff 0%,#7fb0ff 55%,var(--blue) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;display:block;
+}
+.stat-label{font-family:var(--cond);font-weight:400;font-size:22px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--muted);margin-top:18px;}
+
+/* ================= PASSOS ================= */
+.steps{display:flex;flex-direction:column;gap:40px;margin-top:62px;}
+.stepline{display:flex;gap:34px;align-items:flex-start;}
+.stepline .n{
+  flex:none;width:104px;height:104px;border-radius:50%;
+  border:2px solid rgba(10,92,255,.55);background:rgba(10,92,255,.10);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:50px;color:var(--white);
+  box-shadow:0 0 42px rgba(10,92,255,.35);
+}
+.stepline h3{font-family:var(--display);font-size:52px;line-height:1;text-transform:uppercase;margin:12px 0 14px;}
+.stepline p{font-family:var(--sans);font-weight:300;font-size:27px;line-height:1.45;color:var(--muted);margin:0;}
+
+/* ================= CTA ================= */
+.contacts{display:flex;flex-direction:column;gap:22px;margin-top:52px;}
+.contact{
+  display:flex;align-items:center;gap:24px;border:1px solid var(--line);
+  border-radius:22px;background:var(--glass);padding:28px 34px;
+}
+.contact .ico{flex:none;width:56px;height:56px;border-radius:16px;background:rgba(10,92,255,.14);
+  border:1px solid rgba(10,92,255,.4);display:flex;align-items:center;justify-content:center;}
+.contact .ico svg{width:26px;height:26px;fill:var(--blue);}
+.contact small{display:block;font-family:var(--cond);font-weight:400;font-size:17px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+.contact b{font-family:var(--sans);font-weight:600;font-size:29px;color:var(--white);}
+
+.btn{
+  margin-top:46px;display:flex;align-items:center;justify-content:center;gap:18px;
+  background:var(--blue);border-radius:999px;padding:32px 44px;
+  font-family:var(--cond);font-weight:600;font-size:29px;letter-spacing:.2em;text-transform:uppercase;
+  box-shadow:0 0 70px rgba(10,92,255,.55);
+}
+.btn svg{width:26px;height:26px;}
+
+/* ================= CARD DE DESTAQUE ================= */
+.pull{
+  margin-top:56px;border:1px solid var(--line);border-left:4px solid var(--blue);
+  border-radius:0 26px 26px 0;background:var(--glass);padding:44px 46px;
+}
+.pull p{font-family:var(--display);font-size:46px;line-height:1.08;text-transform:uppercase;margin:0;}
+.pull span{color:var(--blue);}
+
+.chips{display:flex;flex-wrap:wrap;gap:16px;margin-top:44px;}
+.chip{
+  border:1px solid rgba(10,92,255,.45);background:rgba(10,92,255,.10);border-radius:999px;
+  padding:16px 28px;font-family:var(--cond);font-weight:500;font-size:21px;
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.82);
+}
+
+.markline{font-family:var(--cond);font-weight:500;font-size:21px;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--dim);text-align:center;margin:38px 0 0;}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ══════════ 01 — CAPA ══════════ -->
+<section class="slide cover" id="s1">
+  <div class="orb orb-a"></div>
+  <div class="cover-media"><img src="assets/logo-jvi.jpg" alt="Logo Agência JVI" /></div>
+  <div class="cover-inner">
+    <p class="eyebrow">Agência JVI · Recife — PE</p>
+    <h1 class="display h-xxl">Pare de<br/>depender do<br/><span class="accent">boca a boca.</span></h1>
+    <div class="rule" style="width:200px"></div>
+    <p class="lead">Transformamos negócios tradicionais em máquinas de vendas digitais.</p>
+    <div class="foot">
+      <span><b>@agencia.jvi</b></span>
+      <span class="swipe">Arraste
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>
+      </span>
+    </div>
+  </div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 02 — QUEM SOMOS ══════════ -->
+<section class="slide" id="s2">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <p class="eyebrow">01 — Quem somos</p>
+  <h2 class="display h-xl" style="margin-top:52px">Prazer,<br/>somos a<br/><span class="accent">Agência JVI.</span></h2>
+  <div class="rule" style="width:240px;margin:48px 0"></div>
+  <p class="lead">Marketing, estratégia e resultado para quem cansou de esperar a próxima indicação chegar.</p>
+  <p class="body" style="margin-top:34px">Nascemos em Recife com uma obsessão: fazer negócio tradicional vender online todos os dias. Aqui, criativo bonito só entra no ar depois que a estratégia está de pé.</p>
+  <div class="pull"><p>Estratégia antes do criativo.<br/>Dados antes do achismo.<br/><span>Sistema antes da sorte.</span></p></div>
+  <div class="chips">
+    <span class="chip">Recife — PE</span>
+    <span class="chip">+40 marcas</span>
+    <span class="chip">Resultado no contrato</span>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>02 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 03 — SERVIÇOS 01-03 ══════════ -->
+<section class="slide" id="s3">
+  <div class="orb orb-a"></div>
+  <p class="eyebrow">02 — O que fazemos</p>
+  <h2 class="display h-lg" style="margin-top:44px">Serviços</h2>
+  <div class="svc">
+    <div class="svc-item">
+      <span class="svc-num">01</span>
+      <div><p class="svc-tag">Presença</p><h3 class="svc-title">Sites</h3><p class="svc-text">Site rápido, bonito e feito para vender — não apenas para existir.</p></div>
+    </div>
+    <div class="svc-item">
+      <span class="svc-num">02</span>
+      <div><p class="svc-tag">Conversão</p><h3 class="svc-title">Landing Pages</h3><p class="svc-text">Páginas desenhadas para transformar clique em conversa e conversa em venda.</p></div>
+    </div>
+    <div class="svc-item">
+      <span class="svc-num">03</span>
+      <div><p class="svc-tag">Demanda</p><h3 class="svc-title">Tráfego Pago</h3><p class="svc-text">Mídia gerida com dados: verba onde converte, corte onde queima orçamento.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>03 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 04 — SERVIÇOS 04-06 ══════════ -->
+<section class="slide" id="s4">
+  <div class="orb orb-b"></div>
+  <p class="eyebrow">02 — O que fazemos</p>
+  <h2 class="display h-lg" style="margin-top:44px">Serviços</h2>
+  <div class="svc">
+    <div class="svc-item">
+      <span class="svc-num">04</span>
+      <div><p class="svc-tag">Audiência</p><h3 class="svc-title">Social Media</h3><p class="svc-text">Narrativa, direção de arte e ritmo de publicação que constroem autoridade todo dia.</p></div>
+    </div>
+    <div class="svc-item">
+      <span class="svc-num">05</span>
+      <div><p class="svc-tag">Percepção</p><h3 class="svc-title">Branding</h3><p class="svc-text">Sua marca deixa de ser mais uma opção e vira a escolha óbvia da categoria.</p></div>
+    </div>
+    <div class="svc-item">
+      <span class="svc-num">06</span>
+      <div><p class="svc-tag">Estratégia</p><h3 class="svc-title">Consultoria</h3><p class="svc-text">Diagnóstico do mercado, do público e do funil antes de qualquer criativo.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>04 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 05 — MÉTODO ══════════ -->
+<section class="slide" id="s5">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <p class="eyebrow">03 — Como trabalhamos</p>
+  <h2 class="display h-lg" style="margin-top:44px">O método <span class="accent">JVI</span></h2>
+  <div class="grid2">
+    <div class="step"><span class="step-n">01</span><h3>Estratégia</h3><p>Diagnóstico de mercado, público e funil antes do primeiro criativo.</p></div>
+    <div class="step"><span class="step-n">02</span><h3>Posição</h3><p>Sua marca deixa de competir por preço e passa a competir por valor.</p></div>
+    <div class="step"><span class="step-n">03</span><h3>Conteúdo</h3><p>Narrativa e ritmo de publicação que constroem autoridade diária.</p></div>
+    <div class="step"><span class="step-n">04</span><h3>Tráfego</h3><p>Verba onde converte, corte onde queima orçamento. Sempre com dados.</p></div>
+    <div class="step"><span class="step-n">05</span><h3>Conversão</h3><p>Página, copy e jornada para virar clique em cliente pagante.</p></div>
+    <div class="step"><span class="step-n">06</span><h3>Escala</h3><p>O que funciona vira sistema — e o sistema cresce sem depender de sorte.</p></div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>05 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 06 — RESULTADOS ══════════ -->
+<section class="slide" id="s6">
+  <div class="orb orb-a"></div>
+  <p class="eyebrow">04 — Resultados</p>
+  <h2 class="display h-xl" style="margin-top:48px">Do boca a boca<br/><span class="accent">ao digital.</span></h2>
+  <div class="stats">
+    <div class="stat"><span class="stat-num">312%</span><div class="stat-label">Crescimento médio</div></div>
+    <div class="stat"><span class="stat-num">18k+</span><div class="stat-label">Leads gerados</div></div>
+    <div class="stat"><span class="stat-num">40+</span><div class="stat-label">Marcas posicionadas</div></div>
+    <div class="stat"><span class="stat-num">7x</span><div class="stat-label">Mais autoridade</div></div>
+  </div>
+  <p class="body" style="margin-top:44px">Crescimento, leads e autoridade deixam de ser sorte e viram consequência de um sistema que roda todos os dias.</p>
+  <div class="chips">
+    <span class="chip">Média das marcas atendidas</span>
+    <span class="chip">Dados de gestão JVI</span>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>06 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 07 — COMO COMEÇAR ══════════ -->
+<section class="slide" id="s7">
+  <div class="orb orb-b"></div>
+  <p class="eyebrow">05 — Próximo passo</p>
+  <h2 class="display h-xl" style="margin-top:48px">Comece hoje.<br/><span class="accent">Em 3 passos.</span></h2>
+  <div class="steps">
+    <div class="stepline"><span class="n">1</span><div><h3>Você chama</h3><p>Manda mensagem no WhatsApp e conta o momento do seu negócio.</p></div></div>
+    <div class="stepline"><span class="n">2</span><div><h3>A gente diagnostica</h3><p>Analisamos mercado, público e funil. Sem custo e sem compromisso.</p></div></div>
+    <div class="stepline"><span class="n">3</span><div><h3>Você recebe o plano</h3><p>O caminho mais curto entre a sua marca e o próximo cliente.</p></div></div>
+  </div>
+  <div class="pull"><p>Resposta no mesmo dia útil.<br/><span>Sem enrolação, sem contrato surpresa.</span></p></div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>07 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 08 — CTA ══════════ -->
+<section class="slide" id="s8">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <p class="eyebrow">Vamos conversar</p>
+  <h2 class="display h-xl" style="margin-top:48px">Vamos construir<br/>sua <span class="accent">máquina<br/>de vendas.</span></h2>
+  <div class="contacts">
+    <div class="contact">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.41.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.8.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.2.77-.3.33-.57.7-.77 1.2-.16.4-.35 1-.4 2.1C2.7 9.8 2.7 10.2 2.7 12s0 2.2.03 3.5c.05 1.1.24 1.7.4 2.1.2.5.44.9.77 1.2.33.3.7.57 1.2.77.4.16 1 .35 2.1.4 1.3.06 1.7.07 4.8.07s3.5 0 4.8-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.2-.77.3-.33.57-.7.77-1.2.16-.4.35-1 .4-2.1.06-1.3.07-1.7.07-3.5s0-2.2-.07-3.5c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.77-1.2-.33-.3-.7-.57-1.2-.77-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-3.2a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg></span>
+      <span><small>Instagram</small><b>@agencia.jvi</b></span>
+    </div>
+    <div class="contact">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.09 3.19 5.07 4.47.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4a9.35 9.35 0 0 1 9.4 9.41c0 5.18-4.22 9.4-9.4 9.4Zm8-17.4A11.28 11.28 0 0 0 12.04.8C5.83.8.79 5.84.79 12.04c0 1.98.52 3.92 1.5 5.62L.7 23.2l5.68-1.49a11.24 11.24 0 0 0 5.66 1.45h.01c6.2 0 11.25-5.05 11.25-11.25 0-3-1.17-5.83-3.3-7.95Z"/></svg></span>
+      <span><small>WhatsApp</small><b>+55 81 99575-7305</b></span>
+    </div>
+    <div class="contact">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.4 2L12 12.3 19.6 7H4.4ZM20 8.9l-7.4 5.2a1 1 0 0 1-1.2 0L4 8.9V17h16V8.9Z"/></svg></span>
+      <span><small>E-mail</small><b>somosagenciajvi@gmail.com</b></span>
+    </div>
+  </div>
+  <div class="btn">Solicite seu orçamento
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+  </div>
+  <p class="markline">Agência JVI · Marketing | Estratégia | Resultados</p>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>08 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+</div>
+</body>
+</html>
