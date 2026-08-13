@@ -1,7 +1,7 @@
 # Carrossel institucional — Agência JVI
 
 **Formato:** 8 slides · 1080 × 1350 px (4:5) · PNG
-**Arquivos:** `out/jvi-carrossel-01.png` … `out/jvi-carrossel-08.png` (publicar nessa ordem)
+**Arquivos:** `out/institucional/jvi-institucional-01.png` … `jvi-institucional-08.png` (publicar nessa ordem)
 
 ---
 

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Carrossel — 5 erros que fazem seu negócio perder vendas</title>
+<link rel="stylesheet" href="base.css" />
+<style>
+/* ============ componentes exclusivos do deck de erros ============ */
+
+/* numeral gigante ao fundo, marcando o erro da vez */
+.ghost{
+  position:absolute;right:34px;top:150px;z-index:1!important;
+  font-family:var(--display);font-size:430px;line-height:.78;
+  color:transparent;-webkit-text-stroke:3px rgba(255,255,255,.07);
+  pointer-events:none;user-select:none;
+}
+
+.label{
+  font-family:var(--cond);font-weight:600;font-size:22px;
+  letter-spacing:.36em;text-transform:uppercase;margin:0 0 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.label::before{content:'';width:34px;height:2px;flex:none;background:currentColor;}
+.label-err{color:rgba(255,255,255,.42);}
+.label-fix{color:var(--blue);}
+
+.err-title{
+  font-family:var(--display);font-size:80px;line-height:.94;
+  text-transform:uppercase;margin:0 0 30px;
+}
+
+/* bloco da solução — o contraponto azul do erro */
+.fix{
+  margin-top:52px;border:1px solid rgba(10,92,255,.42);
+  border-left:5px solid var(--blue);border-radius:0 26px 26px 0;
+  background:linear-gradient(90deg,rgba(10,92,255,.13),rgba(10,92,255,.02));
+  padding:40px 44px;
+}
+.fix p{
+  font-family:var(--sans);font-weight:500;font-size:32px;line-height:1.42;
+  color:var(--white);margin:0;
+}
+
+/* recap final */
+/* bloco do erro centralizado: as duas margens auto dividem a sobra em partes
+   iguais, mas só se o rodapé abrir mão da margem auto que ele herda da base */
+.err-body{margin:auto 0;padding-top:24px;}
+.err-body + .foot{margin-top:0;}
+
+.recap{display:flex;flex-direction:column;gap:24px;margin-top:56px;}
+.recap-item{
+  display:flex;align-items:center;gap:26px;
+  border-bottom:1px solid var(--line);padding-bottom:24px;
+}
+.recap-item:last-child{border-bottom:0;}
+.recap-n{
+  flex:none;width:62px;height:62px;border-radius:50%;
+  background:rgba(10,92,255,.14);border:1px solid rgba(10,92,255,.5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:30px;color:var(--blue);
+}
+.recap-item p{
+  font-family:var(--sans);font-weight:500;font-size:30px;line-height:1.3;
+  color:rgba(255,255,255,.86);margin:0;
+}
+
+/* capa deste deck */
+.cover-num{
+  font-family:var(--display);font-size:250px;line-height:.86;
+  background:linear-gradient(180deg,#ffffff 0%,#7fb0ff 52%,var(--blue) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin:0 0 26px;
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- ══════════ 01 — CAPA ══════════ -->
+<section class="slide">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <p class="eyebrow">Agência JVI · Recife — PE</p>
+  <div style="margin-top:auto;margin-bottom:auto">
+    <p class="cover-num">5</p>
+    <h1 class="display h-xl">Erros que fazem<br/>seu negócio<br/><span class="accent">perder vendas</span><br/>todo dia.</h1>
+    <div class="rule" style="width:220px;margin-top:44px"></div>
+    <p class="lead" style="margin-top:36px">O quarto é o mais caro — e quase todo mundo comete.</p>
+  </div>
+  <div class="foot">
+    <span><b>@agencia.jvi</b></span>
+    <span class="swipe">Arraste
+      <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg></span>
+    </span>
+  </div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 02 — ERRO 01 ══════════ -->
+<section class="slide">
+  <div class="orb orb-a"></div>
+  <span class="ghost">01</span>
+  <p class="eyebrow">Erro 01 de 05</p>
+  <div class="err-body">
+    <p class="label label-err">O erro</p>
+    <h2 class="err-title">Você manda<br/>o cliente<br/>pro direct.</h2>
+    <p class="body">O interessado cai numa caixa de mensagens lotada, espera horas e desiste. Sem uma página, não existe jornada de compra — existe torcida.</p>
+    <div class="fix">
+      <p class="label label-fix">O que fazer</p>
+      <p>Tenha um destino seu: site ou landing page com o WhatsApp a um clique de distância.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>02 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 03 — ERRO 02 ══════════ -->
+<section class="slide">
+  <div class="orb orb-b"></div>
+  <span class="ghost">02</span>
+  <p class="eyebrow">Erro 02 de 05</p>
+  <div class="err-body">
+    <p class="label label-err">O erro</p>
+    <h2 class="err-title">Perfil bonito<br/>que não<br/>vende nada.</h2>
+    <p class="body">Bio genérica, sem oferta e sem chamada. Quem chega não entende o que você resolve — e muito menos o que fazer em seguida.</p>
+    <div class="fix">
+      <p class="label label-fix">O que fazer</p>
+      <p>Bio direta: o que você resolve, para quem, e um único botão — falar agora.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>03 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 04 — ERRO 03 ══════════ -->
+<section class="slide">
+  <div class="orb orb-a"></div>
+  <span class="ghost">03</span>
+  <p class="eyebrow">Erro 03 de 05</p>
+  <div class="err-body">
+    <p class="label label-err">O erro</p>
+    <h2 class="err-title">Impulsionar<br/>no lugar de<br/>anunciar.</h2>
+    <p class="body">O botão de impulsionar entrega alcance, não venda. Você paga por curtida enquanto o concorrente paga por cliente.</p>
+    <div class="fix">
+      <p class="label label-fix">O que fazer</p>
+      <p>Campanha no gerenciador, com objetivo de conversa ou conversão e público definido.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>04 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 05 — ERRO 04 ══════════ -->
+<section class="slide">
+  <div class="orb orb-b"></div>
+  <span class="ghost">04</span>
+  <p class="eyebrow">Erro 04 de 05 · O mais caro</p>
+  <div class="err-body">
+    <p class="label label-err">O erro</p>
+    <h2 class="err-title">Postar quando<br/>sobra tempo.</h2>
+    <p class="body">Três posts numa semana, sumiço nas três seguintes. O algoritmo esquece você — e a audiência esquece junto.</p>
+    <div class="fix">
+      <p class="label label-fix">O que fazer</p>
+      <p>Calendário fixo e realista. Constância vence volume, sempre.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>05 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 06 — ERRO 05 ══════════ -->
+<section class="slide">
+  <div class="orb orb-a"></div>
+  <span class="ghost">05</span>
+  <p class="eyebrow">Erro 05 de 05</p>
+  <div class="err-body">
+    <p class="label label-err">O erro</p>
+    <h2 class="err-title">Não medir<br/>absolutamente<br/>nada.</h2>
+    <p class="body">Sem saber de onde veio o cliente, toda decisão vira achismo — e a verba escorre para o canal errado.</p>
+    <div class="fix">
+      <p class="label label-fix">O que fazer</p>
+      <p>Acompanhe origem, custo por lead e taxa de fechamento. O que não se mede não escala.</p>
+    </div>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>06 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 07 — RECAP ══════════ -->
+<section class="slide">
+  <div class="orb orb-b"></div>
+  <p class="eyebrow">Resumo — salve este post</p>
+  <h2 class="display h-xl" style="margin-top:44px">Os <span class="accent">5 erros.</span></h2>
+  <div class="recap">
+    <div class="recap-item"><span class="recap-n">01</span><p>Mandar o cliente pro direct</p></div>
+    <div class="recap-item"><span class="recap-n">02</span><p>Perfil bonito que não vende</p></div>
+    <div class="recap-item"><span class="recap-n">03</span><p>Impulsionar em vez de anunciar</p></div>
+    <div class="recap-item"><span class="recap-n">04</span><p>Postar quando sobra tempo</p></div>
+    <div class="recap-item"><span class="recap-n">05</span><p>Não medir absolutamente nada</p></div>
+  </div>
+  <div class="pull" style="margin-top:48px"><p>Quantos desses<br/><span>estão no seu negócio hoje?</span></p></div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>07 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+<!-- ══════════ 08 — CTA ══════════ -->
+<section class="slide">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div>
+  <p class="eyebrow">Vamos resolver</p>
+  <h2 class="display h-xl" style="margin-top:46px">A gente descobre<br/>qual deles está<br/><span class="accent">travando você.</span></h2>
+  <p class="body" style="margin-top:40px">Diagnóstico de mercado, público e funil — sem custo e sem compromisso. Você sai da conversa sabendo o que corrigir primeiro.</p>
+  <div class="contacts">
+    <div class="contact">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.09 3.19 5.07 4.47.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.41-9.4a9.35 9.35 0 0 1 9.4 9.41c0 5.18-4.22 9.4-9.4 9.4Zm8-17.4A11.28 11.28 0 0 0 12.04.8C5.83.8.79 5.84.79 12.04c0 1.98.52 3.92 1.5 5.62L.7 23.2l5.68-1.49a11.24 11.24 0 0 0 5.66 1.45h.01c6.2 0 11.25-5.05 11.25-11.25 0-3-1.17-5.83-3.3-7.95Z"/></svg></span>
+      <span><small>WhatsApp</small><b>+55 81 99575-7305</b></span>
+    </div>
+    <div class="contact">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.41.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.8.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.2.77-.3.33-.57.7-.77 1.2-.16.4-.35 1-.4 2.1C2.7 9.8 2.7 10.2 2.7 12s0 2.2.03 3.5c.05 1.1.24 1.7.4 2.1.2.5.44.9.77 1.2.33.3.7.57 1.2.77.4.16 1 .35 2.1.4 1.3.06 1.7.07 4.8.07s3.5 0 4.8-.07c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.2-.77.3-.33.57-.7.77-1.2.16-.4.35-1 .4-2.1.06-1.3.07-1.7.07-3.5s0-2.2-.07-3.5c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.77-1.2-.33-.3-.7-.57-1.2-.77-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-3.2a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg></span>
+      <span><small>Instagram</small><b>@agencia.jvi</b></span>
+    </div>
+  </div>
+  <div class="btn">Chama no WhatsApp
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 5l7 7-7 7"/></svg>
+  </div>
+  <div class="foot"><span><b>@agencia.jvi</b></span><span>08 / 08</span></div>
+  <div class="vig"></div><div class="grain"></div>
+</section>
+
+</div>
+</body>
+</html>
